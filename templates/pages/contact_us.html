@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load site_tags %}
+{% block title %}
+تماس با ما
+{% endblock %}
+    {% block tags %}
+        <meta name="description" content="تماس با ما در فروشگاه اینترنتی فاپوشاپ عرضع کننده انواع ماگ و تراول ماگ و لوازم آشپزخانه">
+        <meta property="og:title" content="تماس با ما">
+        <meta property="og:description" content="تماس با ما در فروشگاه اینترنتی فاپوشاپ عرضع کننده انواع ماگ و تراول ماگ و لوازم آشپزخانه">
+        <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+        <meta name="twitter:title" content="تماس با ما">
+        <meta name="twitter:description" content="تماس با ما در فروشگاه اینترنتی فاپوشاپ عرضع کننده انواع ماگ و تراول ماگ و لوازم آشپزخانه">
+        <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+    {% endblock %}
+{% block content %}
+
+
+
+    <!-- start breadcroumb -->
+
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item active main-color-one-color font-14" aria-current="page">
+                                تماس با ما
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+
+    <!-- start content -->
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+
+                    <div class="mb-5 title-panel">
+                        <h2>تماس با ما</h2>
+                    </div>
+                    <div class="col-lg-3 p-3">
+                    <div class="contact-item">
+                        <div class="title">
+                            <i class="bi bi-geo-alt-fill main-color-one-color"></i>
+                            <h4 class="font-16"><span class="main-color-one-color"> آدرس </span>فاپو شاپ</h4>
+                        </div>
+                        <div class="desc">
+                            <span class="text-muted font-18">کرمانشاه - شهرک پردیس بلوار شفایق امیریه لاله 3 طبفه 9 واحد 2</span>
+                        </div>
+                    </div>
+                </div>
+                    <div class="row align-items-center">
+                        <div class="col-lg-6">
+                            <div class="mb-3">
+                                <a href="tel:+989180880667" target="_blank">
+                                
+                                    <img src="{% static '' %}assets/image/contact-page-eleman-3.png" alt=""
+                                         class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="mb-3">
+                                <a href="https://t.me/+989180880667" target="_blank">
+                                  
+                                    <img src="{% static '' %}assets/image/contact-page-eleman-1.png" alt=""
+                                         class="img-fluid">
+                                </a>
+                            </div>
+                            <div class="mb-3">
+                                <a href="https://wa.me/+989180880667" target="_blank">
+                         
+                                    <img src="{% static '' %}assets/image/contact-page-eleman-2.png" alt="تماس با ما"
+                                         class="img-fluid">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <img src="{% static '' %}assets/image/contact_us.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

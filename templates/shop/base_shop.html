@@ -1,0 +1,356 @@
+{% extends 'base.html' %}
+{% load site_tags %}
+{% load static %}
+{% block title %}
+فروشگاه
+{% endblock %}
+{% block tags %}
+        <meta name="description" content="فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و ظروف آشپرخانه وارداتی و ایرانی با کیفیت">
+        <meta property="og:title" content="فروشگاه">
+        <meta property="og:description" content="فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و ظروف آشپرخانه وارداتی و ایرانی با کیفیت">
+        <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+        <meta name="twitter:title" content="فروشگاه">
+        <meta name="twitter:description" content="فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و ظروف آشپرخانه وارداتی و ایرانی با کیفیت">
+        <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+    {% endblock %}
+{% block content %}
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item active main-color-one-color font-14" aria-current="page">
+                                فروشگاه
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+
+    <!-- start category brand -->
+    {% if brands %}
+        <div class="category-brand">
+            <div class="container-fluid">
+                <div class="content-box">
+                    <div class="container-fluid">
+                        <div class="swiper free-mode">
+                            <div class="swiper-wrapper">
+
+                                <div class="swiper-slide">
+                                    <div class="item text-center">
+                                        <a href=""><img src="{% static 'assets/image/brand1-1.png' %}" alt=""
+                                                        class="img-fluid"></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <!-- end category brand -->
+
+    <!-- start content -->
+
+    <div class="content">
+        <div class="container-fluid">
+
+            <!-- start filter in mobile -->
+            <div class="custom-filter d-lg-none d-block">
+                <button class="btn btn-filter-float border-0 main-color-two-bg shadow-box px-3 rounded-3 position-fixed"
+                        style="z-index: 999;bottom:80px;" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    <i class="bi bi-funnel font-20 fw-bold text-white"></i>
+                    <span class="d-block font-14 text-white">فیلتر</span>
+                </button>
+
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight"
+                     aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasRightLabel">فیلتر ها</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="filter-items position-sticky top-0">
+                            <div class="container-fluid">
+                                <div class="filter-item">
+                                    <h5 class="filter-item-title">دسته بندی ها</h5>
+                                    <div class="filter-item-content">
+                                        <form action="{% url 'shop:category' %}">
+                                            {% for cat in categories %}
+                                                <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+                                                    <div class="form-check">
+                                                        <label for="colorCheck"
+                                                               class="form-check-label">{{ cat.name }} </label>
+                                                        <label for="category_s{{ cat.id }}"></label><input
+                                                            type="checkbox"
+                                                            name="categories"
+                                                            id="category_s{{ cat.id }}"
+                                                            value="{{ cat.id }}"
+                                                            class="form-check-input"
+                                                            {% if cat.id|stringformat:"s" in selected_categories %}checked{% endif %}>
+                                                    </div>
+                                                    <div>
+                                                        <span class="fw-bold font-14">( {{ cat.product_numbers }} )</span>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                            <div class="filter-item text-center">
+                                                <button type="submit" href="" class="btn-outline-site">اعمال فیلتر
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- end filter mobile -->
+
+            <div class="row gy-3">
+
+                <div class="col-lg-3 d-lg-block d-none">
+                    <div class="filter-items position-sticky top-0">
+                        <div class="container-fluid">
+                            <div class="filter-item">
+                                <h5 class="filter-item-title">دسته بندی ها</h5>
+                                <div class="filter-item-content">
+                                    <form action="{% url 'shop:category' %}">
+                                        {% for cat in categories %}
+                                            <div class="d-flex align-items-center justify-content-between flex-wrap mb-3">
+                                                <div class="form-check">
+                                                    <label for="colorCheck"
+                                                           class="form-check-label">{{ cat.name }} </label>
+                                                    <label for="category_{{ cat.id }}"></label><input type="checkbox"
+                                                                                                      name="categories"
+                                                                                                      id="category_{{ cat.id }}"
+                                                                                                      value="{{ cat.id }}"
+                                                                                                      class="form-check-input">
+                                                </div>
+                                                <div>
+                                                    <span class="fw-bold font-14">( {{ cat.product_numbers }} )</span>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        <div class="filter-item text-center">
+                                            <button type="submit" href="" class="btn-outline-site">اعمال فیلتر</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="category-sort mb-3">
+                        <div class="content-box">
+                            <div class="container-fluid">
+                                <div class="d-flex align-items-center flex-wrap">
+                                    <div>
+                                        <h5 class="font-18">مرتب سازی</h5>
+                                        <p class="mb-0 text-muted font-16">براساس</p>
+                                    </div>
+                                    <div class="form-checks ms-md-5 ms-0 mt-md-0 mt-3 col-9">
+                                        <form id="sort-form" method="get" action="" class="w-100">
+                                            <div class="form-check form-check-inline active w-100">
+                                                <select name="sort_by" id="sort_by"
+                                                        onchange="this.form.submit()" class="form-select w-100">
+                                                    {% for value, sort in form.sort_value.field.choices %}
+                                                        <option value="{{ value }}"
+                                                                {% if sort_by == value %}selected{% endif %}>
+                                                            {{ sort }}
+                                                        </option>
+                                                    {% endfor %}
+                                                </select>
+
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-items">
+                        <div class="row g-3" id="product-list">
+                            {% include 'shop/producs_list.html' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function removeAllEventListeners(element) {
+            const newElement = element.cloneNode(true); // Clone the element (deep clone)
+            element.parentNode.replaceChild(newElement, element); // Replace the old element with the clone
+            return newElement; // Return the cloned element so you can add new event listeners
+     }
+        let page = 1;
+        let emptyPage = false;
+        let blockRequest = false;
+        const sortBy = '{{ sort_by|default:"default" }}';  // Handle the case when sort_by is None or empty
+        function getMargin() {
+            if (window.innerWidth <= 768) {
+                // Smaller margin for mobile devices
+                return 1300;
+            } else {
+                // Default margin for larger screens
+                return 600;
+            }
+        }
+
+        window.addEventListener('scroll', function () {
+
+            const margin = document.body.clientHeight - window.innerHeight - getMargin();
+            if (window.pageYOffset > margin && !emptyPage && !blockRequest) {
+                blockRequest = true;
+                page += 1;
+
+                // Fetch URL with both page and sort_by parameters
+                fetch(`?post_only=1&page=${page}&sort_by=${sortBy}`)
+                    .then(response => response.text())
+                    .then(html => {
+
+                        if (html === '') {
+                            emptyPage = true;
+                        } else {
+                            const postList = document.getElementById('product-list');
+                            postList.insertAdjacentHTML('beforeend', html);
+                            blockRequest = false;
+                        }
+                        addNewLister();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                        blockRequest = false;
+                    });
+            }
+        });
+
+        // Trigger the initial scroll event to load more posts if needed
+        window.dispatchEvent(new Event('scroll'));
+
+    </script>
+    <script>
+        function addNewLister() {
+    const likeButtons = document.querySelectorAll("a.like-btn");
+    likeButtons.forEach(button => {
+        // Remove all event listeners by replacing the element with its clone
+        const newButton = removeAllEventListeners(button);
+        // Add the new event listener
+        newButton.addEventListener('click', likeButtonHandler);
+    });
+
+    // Handle Buy Buttons
+    const buyButtons = document.querySelectorAll('.buy-btn');
+    buyButtons.forEach(button => {
+        // Remove existing listeners to avoid duplicates
+        button.removeEventListener('click', buyButtonHandler);
+        // Add the event listener
+        button.addEventListener('click', buyButtonHandler);
+    });
+}
+
+
+        function likeButtonHandler(e) {
+            e.preventDefault();
+            const button = this; // Get the clicked button
+            const formData = new FormData();
+            formData.append("product_id", button.dataset.id);
+            formData.append("action", button.dataset.action);
+
+            const options = {
+                method: 'POST',
+                headers: {'X-CSRFToken': csrftoken},
+                body: formData,
+                mode: 'same-origin'
+            };
+
+            fetch(LikeUrl, options)
+                .then(response => response.json())
+                .then(data => {
+                    if (data["status"] === "ok") {
+                        const previousAction = button.dataset.action;
+                        const action = previousAction === "like" ? "unlike" : "like";
+                        button.dataset.action = action;
+
+                        if (action === 'like') {
+                            button.innerHTML = '<i class="bi bi-heart"></i>';
+                        } else {
+                            button.innerHTML = '<i class="bi bi-heart-fill text-danger"></i>';
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error handling like button:', error);
+                });
+        }
+
+        function buyButtonHandler(event) {
+            event.preventDefault(); // Prevent default behavior
+            const productId = this.getAttribute('data-product-id'); // Get the product ID
+            const colorInput = document.querySelector(`input[name="color-options-${productId}"]:checked`);
+            const colorId = colorInput ? colorInput.value : null; // Get selected color ID
+            const quantity = "1"; // Set default quantity to 1
+
+            if (productId && colorId) {
+                const newFormData = new FormData();
+                newFormData.append("product_id", productId);
+                newFormData.append("color_id", colorId);
+                newFormData.append("quantity", quantity);
+
+                const option = {
+                    method: 'POST',
+                    headers: {'X-CSRFToken': csrftoken},
+                    body: newFormData,
+                    mode: 'same-origin' // This ensures that cookies are sent with the request
+                };
+
+                // Send AJAX request to the server to add the product
+                fetch(buyUrl, option)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Network response was not ok, status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.status === 'ok') {
+                            reloadCard();
+                        } else {
+                            // Show error message
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } else {
+                // Handle missing product ID or color ID
+            }
+        }
+
+        // Initial listener setup
+
+
+    </script>
+       
+
+{% endblock %}
+

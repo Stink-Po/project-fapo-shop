@@ -1,0 +1,215 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load site_tags %}
+{% load static %}
+{% block title %}
+    آدرس و جزییات سفارش
+{% endblock %}
+{% block tags %}
+    <meta name="description"
+          content="آدرس و جرییات سفارش در فروشگاه اینترنتی فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و ظروف آشپزخانه">
+    <meta property="og:title" content="آدرس و جزییات سفارش">
+    <meta property="og:description"
+          content="آدرس و جرییات سفارش در فروشگاه اینترنتی فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و ظروف آشپزخانه">
+    <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+    <meta name="twitter:title" content="آدرس و جزییات سفارش">
+    <meta name="twitter:description"
+          content="آدرس و جرییات سفارش در فروشگاه اینترنتی فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و ظروف آشپزخانه">
+    <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+{% endblock %}
+{% block content %}
+
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item active main-color-one-color font-14" aria-current="page">سبد خرید
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+
+    <!-- start content -->
+
+    <div class="content">
+        <div class="container-fluid">
+
+            <style>
+                .line-step-box.complete:nth-child(1):before {
+                    width: 100%;
+                }
+            </style>
+
+            <div class="line-step-container d-sm-block d-none">
+                <div class="line-step">
+                    <div class="line-step-boxs">
+                        <div class="line-step-box complete">
+
+                            <p>سبد خرید</p>
+                            <div class="icon">
+                                1
+                            </div>
+
+                        </div>
+                        <div class="line-step-box complete">
+
+                            <p>آدرس و جزییات پرداخت</p>
+                            <div class="icon">
+                                2
+                            </div>
+
+                        </div>
+                        <div class="line-step-box disabled">
+
+                            <p>تکمیل سفارش</p>
+                            <div class="icon">
+                                3
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container-fluid">
+            <div class="check-out-form">
+                <div class="row gy-3">
+                    <div class="col-lg-8">
+                        <div id="information-section">
+                            <div class="ui-box-item p-5">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h4 class="fw-bold">
+                                        آدرس سفارش :
+                                    </h4>
+                                </div>
+                            </div>
+                            <div class="ui-box-item-desc p-0 pt-3 table-responsive">
+                                <table class="table main-table shadow-none main-table-2">
+                                    <tbody>
+                                    <tr>
+                                        <td colspan="4" class="text-start p-3">
+                                            <h6>گیرنده :</h6>
+
+                                            <p class="mt-2">{{ order.first_name }} {{ order.last_name }}</p>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" class="text-start p-3">
+                                            <h6>آدرس: </h6>
+
+                                            <p class="mt-2">{{ order.province }}
+                                                - {{ order.city }} {{ order.address }}</p>
+
+                                        </td>
+                                        <td colspan="2" class="text-start p-3">
+                                            <h6>کد پستی</h6>
+
+                                            <p class="mt-2">{{ order.postal_code }}</p>
+
+                                        </td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td colspan="2" class="text-start p-3">
+                                            <h6>پست الکترونیک ( ایمیل )</h6>
+
+                                            <p class="mt-2">{{ order.email }}</p>
+
+                                        </td>
+                                        <td colspan="2" class="text-start p-3">
+                                            <h6>شماره تلفن همراه</h6>
+
+                                            <p class="mt-2">{{ order.phone }}</p>
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="checkout-side position-sticky top-0">
+                            <div class="cart-canvases">
+                                <div class="item">
+                                    <div class="factor">
+                                        <div class="title">
+                                            <div class="d-flex align-items-center">
+                                                <i class="fa-solid fa-2x fa-bag-shopping main-color-one-color"></i>&nbsp;&nbsp;
+                                                <h6 class="font-16"> جزییات سفارش شما</h6>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex mb-3 align-items-center justify-content-between">
+                                        </div>
+                                        <div
+                                                class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between">
+                                            <p class="mb-0 fw-bold">مبلغ کالاها قبل از تخفیف </p>
+                                            <p class="mb-0">{{ cart.get_cart_price_without_discount|intcomma }}
+                                                تومان </p>
+                                        </div>
+                                        <div
+                                                class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between">
+                                            <p class="mb-0 fw-bold">جمع تخفیف کالاها</p>
+                                            <p class="mb-0 text-danger">{{ cart.get_total_discount|intcomma }} -
+                                                تومان</p>
+                                        </div>
+                                        <div
+                                                class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between">
+                                            <p class="mb-0 fw-bold">هزینه بسته بندی و ارسال</p>
+                                            <p class="mb-0">{{ 70000|intcomma }} تومان </p>
+                                        </div>
+                                        {% if cart.have_discount_code %}
+                                            <div
+                                                    class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between">
+                                                <p class="mb-0 fw-bold">مبلغ کسر شده با کد تخفیف</p>
+                                                <p class="mb-0 text-danger">{{ cart.total_get_price_of_discount|intcomma }}
+                                                    -
+                                                    تومان
+                                                </p>
+                                            </div>
+
+                                        {% endif %}
+                                        <div
+                                                class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between">
+                                            <p class="mb-0 fw-bold">جمع کل:</p>
+                                            <p class="mb-0 fw-bold text-success">{{ cart.get_total_price|add:70000|intcomma }}
+                                                تومان</p>
+                                        </div>
+                                        <div class="action mt-3 d-flex align-items-center justify-content-center">
+
+                                            <a href="{% url 'orders:send_request' %}"
+                                               class="btn border-0 main-color-two-bg rounded-3 py-2 d-block w-100">
+                                                تایید و پرداخت</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- end content -->
+
+{% endblock %}

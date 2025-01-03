@@ -1,0 +1,86 @@
+<div class="col-lg-12 hidden" id="address-from">
+    <div class="ui-boxs">
+        <div class="ui-box">
+            <div class="ui-box-item ui-box-white">
+                <div class="ui-box-item-title ui-box-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="fw-bold">
+                            تیکت جدید
+                        </h4>
+                    </div>
+                </div>
+                <form method="post" action="{% url 'accounts:user_tickets' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <div class="comment-item mb-3">
+                                        <label for="{{ form.title.id_for_label }}"></label>
+                                        <input name="{{ form.title.name }}" type="text" class="form-control"
+                                               id="{{ form.title.id_for_label }}"
+                                               placeholder="عنوان تیکت را وارد کنید ..." required>
+                                        <label for="floatingInputStreet"
+                                               class="form-label label-float fw-bold">عنوان تیکت </label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-floating mb-3">
+                                    <div class="comment-item mb-3">
+                                        <label for="{{ form.description.id_for_label }}"></label>
+                                        <textarea name="{{ form.description.name }}"
+                                                  class="form-control pt-3 {% if form.phone.errors %}is-invalid{% endif %}"
+                                                  id="{{ form.description.id_for_label }}"
+                                                  required
+                                                {% if form.phone.errors %}
+                                                  placeholder="{{ form.description.errors|join:' ' }}"
+                                                {% else %}
+                                                  placeholder="توضیحات تیکت را وارد کنید ..."
+                                                {% endif %}></textarea>
+                                        <label for="floatingInputStreet" class="form-label label-float fw-bold">توضیحات تیکت</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="mb-2 p-2">
+                        <button type="submit" class="btn border-0 main-color-one-bg waves-effect waves-light py-2 px-5 p-5">
+                           ارسال
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Form Errors</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                There are errors in the form. Please review and correct them before submitting.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script to trigger the modal if form has errors -->
+
+

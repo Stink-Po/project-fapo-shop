@@ -1,0 +1,167 @@
+{% load site_tags %}
+{% load humanize %}
+{% load tz %}
+<div class="ui-box-item ui-box-white ">
+    <div class="ui-box-item-title pb-5">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="fw-bold pb-5">
+                تیکت ها :
+            </h4>
+            <button
+                    class="btn btn-sm main-color-one-bg waves-effect waves-light"
+                    href="">مشاهده همه
+            </button>
+        </div>
+
+        <div class="responsive-table p-0">
+            <table class="table main-table rounded-0">
+                <thead class="text-bg-dark bg-opacity-75 text-center">
+                <tr>
+                    <th>ردیف</th>
+                    <th>شماره پیگیری</th>
+                    <th>عنوان</th>
+                    <th>وضعیت</th>
+                    <th>اخرین به روز رسانی</th>
+                    <th>دیدن تیکت</th>
+
+                </tr>
+                </thead>
+                <tbody class="text-center">
+                {% for item in tickets %}
+                    <tr>
+                        <td class="font-14">{{ forloop.counter }}</td>
+                        <td class="font-14">{{ item.id }}</td>
+                        <td class="font-14">{{ item.title }}</td>
+                        {% if item.status == "pending" %}
+                            <td class="font-14"><span
+                                    class="badge bg-secondary rounded-0 ms-2">{{ item.get_status_display }}</span>
+                            </td>
+                        {% elif item.status == "approved" %}
+                            <td class="font-14"><span
+                                    class="badge bg-success rounded-0 ms-2">{{ item.get_status_display }}</span>
+                            </td>
+                        {% elif item.status == "closed" %}
+                            <td class="font-14"><span
+                                    class="badge bg-danger rounded-0 ms-2">{{ item.get_status_display }}</span>
+                            </td>
+                        {% endif %}
+                        
+                        <td class="font-14">{{ item.updated.date|convert_to_persian_date }}
+                            - {{ item.updated.time|time_convertor }}
+                        </td>
+                        <td class="align-middle text-center"><a
+                                href="{% url 'staff_area:ticket_details' ticket_id=item.id %}"
+                                class="btn main-color-three-bg shadow-none btn-sm">
+                            <i class="bi bi-eye me-1 text-white"></i> نمایش</a>
+                        </td>
+
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="ui-box-item-title">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="fw-bold pb-5">
+                جشنواره ها :
+            </h4>
+            <button
+                    class="btn btn-sm main-color-one-bg waves-effect waves-light"
+                    href="">مشاهده همه
+            </button>
+        </div>
+
+        <div class="responsive-table p-0">
+            <table class="table main-table rounded-0">
+                <thead class="text-bg-dark bg-opacity-75 text-center">
+                <tr>
+                    <th>ردیف</th>
+                    <th>نام</th>
+                    <th>کد تخفیف</th>
+                    <th>تاریخ شروع</th>
+                    <th>تاریخ پایان</th>
+                    <th>میزان کد تخفیف</th>
+                    <th>دیدن تیکت</th>
+
+                </tr>
+                </thead>
+                <tbody class="text-center">
+                {% for item in offers %}
+                    <tr>
+                        <td class="font-14">{{ forloop.counter }}</td>
+                        <td class="font-14">{{ item.name }}</td>
+                        <td class="font-14">{{ item.code }}</td>
+                        <td class="font-14">{{ item.start_date.date|convert_to_persian_date }}</td>
+                        <td class="font-14">{{ item.end_date.date|convert_to_persian_date }}</td>
+                        <td class="font-14">{{ item.discount_amount }} %
+                        </td>
+                        <td class="align-middle text-center"><a
+                                href="{% url 'offers:offer_detail' offer_id=item.id %}"
+                                class="btn main-color-three-bg shadow-none btn-sm">
+                            <i class="bi bi-eye me-1 text-white"></i> نمایش</a>
+                        </td>
+
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="ui-box-item-title">
+        <div class="d-flex justify-content-between align-items-center">
+            <h4 class="fw-bold pb-5">
+                سفارش ها :
+            </h4>
+            <button
+                    class="btn btn-sm main-color-one-bg waves-effect waves-light"
+                    href="">مشاهده همه
+            </button>
+        </div>
+
+        <div class="responsive-table p-0">
+            <table class="table main-table rounded-0">
+                <thead class="text-bg-dark bg-opacity-75 text-center">
+                <tr>
+                    <th>ردیف</th>
+                    <th>شماره سفارش</th>
+                    <th>تاریخ سفارش</th>
+                    <th>مبلغ سفارش</th>
+                    <th>دیدن سفارش</th>
+
+                </tr>
+                </thead>
+                <tbody class="text-center">
+                {% for item in orders %}
+                    <tr>
+                        <td class="font-14">{{ forloop.counter }}</td>
+                        <td class="font-14">{{ item.id }}/{{ item.track_id }}</td>
+                        <td class="font-14">{{ item.created.date|convert_to_persian_date }}</td>
+                        <td class="font-14">{{ item.get_total_cost|intcomma }} تومان</td>
+                        <td class="align-middle text-center"><a
+                                href="{% url 'accounts:profile_ticket_details' ticket_id=item.id %}"
+                                class="btn main-color-three-bg shadow-none btn-sm">
+                            <i class="bi bi-eye me-1 text-white"></i> نمایش</a>
+                        </td>
+
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- end content -->
+
+
+<!-- start footer -->
+
+

@@ -1,0 +1,201 @@
+<div class="col-lg-12 hidden" id="address-from">
+    <div class="ui-boxs">
+        <div class="ui-box">
+            <div class="ui-box-item ui-box-white">
+                <div class="ui-box-item-title ui-box-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h4 class="fw-bold"><i
+                                class="fa-solid fa-user-large main-color-one-color"></i>&nbsp;
+                            اطلاعات شخصی
+                        </h4>
+                    </div>
+                </div>
+                <form method="post" action="{% url 'accounts:update_profile' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <div class="comment-item mb-3">
+                                        <label for="{{ form.first_name.id_for_label }}"></label>
+                                        <input name="{{ form.first_name.name }}" type="text" class="form-control"
+                                               id="{{ form.first_name.id_for_label }}"
+                                               placeholder="نام خود را وارد کنید ..." required>
+                                        <label for="floatingInputStreet"
+                                               class="form-label label-float fw-bold">نام</label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <div class="comment-item mb-3">
+                                        <label for="{{ form.last_name.id_for_label }}"></label>
+                                        <input name="{{ form.last_name.name }}" type="text" class="form-control"
+                                               id="{{ form.last_name.id_for_label }}" required
+                                               placeholder="نام خانوادگی خود را وارد کنید ...">
+                                        <label for="floatingInputStreet" class="form-label label-float fw-bold">نام
+                                            خانوادگی</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <div class="comment-item mb-3">
+                                        <label for="{{ form.phone.id_for_label }}"></label>
+                                        <input name="{{ form.phone.name }}" type="text" class="form-control {% if form.phone.errors %}is-invalid{% endif %}"
+                                               id="{{ form.phone.id_for_label }}"
+                                                {% if form.phone.errors %}
+                                               placeholder="{{ form.phone.errors|join:' ' }}"
+                                                {% else %}
+                                               placeholder="شماره تلفن همراه خود را وارد کنید ..."
+                                                {% endif %}
+                                               required
+                                                {% if user.phone_number %} value="{{ user.phone_number }}" {% endif %}>
+                                        <label for="floatingInputStreet" class="form-label label-float fw-bold">تلفن
+                                            همراه</label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-floating mb-3">
+                                    <div class="comment-item mb-3">
+                                        <label for="{{ form.email.id_for_label }}"></label>
+                                        <input name="{{ form.email.name }}" type="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                                               id="{{ form.email.id_for_label }}"
+                                               {% if form.email.errors %}
+                                                placeholder="{{ form.email.errors|join:' ' }}"
+                                               {% else %}
+                                                placeholder="پست الکترونیک خود را وارد کنید ..."
+                                                {% endif %}
+                                               required
+                                                {% if user.email %} value="{{ user.email }}" {% endif %}>
+                                        <label for="floatingInputStreet" class="form-label label-float fw-bold">پست
+                                            الکترونیک</label>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="comment-item">
+                                    <label class="label-float fw-bold">استان <span class="text-danger">*</span></label>
+                                    <label for="{{ form.province.id_for_label }}"></label>
+                                    <select name="{{ form.province.name }}" id="{{ form.province.id_for_label }}"
+                                            class="form-select" required>
+                                        {% for value, province_name in form.province.field.choices %}
+                                            <option value="{{ value }}">{{ province_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="comment-item">
+                                    <label class="label-float fw-bold">شهر <span class="text-danger">*</span></label>
+                                    <label for="{{ form.city.id_for_label }}"></label>
+                                    <select name="{{ form.city.name }}" id="{{ form.city.id_for_label }}"
+                                            class="form-select" required>
+                                        {% for value, city_name in form.city.field.choices %}
+                                            <option value="{{ value }}">{{ city_name }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <div class="comment-item mb-3">
+                            <label for="{{ form.address.id_for_label }}"></label>
+                            <input name="{{ form.address.name }}" type="text" class="form-control"
+                                   id="{{ form.address.id_for_label }}"
+                                   placeholder="آدرس خود را وارد کنید ..." required>
+                            <label for="floatingInputStreet" class="form-label label-float fw-bold">آدرس</label>
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <div class="comment-item mb-3">
+                            <label for="{{ form.zip_code.id_for_label }}"></label>
+                            <input name="{{ form.zip_code.name }}" type="text" class="form-control"
+                                   id="{{ form.zip_code.id_for_label }}"
+                                    placeholder="کد پستی خود را وارد کنید ..." required>
+                            <label for="floatingInputStreet" class="form-label label-float fw-bold">کد پستی</label>
+
+                        </div>
+                    </div>
+
+                    <div class="mb-2">
+                        <button type="submit" class="btn border-0 main-color-one-bg waves-effect waves-light py-2 px-5">
+                            <i class="bi bi-pencil-square text-white me-1"></i> ذخیره اطلاعات
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Form Errors</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                There are errors in the form. Please review and correct them before submitting.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script to trigger the modal if form has errors -->
+
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        const provinceSelect = document.getElementById('{{ form.province.id_for_label }}');
+        const citySelect = document.getElementById('{{ form.city.id_for_label }}');
+
+        provinceSelect.addEventListener('change', function () {
+            const stateId = provinceSelect.value;
+            const url = "{% url 'cities:load_cities' %}?state=" + stateId;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    citySelect.innerHTML = '';  // Clear the city select
+                    data.forEach(city => {
+                        const option = document.createElement('option');
+                        option.value = city.id;
+                        option.textContent = city.name;
+                        citySelect.appendChild(option);
+                    });
+                    // Set the default empty label after populating options
+                    citySelect.value = '';
+                })
+                .catch(error => console.error('Error fetching cities:', error));
+        });
+    });
+</script>

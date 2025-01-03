@@ -1,0 +1,52 @@
+{% load site_tags %}
+{% load  static %}
+
+<div class="lastest-order mt-3">
+    <div class="content-box">
+        <div class="ui-boxs">
+            <div class="ui-box" id="information-section">
+                <div class="ui-box-item ui-box-white">
+                    <div class="ui-box-item-title">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="fw-bold">
+                                حذف اکانت کاربری :
+                            </h3>
+
+                        </div>
+                    </div>
+
+                </div>
+                <h6 class="text-danger p-3 fw-bold">
+                    توجه کنید :
+                </h6>
+                <p class="p-3">
+                    با حذف اکانت  تمامی امتیازات شما و تاریخچه فعالیت های شما در سایت نظیر محصولات مورد علاقه و سفارشات شما
+                    از بین خواهد رفت
+                </p>
+                <form method="post" action="{% url 'accounts:delete_account' %}" class="px-3">
+                    {% csrf_token %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <button type="submit" class="btn border-0 btn-danger waves-effect waves-light p-2 w-100">
+                                    متن بالا را با
+                                    دقت مطالعه کردم و اکانت خود را حذف میکنم
+                                </button>
+                               
+                            </div>
+                            <div class="col-md-6">
+
+                                <a href="{% url 'accounts:main_profile' %}" class="btn border-0 btn-success waves-effect waves-light p-2 w-100">انصراف و بازگشت</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'pagination.html' with products=user_discount_codes %}
+ 

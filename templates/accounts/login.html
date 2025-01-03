@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+ورود / ثبت نام
+{% endblock %}
+{% block tags %}
+        <meta name="description" content=" ورود / ثبت نام در  فاپوشاپ قیمت ماگ حرارتی و ماگ سرامیکی، ماگ قهوه در فاپو شاپ">
+        <meta property="og:title" content="ورود / ثبت نام">
+        <meta property="og:description" content=" ورود / ثبت نام در  فاپوشاپ قیمت ماگ حرارتی و ماگ سرامیکی، ماگ قهوه در فاپو شاپ">
+        <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+        <meta name="twitter:title" content="ورود / ثبت نام">
+        <meta name="twitter:description" content=" ورود / ثبت نام در  فاپوشاپ قیمت ماگ حرارتی و ماگ سرامیکی، ماگ قهوه در فاپو شاپ">
+        <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+    {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 pt-2">
+                <div class="col-lg-12">
+
+                    <div class="auth-form  rounded-3">
+                        <div class="auth-form-title d-flex align-items-center justify-content-between title-panel  slider-title-desc-center">
+                            <h2 class="text-center h4 text-muted title-font">ورود / ثبت نام</h2>
+                            <a href="">
+                                <img src="{% static 'assets/image/logo.png' %}" width="150" alt="">
+                            </a>
+                        </div>
+                        <form action="{% url 'accounts:login' %}" id="form-auth" method="post">
+                            {% csrf_token %}
+                            {% if form.non_field_errors %}
+                                <div class="row justify-content-center">
+                                    <div class="alert alert-danger col-md-6">
+                                        {{ form.non_field_errors|striptags }}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <div class="comment-item  step-username">
+                                <input type="text" class="form-control" id="phone" placeholder="09125559988 مثال" name="phone">
+                                <label for="phone" class="form-label label-float">شماره تلفن همراه خود
+                                    را وارد
+                                    کنید</label>
+                            </div>
+
+
+                            <div class="form-group">
+                                <button type="submit" class="main-color-one-bg btn w-100  rounded-3">
+                                    ورود / ثبت نام
+                                </button>
+                            </div>
+
+
+                        </form>
+                        <p class="text-center"><strong>یا</strong></p>
+                        <a href="{% url "social:begin" "google-oauth2" %}" class="main-color-one-bg py-1 btn w-100 btnForm rounded-3">ورود با حساب گوگل&nbsp; <img
+                                style="width: 30px; height: 30px;"
+                                src="{% static 'assets/image/web_neutral_rd_na@1x.png' %}" alt="google"> </a>
+                        <p class="loginTermsDesc mt-3">ورود و یا ثبت نام در فاپو شاپ شما <a
+                                class="underlined main-color-one-color fw-bold" href="{% url 'pages:terms' %}">شرایط و
+                            قوانین</a> استفاده از سرویس‌های سایت فاپو شاپ و <a
+                                class="underlined main-color-one-color fw-bold" href="{% url 'pages:privacy_policy' %}">قوانین
+                            حریم
+                            خصوصی</a> آن را می‌پذیرید.</p>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                {% include 'ship.html' %}
+            </div>
+
+        </div>
+
+
+        <!-- Link to profile
+          ================================================== -->
+    </div>
+
+
+
+{% endblock %}

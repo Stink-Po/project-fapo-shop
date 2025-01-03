@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load site_tags %}
+{% load static %}
+{% block title %}
+جسنجو در محصولات  برای : {{ query }}
+{% endblock %}
+{% block tags %}
+        <meta name="description" content="فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و ظروف آشپرخانه وارداتی و ایرانی با کیفیت">
+        <meta property="og:title" content="جسنجو در محصولات  برای : {{ query }}">
+        <meta property="og:description" content="فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و ظروف آشپرخانه وارداتی و ایرانی با کیفیت">
+        <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+        <meta name="twitter:title" content="جسنجو در محصولات  برای : {{ query }}">
+        <meta name="twitter:description" content="فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و ظروف آشپرخانه وارداتی و ایرانی با کیفیت">
+        <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+    {% endblock %}
+{% block content %}
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="{% url 'shop:shop' %}" class="font-14 text-muted">فروشگاه</a>
+                            </li>
+                            <li class="breadcrumb-item active main-color-one-color font-14" aria-current="page">
+                                جستجوی محصولات
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+
+    <!-- start content -->
+
+    <div class="content">
+        <div class="container-fluid">
+            {% if products %}
+                <div class="row gy-3">
+                    <div class="col-lg-12">
+                        <div class="category-items">
+                            <div class="row g-3" id="product-list">
+                                {% include 'shop/producs_list.html' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div style="height: 300px;">
+                    <p class="font-14">برای جستحوی شما برای <strong>"{{ query }}"</strong> نتیجه ای یافت نشد </p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+        <script>
+        function getMargin() {
+            if (window.innerWidth <= 768) {
+                
+                // Smaller margin for mobile devices
+                return 1300;
+            } else {
+           
+                // Default margin for larger screens
+                return 600;
+            }
+        }
+        let page = 1;
+        let emptyPage = false;
+        let blockRequest = false;
+        const query = '{{ query }}';  // Handle the case when sort_by is None or empty
+
+        window.addEventListener('scroll', function () {
+            const margin = document.body.clientHeight - window.innerHeight - getMargin();
+            if (window.pageYOffset > margin && !emptyPage && !blockRequest) {
+                blockRequest = true;
+                page += 1;
+
+                // Fetch URL with both page and sort_by parameters
+                fetch(`?post_only=1&page=${page}&query=${sortBy}`)
+                    .then(response => response.text())
+                    .then(html => {
+                        if (html === '') {
+                            emptyPage = true;
+                        } else {
+                            const postList = document.getElementById('product-list');
+                            postList.insertAdjacentHTML('beforeend', html);
+                            blockRequest = false;
+                        }
+                        addNewLister()
+                    })
+                    .catch(error => {
+                        console.error('Error fetching data:', error);
+                        blockRequest = false;
+                    });
+            }
+        });
+
+        // Trigger the initial scroll event to load more posts if needed
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+    <script>
+        function addNewLister() {
+    const likeButtons = document.querySelectorAll("a.like-btn");
+    likeButtons.forEach(button => {
+        // Remove all event listeners by replacing the element with its clone
+        const newButton = removeAllEventListeners(button);
+        // Add the new event listener
+        newButton.addEventListener('click', likeButtonHandler);
+    });
+
+    // Handle Buy Buttons
+    const buyButtons = document.querySelectorAll('.buy-btn');
+    buyButtons.forEach(button => {
+        // Remove existing listeners to avoid duplicates
+        button.removeEventListener('click', buyButtonHandler);
+        // Add the event listener
+        button.addEventListener('click', buyButtonHandler);
+    });
+}
+
+
+        function likeButtonHandler(e) {
+            e.preventDefault();
+            const button = this; // Get the clicked button
+            const formData = new FormData();
+            formData.append("product_id", button.dataset.id);
+            formData.append("action", button.dataset.action);
+
+            const options = {
+                method: 'POST',
+                headers: {'X-CSRFToken': csrftoken},
+                body: formData,
+                mode: 'same-origin'
+            };
+
+            fetch(LikeUrl, options)
+                .then(response => response.json())
+                .then(data => {
+                    if (data["status"] === "ok") {
+                        const previousAction = button.dataset.action;
+                        const action = previousAction === "like" ? "unlike" : "like";
+                        button.dataset.action = action;
+
+                        if (action === 'like') {
+                            button.innerHTML = '<i class="bi bi-heart"></i>';
+                        } else {
+                            button.innerHTML = '<i class="bi bi-heart-fill text-danger"></i>';
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Error handling like button:', error);
+                });
+        }
+
+        function buyButtonHandler(event) {
+            event.preventDefault(); // Prevent default behavior
+            const productId = this.getAttribute('data-product-id'); // Get the product ID
+            const colorInput = document.querySelector(`input[name="color-options-${productId}"]:checked`);
+            const colorId = colorInput ? colorInput.value : null; // Get selected color ID
+            const quantity = "1"; // Set default quantity to 1
+
+            if (productId && colorId) {
+                const newFormData = new FormData();
+                newFormData.append("product_id", productId);
+                newFormData.append("color_id", colorId);
+                newFormData.append("quantity", quantity);
+
+                const option = {
+                    method: 'POST',
+                    headers: {'X-CSRFToken': csrftoken},
+                    body: newFormData,
+                    mode: 'same-origin' // This ensures that cookies are sent with the request
+                };
+
+                // Send AJAX request to the server to add the product
+                fetch(buyUrl, option)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Network response was not ok, status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.status === 'ok') {
+                            reloadCard();
+                        } else {
+                            // Show error message
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            } else {
+                // Handle missing product ID or color ID
+            }
+        }
+
+        // Initial listener setup
+
+
+    </script>  
+
+{% endblock %}
+

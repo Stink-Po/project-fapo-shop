@@ -1,0 +1,42 @@
+{% load site_tags %}
+
+<div id="information-section">
+    <div class="ui-box-item-title">
+        <div class="d-flex justify-content-between align-items-center p-4">
+            <h4 class="fw-bold">
+                لینک دعوت شخصی شما :
+            </h4>
+            <button data-bs-toggle="modal" onclick="myFunction()"
+                    class="btn btn-sm main-color-one-bg waves-effect waves-light" href="">
+                برای کپی کردن کلیک کنید <i class="fa-solid fa-copy"></i></button>
+        </div>
+    </div>
+    <div class="ui-box-item-desc p-5 text-center border border-1">
+        <p dir="ltr" class="font-18"><strong> {{ refer_url }}</strong></p>
+    </div>
+    <input type="hidden" value="{{ refer_url }}" id="myInput">
+
+    <div class="ui-box-item-desc p-5 text-center">
+        <p>دوستان خودتون رو به فاپوشاپ دعوت کنید و امتیاز بگیرید !! </p>
+    </div>
+    <div class="ui-box-item-desc p-5 text-center border border-1"><p>
+        تعداد دعوت موفق : <span class="text-success"><strong>{{ user_invites }}</strong></span></p>
+        <p>
+        مجموع امتیاز کسب شده با دعوت دوستان : <span class="text-success"><strong>{{ user_invites|division }}</strong></span></p>
+    </div>
+</div>
+
+
+<script>
+    function myFunction() {
+        // Get the text field
+        const copyText = document.getElementById("myInput");
+
+        // Select the text field
+        copyText.select();
+        
+        // Copy the text inside the text field
+        navigator.clipboard.writeText(copyText.value);
+
+    }
+</script>

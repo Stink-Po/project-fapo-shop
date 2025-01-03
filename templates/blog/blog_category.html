@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+وبلاگ | دسته بندی : {{  category.name }}
+{% endblock %}
+    {% block tags %}
+        <meta name="description" content="فاپوشاپ پست های بلاگ با دسته بندی : {{  category.name }}">
+        <meta property="og:title" content="وبلاگ | دسته بندی : {{  category.name }}">
+        <meta property="og:description" content="فاپوشاپ پست های بلاگ با دسته بندی : {{  category.name }}">
+        <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+        <meta name="twitter:title" content="وبلاگ | دسته بندی : {{  category.name }}">
+        <meta name="twitter:description" content="فاپوشاپ پست های بلاگ با دسته بندی : {{  category.name }}">
+        <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+    {% endblock %}
+{% block content %}
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="{% url 'blog:main' %}"
+                                                           class="font-14 text-muted">بلاگ</a></li>
+                            <li class="breadcrumb-item active main-color-one-color font-14" aria-current="page"> دسته بندی : 
+                                 {{ category.name }}
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+
+    <!-- start content -->
+
+    <div class="content">
+
+
+        <!-- start latest post  -->
+
+        <div class="gird-post-blog py-20">
+            {% if post_list|length != 0 %}
+
+                <div class="container-fluid">
+                    <div
+                            class="header-content mb-4 bg-white shadow-box rounded-3 p-3 d-flex align-items-center justify-content-between flex-wrap">
+                        <div class="title d-flex align-items-center">
+                            {{ category.icon|safe }}
+                            <h5 class="font-16 ms-3"> دسته بندی : <span
+                                    class="main-color-one-color d-inline-block">  {{ category.name }}</span>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="container-fluid">
+                    <div
+                            class="header-content mb-4 bg-white shadow-box rounded-3 p-3 d-flex align-items-center justify-content-between flex-wrap">
+                        <div class="title d-flex align-items-center">
+                            <h5 class="font-16 ms-3"> متاسفانه در این دسته بندی پستی موجود نیست<span
+                                    class="main-color-one-color d-inline-block"></span>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="container-fluid">
+                {% if post_list|length != 0 %}
+                    <div class="row gy-3" id="product-list">
+                        {% include 'blog/post_list.html' with post_list=post_list %}
+                    </div>
+                {% endif %}
+            </div>
+
+
+        </div>
+    </div>
+    <script>
+        let page = 1;
+        let emptyPage = false;
+        let blockRequest = false;
+        window.addEventListener('scroll', function () {
+            const margin = document.body.clientHeight - window.innerHeight - 400;
+            if (window.pageYOffset > margin && !emptyPage && !blockRequest) {
+                blockRequest = true;
+                page += 1;
+                fetch(`?post_only=1&page=${page}`)
+                    .then(response => response.text())
+                    .then(html => {
+                        if (html === '') {
+                            emptyPage = true;
+                        } else {
+                            const postList = document.getElementById('product-list');
+                            postList.insertAdjacentHTML('beforeend', html);
+                            blockRequest = false;
+                        }
+                    });
+            }
+        });
+
+        // Trigger the initial scroll event to load more posts if needed
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+{% endblock %}
+

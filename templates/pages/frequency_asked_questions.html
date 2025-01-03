@@ -1,0 +1,553 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+سوالات متداول
+{% endblock %}
+<meta name="description" content="سوالات متداول کاربران در فروشگاه اینترنتی فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و لوازم آشپزخانه">
+        <meta property="og:title" content="سوالات متداول">
+        <meta property="og:description" content="سوالات متداول کاربران در فروشگاه اینترنتی فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و لوازم آشپزخانه">
+        <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+        <meta name="twitter:title" content="سوالات متداول">
+        <meta name="twitter:description" content="سوالات متداول کاربران در فروشگاه اینترنتی فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و لوازم آشپزخانه">
+        <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+
+{% block content %}
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item active main-color-one-color font-14" aria-current="page">سوالات
+                                متداول
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+
+    <!-- start content -->
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button main-color-one-bg rounded-3" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                                    ۱- آیا قاپو شاپ فروشگاه فیزیکی جهت خرید حضوری دارد؟
+                                </button>
+                            </h2>
+                            <div id="collapse1" class="accordion-collapse collapse show"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    خیر- در حال حاضر فقط به صورت غیرحضوری و آنلاین می باشد.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                                    ۲- امکان ثبت کالاهایی که موجود نیستند وجود دارد؟
+                                </button>
+                            </h2>
+                            <div id="collapse2" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    خیر- تا زمان موجود شدن کالا این امکان وجود ندارد.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                                    ۳- چگونه می توانم سفارش خود را لغو کنم؟
+                                </button>
+                            </h2>
+                            <div id="collapse3" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li>
+                                            در زمان پرداخت در صفحه بانک گزینه انصراف را بزنید.
+                                        </li>
+                                        <li>
+                                            کالای موردنظر را از سبد خرید حذف کنید.
+                                        </li>
+                                        <li>درصورتیکه کالای شما توسط فاپو شاپ ارسال نشده باشد می‌توانید با پشتیبانی سایت
+                                            تماس بگیرید یا تیکت پشتیبانی ارسال کنید تا سفارش را لغو کنند.
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                                    ۴ - آیا پرداخت اینترنتی وجه سفارش در فاپو شاپ امن است؟
+                                </button>
+                            </h2>
+                            <div id="collapse4" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>
+                                        پرداخت اینترنتی به گونه ای طراحی شده که امن و راحت باشد. با وجود این شما نه تنها
+                                        برای خرید از فروشگاه فاپو شاپ که هنگام هرگونه پرداخت اینترنتی برای اطمینان از
+                                        امنیت
+                                        پرداخت خود نکته‌های زیر را رعایت فرمایید:
+                                    </p>
+
+                                    <ol>
+                                        <li class="p-2">
+                                            با مشاهده قسمت آدرس (Address Bar)، در مرورگر (Browser) وب خود مطمئن شوید از
+                                            پروتکل امن https به جای پروتکل http استفاده میشود به عبارت دیگر باید در
+                                            ابتدای آدرس، https وجود داشته باشد.
+                                        </li>
+                                        <li class="p-2">
+                                            قبل از ورود اطلاعات از وجود قفل بسته در قسمت بالا و سمت آدرس بار صفحه مرورگر
+                                            وب خود مطمئن شوید، در صورت عدم مشاهده این قفل از وارد کردن اطلاعات کارت خود
+                                            خودداری کنید.
+                                        </li>
+                                        <li class="p-2">
+                                            برای ورود اطلاعات کارت خود حتماً از صفحه کلید مجازی موجود استفاده کنید
+                                        </li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                                    ۵- بعد از ثبت سفارش امکان اصلاح یا تغییر وجود دارد؟
+                                </button>
+                            </h2>
+                            <div id="collapse5" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    خیر- بعد از اتمام روند سفارش دیگر امکان تغییر و اصلاح وجود ندارد. در صورتیکه شما
+                                    مایل به تغییر سفارش خود هستید می‌توانید با پشتیبانی سایت
+                                    تماس بگیرید یا تیکت پشتیبانی ارسال کنید
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                                    ۶- آیا می توانم سفارشم را تلفنی ثبت نمایم ؟
+                                </button>
+                            </h2>
+                            <div id="collapse6" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    خیر این امکان فعلا مقدور نیست
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                                    7- نام بانک کارت عابر خود را در لیست درگاه نمی بینیم؟
+                                </button>
+                            </h2>
+                            <div id="collapse7" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    درگاه های پرداخت به شبکه شتاب بانک مرکزی متصل هستند و فرقی نمی کند که کارت شما برای
+                                    کدام بانک می باشد و با دارا بودن رمز پویا می توانید فرایند پرداخت را انجام دهید.
+
+                                    همه کارت های بانکی (بانک سامان، بان پاسارگاد، بانک رسالت، بانک ملی, بانک صادرات
+                                    ,بانک سپه ,بانک کشاورزی ,بانک رفاه , بانک پارسیان ، بانک اقتصاد نوین ، بانک ملت و
+                                    بانک کارآفرین و …) می توانند پرداخت را تکمیل نمایند.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                                    8- آیا امکان پرداخت به صورت کارت به کارت می باشد؟
+                                </button>
+                            </h2>
+                            <div id="collapse8" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    خبر این امکان برای سفارش از طریق سایت مقدور نیست برای پرداخت کارت به کارت از طریق
+                                    شبکه های اجتماعی فاپو شاپ نظیر اینستاگرام که میتوانید لینک انها را در پایین سایت
+                                    مشاده کنید اقدام نمایید
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
+                                    9- آیا می توانم هزینه سفارش خود را در محل پرداخت کنم؟
+                                </button>
+                            </h2>
+                            <div id="collapse9" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    خیر - فعلا این مورد فراهم نیست.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                                    10- به صورت اینترنتی سفارشم را پرداخت کردم مبلغ از حسابم کسر شده اما تراکنش ناموفق
+                                    می باشد.
+                                </button>
+                            </h2>
+                            <div id="collapse10" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    در صورت اختلال در شبکه بانکی و رخ دادن چنین مشکلی نگران نباشید، معمولا تا چند ساعت
+                                    بعد پول به حساب شما بر می گردد ولی اگر با گذشت ۷۲ ساعت مبلغ به حساب شما برنگشت می
+                                    توانید با پشتیبانی بانکی که پرداخت را با آن انجام دادید تماس بگیرید.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse11" aria-expanded="false" aria-controls="collapse11">
+                                    11- آیا ارسال به شهرستان نیز دارید؟
+                                </button>
+                            </h2>
+                            <div id="collapse11" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    بله امکان ارسال به تمام نقاط کشور حتی روستاهای دورافتاده فراهم است
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse12" aria-expanded="false" aria-controls="collapse12">
+                                    12- بعد از ثبت سفارش چند روز طول می کشد کالا به دستم برسد؟
+                                </button>
+                            </h2>
+                            <div id="collapse12" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    ارسال در روزهای غیر تعطیل صورت میگیرد به محض ارسال سفارش کد رهگیری خدمت شما از طریق
+                                    شماره تلفن و ایمیلی که در بخش سفارش وارد کردید ارسال
+                                    میشه که میتونید از طریق سایت اداره پست بسته خودتون رو رهگیری کنید همچنین شما میتونید
+                                    از طریق پروفایل کاربری بخش سفارش های من سفارش مورد نظرتون رو
+                                    انتخاب کنید که در صورت ارسال وضعیت سفارش به در حال ارسال تغییر کرده و به صورت مستقیم
+                                    از لینک پیگیری سفارش وضعیت بسته خودتون رو مشاهده کنید
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse13" aria-expanded="false" aria-controls="collapse13">
+                                    13- بعد از ثبت و پرداخت سفارش امکان ویرایش آدرس و یا زمان ارسال وجود دارد؟
+                                </button>
+                            </h2>
+                            <div id="collapse13" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    خیر درصورتیکه نیاز به ویرایش آدرس خود دارید پیش از ارسال سفارش با پشتیبانی فروشگاه
+                                    تماس بگیرید.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse14" aria-expanded="false" aria-controls="collapse14">
+                                    14- آیا می‌توانم برای شخص دیگری از فاپو شاپ خرید کنم و سفارش من تحویل آن شخص شود؟
+                                </button>
+                            </h2>
+                            <div id="collapse14" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    بله شما میتوانید در هنگام ثبت سفارش در مرحله ادرس و جزییات پرداخا گزینه ارسال به
+                                    آدرس دیگر را انتخاب کرده و آدرس و مشخصات تحویل گیرنده سفارش را وارد نمایید
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse15" aria-expanded="false" aria-controls="collapse15">
+                                    15- آیا بروی بسته پستی نامی از محصول داخل آن نوشته می شود؟
+                                </button>
+                            </h2>
+                            <div id="collapse15" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    خیر
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse16" aria-expanded="false" aria-controls="collapse17">
+                                    16- از وضعیت سفارشی که خرید کردهام، چگونه می‌توانم مطلع شوم؟
+                                </button>
+                            </h2>
+                            <div id="collapse17" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    پس از ثبت و نهایی شدن سفارش شماره پیگیری پستی از طریق پیامک و ایمیل به شماره موبایل
+                                    و ادرس ایمیلی که در هنگام ثبت سفارش تایید کرده اید ارسال خواهد شد
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse18" aria-expanded="false" aria-controls="collapse18">
+                                    17- چگونه سفارشم را که فروشگاه شما ارسال کرده است را پیگیری کنم؟
+                                </button>
+                            </h2>
+                            <div id="collapse18" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    با کد رهگیری ۲۰ رقمی مرسوله که به شماره همراه درج شده در سفارش پیامک می شود و به
+                                    ایمیل ثبت شده در سفارش ارسال میشود در <a class="text-danger"
+                                                                             href="https://tracking.post.ir/"
+                                                                             target="_blank">“سامانه پیگیری مرسولات شرکت
+                                    پست“</a>
+                                    می توانید وضعیت کالای خود را مشاهده کنید.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse19" aria-expanded="false" aria-controls="collapse19">
+                                    18- برای خرید از فروشگاه آنلاین این بین باید در سایت عضو شویم؟
+                                </button>
+                            </h2>
+                            <div id="collapse19" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    یله برای سهولت پیگیری و استفاده از خدمات سایت مانند تعویض و مرجوعی کالا و استفاده از
+                                    کد های تخفیف امتیاز گیری و استفاده از این امتیازات برای دریافت کد های تخفیف نیاز است
+                                    عضو
+                                    سایت شوید
+                                    ما این فرایند رو برای شما ساده کردیم و در کمتر از یک دقیقه میتوانید با استفاده از
+                                    شماره همراه خود و یا اکانت گوگل خود در سایت ثبت نام کنید
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse20" aria-expanded="false" aria-controls="collapse20">
+                                    19- آیا امکان ویرایش مشخصات حساب کاربری وجود دارد؟
+                                </button>
+                            </h2>
+                            <div id="collapse20" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    بله وارد پروفایل کاربری خود شوید و در قسمت اصلاعات شخصی ویرایش را انتخاب کنید
+                                    اطلاعات خود را بروز کنید و در صورت اطمینان از صحت اطلاعات وارد شده ذخیره اطلاعات را
+                                    انتخاب کنید در صورتی که اطلاعات تغییر داده توسط شما صحیح باشد و این اطلاعات توسط
+                                    کاربری قبل از شما وارد نشده باشد اطلاعات کاربری شما به روز رسانی خواهد شد
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse21" aria-expanded="false" aria-controls="collapse21">
+                                    20- من رمز عبور خودم رو فراموش کردم؟
+                                </button>
+                            </h2>
+                            <div id="collapse21" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    در فاپو شاپ شما نیازمند داشتن رمز عبور نیستید و به جهت امنیت اطلاعات شما در هر بار
+                                    ورود رمز عبور یک بار مصرف به شماره همراه شما پیامک میشود
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse22" aria-expanded="false" aria-controls="collapse22">
+                                    21- آیا می توانیم سوابق خریدهای قبلی خود را مشاهده کنیم؟
+                                </button>
+                            </h2>
+                            <div id="collapse22" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    بله در پروفایل کاربری در قسمت سفارش های من در دسترس خواهند بود ضمنا میتوانید با
+                                    انتخاب هر سفارش جزییات آن را مشاهده کنید
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse23" aria-expanded="false" aria-controls="collapse23">
+                                    22- برگشت کالا به چه صورت می باشد؟
+                                </button>
+                            </h2>
+                            <div id="collapse23" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    برای برگشت کالا ابتدا می‌بایست با پشتیبانی سایت ارتباط گرفته تا مرسوله در شرایط
+                                    برگشت ثبت شود. سپس کالا را با پست سفارشی به آدرس اعلام شده توسط پشتیبانی ارسال کنید
+                                    و از ارسال کالا بدون هماهنگی اکیدا خودداری فرمایید
+
+                                    همچنین اگر کالا به‌ همراه هدیه فروخته شده باشد، بازگرداندن هدیه آن نیز الزامی است.
+
+                                    کالا حتما با جعبه اصلی خود ،فاکتور، اتيکت و بارکد کالا، برگشت شود.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse24" aria-expanded="false" aria-controls="collapse24">
+                                    23- در چه صورت امکان برگشت کالا وجود دارد؟
+                                </button>
+                            </h2>
+                            <div id="collapse24" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    در صورتیکه از زمان تحویل کالا حداکثر ۷ روز نگذشته باشد و تیم فنی عدم استفاده از کالا
+                                    را تایید کند
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse25" aria-expanded="false" aria-controls="collapse25">
+                                    24- عودت مبلغ کالای برگشت داده شده چقدر زمان می برد؟
+                                </button>
+                            </h2>
+                            <div id="collapse25" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    هنگامی که کالایی بازپس فرستاده شود، پس از کارشناسی و تایید واحد خدمات پس از فروش،
+                                    هماهنگی لازم برای استرداد مبلغ سفارش با مشتری به عمل آمده و تا ۲۴ ساعت کاری مبلغ به
+                                    حساب مشتری مسترد خواهد شد.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse26" aria-expanded="false" aria-controls="collapse26">
+                                    25- هزینه پستی بازگرداندن کالا به عهده چه کسی است؟
+                                </button>
+                            </h2>
+                            <div id="collapse26" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    – اگر ایراد فنی، وجود مغایرت فیزیکی یا آسیب دیدگی ظاهری، به تایید کارشناسان پشتیبانی
+                                    فاپو شاپ برسد، هزینه‌های ارسال به عهده مجموعه فاپو شاپ است
+                                    <span class="text-danger"> در صورت ۱- تعویض سایز ، ۲- انصراف از خرید ، یا ۳- تایید نشدن ایراد یا مغایرت توسط کارشناسان پشتیبانی فاپو شاپ، هزینه ارسال و دریافت مجدد کالا، به عهده مشتری خواهد بود.</span>
+                                    <p class="font-15 pt-2">شرط اولیه و لازم : </p>
+                                    <p class="text-danger">توجه داشته باشید که امکان بازگرداندن کالا و باز پرداخت وجه یا
+                                        تعویض با کالای مشابه تنها در صورتی امکان پذیر خواهد بود که کالا و کلیه متعلقات
+                                        آن در شرایط و وضعیت اولیه برگشت داده شود.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse27" aria-expanded="false" aria-controls="collapse27">
+                                    26- چگونه می توان از کد تخفیف استفاده کرد؟
+                                </button>
+                            </h2>
+                            <div id="collapse27" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    شما میتوانید هم در سبد خرید و هم در هنگام ثبت سفارش کد تخفیف خود را وارد کنید در
+                                    صورت صحیح بودن کد که شامل این موارد است که اگر از کد جشنواره استفاده میکنید تاریخ
+                                    جشنواره سپری نشده باشد و کد قبلا توسط شما استفاده نشده باشد و اگر ار کد های تخفیف
+                                    شخصی مانند کد تخفیف ده درصدی برای ثبت نام در سایت و یا کد های تخفیف به دست امده از
+                                    امتیارات شما استفاده میکنید شامل اینکه تاریخ استفاده از کد ( یک ماه ) سپری نشده باشد
+                                    کد وارد شده به اکانت شما نه اکانت دیگی تعلق داشته باشد و کد قبلا استفاده نشده باشد
+                                    میزان تخفیف کد روی فاکتور شما اعمال میشود و در سبد خرید و فاکتور خرید که بعد از
+                                    تراکنش موفق میتوانید ان را ببینید قابل مشاهده خواهد بود
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse28" aria-expanded="false" aria-controls="collapse28">
+                                    27- چگونه می توان کد تخفیف تهیه کرد؟
+                                </button>
+                            </h2>
+                            <div id="collapse28" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    در پروفایل کاربری در قسمت امتیازات و کدهای تخفیف من شما میتوانید امتیازات خود را
+                                    مشاهده کنید
+                                    و با استفاده از این امتیازات در صورت کافی بود کد های تخفیف سایت را که در همین صفحه
+                                    مشاده میکنید را تهیه نمایید کدها به محض تولید تا یک ماه قابل استفاده میباشند
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse29" aria-expanded="false" aria-controls="collapse29">
+                                    28- چگونه امتیازات خود را افزایش دهیم ؟
+                                </button>
+                            </h2>
+                            <div id="collapse29" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    برای افزایش امتیاز راه های مختلفی وجود دارد به محض ثبت نام در سایت شما 10 امتیاز
+                                    دریافت خواهید کرد با هر خرید موفق شما 10 امتیاز دریافت خواهید کرد و با هر ثبت نام
+                                    موفق در سایت توسط لینک دعوت شما که در پروفایل کاربری قسمت لینک دعوت من قابل دسترسی
+                                    هست شما 5 امتیاز دریافت خواهید کرد
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed main-color-one-bg rounded-3" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapse30" aria-expanded="false" aria-controls="collapse30">
+                                    29- آیا می‌توانم به صورت قسطی از فروشگاه شما خرید کنم؟
+                                </button>
+                            </h2>
+                            <div id="collapse30" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    خیر فعلا این امکان فراهم نیست ولی به زودی فراهم خواهد شد
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

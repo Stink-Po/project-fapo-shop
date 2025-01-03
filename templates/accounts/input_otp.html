@@ -1,0 +1,548 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+وارد کردن رمز یک بار مصرف
+{% endblock %}
+{% block tags %}
+        <meta name="description" content="وارد کردن رمز یک بار مصرف فاپوشاپ">
+        <meta property="og:title" content="وارد کردن رمز یک بار مصرف">
+        <meta property="og:description" content="وارد کردن رمز یک بار مصرف فاپوشاپ">
+        <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+        <meta name="twitter:title" content="وارد کردن رمز یک بار مصرف">
+        <meta name="twitter:description" content="وارد کردن رمز یک بار مصرف فاپوشاپ">
+        <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+    {% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="content ">
+                    <div class="container-fluid h-100">
+
+                        <div class="auth h-100 d-flex align-items-center pt-5">
+                            <div class="container-fluid">
+                                <div class="auth-items">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-10">
+
+                                            <div class="auth-form  rounded-3">
+                                                <div class="auth-form-title title-panel d-flex justify-content-between align-items-center mb-4 slider-title-desc-center">
+                                                    <h2 class="text-center h4 text-muted title-font">ورود / ثبت نام</h2>
+                                                    <a href="">
+                                                        <img src="{% static 'assets/image/logo.png' %}" width="150"
+                                                             alt="logo">
+                                                    </a>
+                                                </div>
+                                                {% if error %}
+                                                    <div class="alert text-center alert-success">
+                                                        {{ error }} <a>درخواست کد جدید</a>
+                                                    </div>
+                                                {% else %}
+                                                    <div class="alert text-center alert-success" id="message-box">
+
+                                                        یک کد برای شما پیامک شد لطفا آن را وارد کنید
+                                                    </div>
+                                                {% endif %}
+                                                <form method="post" action="">
+                                                    {% csrf_token %}
+                                                    <div id="otp-input">
+                                                        <input name="digit1" placeholder="_" type="number" step="1"
+                                                               min="0" max="9"
+                                                               autocomplete="no" pattern="\d*"/>
+                                                        <input name="digit2" placeholder="_" type="number" step="1"
+                                                               min="0" max="9"
+                                                               autocomplete="no" pattern="\d*"/>
+                                                        <input name="digit3" placeholder="_" type="number" step="1"
+                                                               min="0" max="9"
+                                                               autocomplete="no" pattern="\d*"/>
+                                                        <input name="digit4" placeholder="_" type="number" step="1"
+                                                               min="0" max="9"
+                                                               autocomplete="no" pattern="\d*"/>
+                                                        <input name="digit5" placeholder="_" type="number" step="1"
+                                                               min="0" max="9"
+                                                               autocomplete="no" pattern="\d*"/>
+                                                        <input name="digit6" placeholder="_" type="number" step="1"
+                                                               min="0" max="9"
+                                                               autocomplete="no" pattern="\d*"/>
+                                                        <input id="otp-value" placeholder="_" type="hidden" name="otp"/>
+                                                    </div>
+
+
+                                                    <!-- Countdown timer html -->
+                                                    <div class="countDownContainer">
+                                                        <div class="countdown-bar" id="countdownB">
+                                                            <div></div>
+                                                            <div></div>
+                                                        </div>
+                                                    </div>
+
+
+                                                    
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="section-center">
+
+                    <div class="section-up">
+                        <div class="sun">
+                            <span></span>
+                        </div>
+                        <div class="cloud-left">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="cloud-middle">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="cloud-right">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="bird-wrapper">
+                            <div class="left-wing">
+                                <span></span>
+                            </div>
+                            <div class="right-wing">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="bird-wrapper snd">
+                            <div class="left-wing">
+                                <span></span>
+                            </div>
+                            <div class="right-wing">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="bird-wrapper trd">
+                            <div class="left-wing">
+                                <span></span>
+                            </div>
+                            <div class="right-wing">
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="building-left">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="building-right">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span><span></span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="left-tree">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="right-tree">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="hill">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="hill snd">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="hill trd">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="hill frt">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="section-down">
+                        <div class="ship-wrapper">
+                            <div class="ship">
+
+                                <span><strong>Fapo Shop</strong></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="water-big-wrapper">
+                            <div class="water-big-wrap">
+                                <div class="water-big">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="water-big snd">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="water-big trd">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="water-lines-wrapper">
+                            <div class="water-lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="water-lines-wrapper right">
+                            <div class="water-lines">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="fish-wrapper">
+                            <div class="fish-wrap">
+                                <div class="fish">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fish-wrapper right">
+                            <div class="fish-wrap">
+                                <div class="fish">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="water-wrapper top">
+                            <div class="water-wrap">
+                                <div class="water">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="water snd">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="water trd">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="water-wrapper">
+                            <div class="water-wrap">
+                                <div class="water">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="water snd">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="water trd">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="water-wrapper top right">
+                            <div class="water-wrap">
+                                <div class="water">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="water snd">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="water trd">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="water-wrapper right">
+                            <div class="water-wrap">
+                                <div class="water">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="water snd">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <div class="water trd">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="otp-link" data-url="{% url 'sms:send_otp' %}"></div>
+        <!-- Link to profile
+          ================================================== -->
+    </div>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/plugin/waves/waves.min.js' %}"></script>
+    <script src="{% static 'assets/plugin/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assets/plugin/timer/timer.js' %}"></script>
+    <script src="{% static 'assets/plugin/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js' %}"></script>
+    <script src="{% static 'assets/js/app.js' %}"></script>
+    <script src="{% static 'assets/js/jquery-app.js' %}"></script>
+    <script src="{% static 'assets/plugin/otp-sms/otp-input.js' %}"></script>
+    <script src="{% static 'assets/plugin/otp-loader/script.js' %}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            countdown('countdownB', 0, 0, 1, 59);
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const msgBox = document.getElementById("message-box");
+            const inputs = document.querySelectorAll('#otp-input input[type="number"]');
+            const otpHiddenField = document.getElementById('otp-value');
+
+            function collectOtp() {
+                let otp = '';
+                inputs.forEach(input => {
+                    otp += input.value;
+                });
+                return otp;
+            }
+
+            function submitOtp(otp) {
+                // Prepare the AJAX request
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                fetch("{% url 'accounts:verify_otp' %}", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken,
+                    },
+                    body: JSON.stringify({otp: otp}),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Handle response from the server
+                        if (data.success) {
+                            // Redirect or show success message
+                            window.location.href = data.redirect_url;
+                        } else {
+                            // Show error message
+                            msgBox.classList.remove("alert-success");
+                            msgBox.classList.add("alert-danger");
+                            msgBox.innerText = "";
+                            msgBox.innerText = data.message;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
+
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    const value = e.target.value;
+                    if (value.length > 1) {
+                        e.target.value = value.charAt(0);
+                    }
+                    if (value.length === 1) {
+                        if (index < inputs.length - 1) {
+                            inputs[index + 1].focus();
+                        } else {
+                            const otp = collectOtp();
+                            if (otp.length === inputs.length) {
+                                otpHiddenField.value = otp;
+                                submitOtp(otp); // Automatically submit OTP
+                            }
+                        }
+                    }
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+        });
+    </script>
+
+{% endblock %}

@@ -1,0 +1,119 @@
+{% load site_tags %}
+{% load static %}
+{% load humanize %}
+
+<div class="content-box">
+    <div class="container-fluid">
+        <div class="title-panel">
+            <h6 class="font-16">
+                امتیازات شما : <span class="text-success"><strong>{{ user.score }}</strong></span>
+            </h6>
+        </div>
+        <div class="p-0">
+
+            <div class="row">
+                {% for i in range_list %}
+                    <div class="col-sm-2">
+                        <div class="card text-center">
+                            <img class="card-img-top" src="{% static 'assets/image/logo.png' %}" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">کد تخفیف {{ forloop.counter|multiply:1 }} درصدی </p>
+                            </div>
+                            {% if user.score|compare_score:forloop.counter %}
+                            <a  href="{% url 'accounts:generate_discount_code' amount=forloop.counter %}" class=" main-color-one-bg btn  rounded-3">خرید</a>
+                                {% else %}
+                                <a class=" main-color-one-bg btn  rounded-3 disabled">امتیاز کافی نیست</a>
+                            {% endif %}
+                        </div>
+                    
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="content-box">
+    <div class="container-fluid">
+        <div class="title-panel">
+            <h6 class="font-16">
+                امتیازات شما : <span class="text-success"><strong>{{ user.score }}</strong></span>
+            </h6>
+        </div>
+        <div class="responsive-table p-0">
+            <table class="table main-table rounded-0">
+                <thead class="text-bg-dark bg-opacity-75 text-center">
+                <tr>
+                    <th>ردیف</th>
+                    <th>مقدار تخفیف</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>مهلت استفاده</th>
+                    <th>وضعیت</th>
+                    <th>کد تخفیف</th>
+                </tr>
+                </thead>
+                <tbody class="text-center">
+                {% for code in user_discount_codes %}
+                    <tr>
+                        <td class="font-14">{{ forloop.counter }}</td>
+                        <td class="font-14">{{ code.amount }} %</td>
+                        <td class="font-14">{{ code.created.date|convert_to_persian_date }}</td>
+                        <td class="font-14">{{ code.expire_date.date|convert_to_persian_date }} </td>
+                        {% if code.used %}
+                            <td class="font-14"><span
+                                    class="warning-label rounded-pill">استفاده شده</span></td>
+                        {% elif code.check_code %}
+                            <td class="font-14"><span
+                                    class="success-label rounded-pill"> آماده استفاده </span></td>
+                        {% else %}
+                            <td class="font-14"><span class="danger-label rounded-pill">مهلت استفاده سپری شده</span>
+                            </td>
+                        {% endif %}
+                        <td class="font-14">
+                            {{ code.code }}
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% if user_discount_codes.has_previous or user_discount_codes.has_next %}
+    <div class="my-paginate mt-5 p-3">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination flex-wrap justify-content-center">
+                {% if user_discount_codes.has_previous %}
+                    <li class="page-item p-2">
+                        <a class="page-link rounded-3"
+                           href="?page={{ user_discount_codes.previous_page_number }}">قبلی</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled p-2">
+                        <a class="page-link rounded-3" href="#">قبلی</a>
+                    </li>
+                {% endif %}
+                {% for page_num in user_discount_codes.paginator.page_range %}
+                    {% if page_num == user_discount_codes.number %}
+                        <li class="page-item active"><a class="page-link rounded-3" href="#">{{ page_num }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link rounded-3"
+                                                 href="?page={{ page_num }}">{{ page_num }}</a></li>
+                    {% endif %}
+
+                {% endfor %}
+                {% if user_discount_codes.has_next %}
+                    <li class="page-item p-2">
+                        <a class="page-link rounded-3" href="?page={{ user_discount_codes.next_page_number }}">بعدی</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled p-2">
+                        <a class="page-link rounded-3" href="#">بعدی</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endif %}

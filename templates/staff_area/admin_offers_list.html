@@ -1,0 +1,242 @@
+{% load site_tags %}
+<div class="col-lg-12">
+    <div class="content-box">
+        <div class="container-fluid">
+            <div class="row gy-3">
+                <form method="post" enctype="multipart/form-data" action="{% url 'staff_area:offers' %}">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <div class="row">
+                                <!-- Name -->
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input name="{{ form.name.name }}" type="text"
+                                               class="form-control {% if form.name.errors %}is-invalid{% endif %}"
+                                               id="{{ form.name.id_for_label }}"
+                                                {% if form.name.errors %}
+                                               placeholder="{{ form.name.errors|join:' ' }}" {% else %}
+                                               placeholder="نام رویداد را وارد کنید ..." {% endif %}
+                                               required value="{{ form.name.value|default:'' }}">
+                                        <label for="{{ form.name.id_for_label }}" class="form-label fw-bold">نام
+                                            رویداد</label>
+                                    </div>
+                                </div>
+
+                                <!-- Code -->
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input name="{{ form.code.name }}" type="text"
+                                               class="form-control {% if form.code.errors %}is-invalid{% endif %}"
+                                               id="{{ form.code.id_for_label }}"
+                                                {% if form.code.errors %}
+                                               placeholder="{{ form.code.errors|join:' ' }}" {% else %}
+                                               placeholder="کد تخفیف (اختیاری)" {% endif %}
+                                               value="{{ form.code.value|default:'' }}">
+                                        <label for="{{ form.code.id_for_label }}" class="form-label fw-bold">کد
+                                            تخفیف</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <!-- Discount Amount -->
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input name="{{ form.discount_amount.name }}" type="number"
+                                               class="form-control {% if form.discount_amount.errors %}is-invalid{% endif %}"
+                                               id="{{ form.discount_amount.id_for_label }}"
+                                                {% if form.discount_amount.errors %}
+                                               placeholder="{{ form.discount_amount.errors|join:' ' }}" {% else %}
+                                               placeholder="مقدار تخفیف را وارد کنید ..." {% endif %}
+                                               required value="{{ form.discount_amount.value|default:'' }}">
+                                        <label for="{{ form.discount_amount.id_for_label }}" class="form-label fw-bold">مقدار
+                                            تخفیف</label>
+                                    </div>
+                                </div>
+
+                                <!-- Image -->
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input name="{{ form.image.name }}" type="file"
+                                               class="form-control {% if form.image.errors %}is-invalid{% endif %}"
+                                               id="{{ form.image.id_for_label }}">
+                                        <label for="{{ form.image.id_for_label }}"
+                                               class="form-label fw-bold">تصویر</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <!-- Start Date -->
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input name="{{ form.start_date.name }}" type="datetime-local"
+                                               class="form-control {% if form.start_date.errors %}is-invalid{% endif %}"
+                                               id="{{ form.start_date.id_for_label }}"
+                                                {% if form.start_date.errors %}
+                                               placeholder="{{ form.start_date.errors|join:' ' }}" {% else %}
+                                               placeholder="تاریخ شروع را وارد کنید ..." {% endif %}
+                                               required value="{{ form.start_date.value|default:'' }}">
+                                        <label for="{{ form.start_date.id_for_label }}" class="form-label fw-bold">تاریخ
+                                            شروع</label>
+                                    </div>
+                                </div>
+
+                                <!-- End Date -->
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input name="{{ form.end_date.name }}" type="datetime-local"
+                                               class="form-control {% if form.end_date.errors %}is-invalid{% endif %}"
+                                               id="{{ form.end_date.id_for_label }}"
+                                                {% if form.end_date.errors %}
+                                               placeholder="{{ form.end_date.errors|join:' ' }}" {% else %}
+                                               placeholder="تاریخ پایان را وارد کنید ..." {% endif %}
+                                               required value="{{ form.end_date.value|default:'' }}">
+                                        <label for="{{ form.end_date.id_for_label }}" class="form-label fw-bold">تاریخ
+                                            پایان</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <!-- Is Active -->
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input name="{{ form.is_active.name }}" type="checkbox" class="form-check-input"
+                                               id="{{ form.is_active.id_for_label }}" {% if form.is_active.value %}
+                                               checked {% endif %}>
+                                        <label for="{{ form.is_active.id_for_label }}" class="form-check-label fw-bold">فعال
+                                            است</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-2">
+                            <button type="submit"
+                                    class="btn border-0 main-color-one-bg waves-effect waves-light py-2 px-5">
+                                <i class="bi bi-pencil-square text-white me-1"></i> ذخیره
+                            </button>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="ui-box" id="information-section">
+        <div class="ui-box-item ui-box-white">
+            <div class="ui-box-item-title">
+                <div class="d-flex justify-content-between align-items-center">
+                    
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="fw-bold pb-5">
+                        ایونت ها:
+                    </h4>
+                </div>
+
+                <div class="responsive-table p-0">
+                    <table class="table main-table rounded-0">
+                        <thead class="text-bg-dark bg-opacity-75 text-center">
+                        <tr>
+                            <th>ردیف</th>
+                            <th>عنوان</th>
+                            <th>وضعیت</th>
+                            <th>تاریخ شروع</th>
+                            <th>تاریخ پایان</th>
+                            <th>کد تخفیف</th>
+                            <th>میزان تخفیف</th>
+                            <th>تعداد استفاده</th>
+                            <th>مشاهده جزییات</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-center">
+                        {% for item in offers %}
+                            <tr>
+                                <td class="font-14">{{ forloop.counter }}</td>
+                                <td class="font-14">{{ item.name }}</td>
+                                {% if item.is_active %}
+                                    <td class="font-14"><span
+                                            class="badge bg-success rounded-0 ms-2">فعال</span>
+                                    </td>
+
+                                {% else %}
+                                    <td class="font-14"><span
+                                            class="badge bg-danger rounded-0 ms-2">غیر فعال</span>
+                                    </td>
+                                {% endif %}
+                                <td class="font-14">{{ item.start_date.date|convert_to_persian_date }}
+
+                                </td>
+                                <td class="font-14">{{ item.end_date.date|convert_to_persian_date }}
+
+                                </td>
+                                <td class="font-14">{{ item.code }}</td>
+                                <td class="font-14">{{ item.discount_amount }} %</td>
+                                <td class="font-14">{{ item.usage_count }}</td>
+                                <td class="align-middle text-center"><a
+                                        href="{% url 'offers:offer_detail' offer_id=item.id %}"
+                                        class="btn main-color-three-bg shadow-none btn-sm">
+                                    <i class="bi bi-eye me-1 text-white"></i> نمایش</a>
+                                </td>
+
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- end content -->
+
+
+        <!-- start footer -->
+
+    </div>
+{% if offers.has_previous or offers.has_next %}
+        <div class="my-paginate mt-5 p-3">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination flex-wrap justify-content-center">
+                    {% if offers.has_previous %}
+                        <li class="page-item p-2">
+                            <a class="page-link rounded-3" href="?page={{ offers.previous_page_number }}">قبلی</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled p-2">
+                            <a class="page-link rounded-3" href="#">قبلی</a>
+                        </li>
+                    {% endif %}
+                    {% for page_num in offers.paginator.page_range %}
+                        {% if page_num == offers.number %}
+                            <li class="page-item active"><a class="page-link rounded-3" href="#">{{ page_num }}</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link rounded-3"
+                                                     href="?page={{ page_num }}">{{ page_num }}</a></li>
+                        {% endif %}
+
+                    {% endfor %}
+                    {% if offers.has_next %}
+                        <li class="page-item p-2">
+                            <a class="page-link rounded-3" href="?page={{ offers.next_page_number }}">بعدی</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled p-2">
+                            <a class="page-link rounded-3" href="#">بعدی</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% endif %}

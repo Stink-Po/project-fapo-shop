@@ -1,0 +1,237 @@
+{% load static %}
+{% load site_tags %}
+{% load humanize %}
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <title>فاپو شاپ | فاکتور خرید</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+</head>
+<body style="background: #fff; position: relative;">
+
+<div class="container-xl" style="margin-top: 100px; position: relative;">
+    <!-- Stamp Logo -->
+    {% if download %}
+
+        <img src="{{ logo }}" alt="Company Logo"
+             style="position: fixed; bottom: 20px; left: 150px; width: 150px; opacity: 0.5; z-index: 1; transform: rotate(-20deg); pointer-events: none;">
+
+    {% else %}
+        <img src="{% static 'assets/image/logo.png' %}" alt="Company Logo"
+             style="position: fixed; bottom: 20px; left: 150px; width: 150px; opacity: 0.5; z-index: 1; transform: rotate(-20deg); pointer-events: none;">
+
+    {% endif %}
+
+    <div class="row" style="position: relative; z-index: 2;">
+        <div class="col-3 text-center"></div>
+        <div class="col-6 text-center">
+            <h3 class="font-weight-bold">صورتحساب فروش کالا و خدمات</h3>
+        </div>
+        <div class="col-3 text-right">
+            <p>شماره سفارش: {{ order.id }} / {{ order.track_id }}</p>
+            <p>تاریخ سفارش: {{ order.created.date|convert_to_persian_date }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th class="text-center" colspan="11">مشخصات فروشنده</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="11" class="text-right">
+                    <div class="row">
+                        <div class="col-4">
+                            <p>نام شخص حقیق / حقوقی: فاپو شاپ</p>
+                            <p>آدرس کامل: کرمانشاه شهرک پردیس بلوار شقایق مجتمع امیریه لاله 3 طبقه 9 واحد 2</p>
+                        </div>
+                        <div class="col-4">
+                            <p>کد پستی : 6717882007</p>
+                        </div>
+                        <div class="col-4">
+                            <p>تلفن / نمابر: 08337105124</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            <thead>
+            <tr>
+                <th class="text-center" colspan="11">مشخصات خریدار</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="11" class="text-right">
+                    <div class="row">
+                        <div class="col-4">
+                            <p>نام : {{ order.first_name }} {{ order.last_name }}</p>
+                            <p> آدرس کامل: {{ order.province }} - {{ order.city }} - {{ order.address }}</p>
+                        </div>
+                        <div class="col-4">
+                            <p>کد پستی: {{ order.postal_code }}</p>
+                        </div>
+                        <div class="col-4">
+                            <p> تلفن: {{ order.phone }}</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            <thead>
+            <tr>
+                <th class="text-center" colspan="11">مشخصات کالا یا خدمات مورد معامله</th>
+            </tr>
+            </thead>
+            <thead>
+            <tr class="text-center">
+                <th>ردیف</th>
+                <th>کد کالا</th>
+                <th>شرح کالا یا خدمات</th>
+                <th>تعداد / مقدار</th>
+                <th>مبلغ واحد (ریال)</th>
+                <th>مبلغ کل (ریال)</th>
+                <th>مبلغ تخفیف (ریال)</th>
+                <th>مبلغ کل پس از تخفیف (ریال)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in order.items.all %}
+                <tr class="text-center">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.product.unique_id }}</td>
+                    <td>{{ item.product.name }} {{ item.color_obj.get_color_display }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.product.price|multiply:1|intcomma }}</td>
+                    <td>{{ item.product.price|multiply:item.quantity|intcomma }}</td>
+                    <td>{{ item.product.get_discounted_margin|multiply:item.quantity|intcomma }}</td>
+                    <td>{{ item.product.get_discounted_price|multiply:item.quantity|intcomma }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td class="text-center">کسر با کد تخفیف:</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                {% if order.discount_amount != 0 %}
+                    <td class="text-center">{{ order.discount_amount }} %</td>
+                {% else %}
+                    <td class="text-center">-</td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td class="text-center">جمع کل کالا ها:</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center">{{ order.get_total_cost|multiply:1|intcomma }} ریال</td>
+            </tr>
+
+            <tr>
+                <td class="text-center">هزینه بسته بندی و ارسال</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center">{{ 700000|intcomma }} ریال</td>
+            </tr>
+            <tr>
+                <td class="text-center">جمع کل</td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center"></td>
+                <td class="text-center">{{ order.get_total_cost|multiply:1|add:700000|intcomma }} ریال</td>
+            </tr>
+            <tr>
+                <th colspan="5" class="text-right">شرایط و نحوه فروش: &nbsp&nbsp&nbsp&nbsp نقدی &nbsp&nbsp&nbsp&nbsp
+                </th>
+            </tr>
+            <tr style="padding: 60px 0;"></tr>
+            </tbody>
+        </table>
+    </div>
+    {% if not download %}
+        <a href="" class="btn btn-dark" id="printPageButton" onclick="printInvoice()">پرینت</a>
+        <button href="" class="btn btn-dark" id="downloadPageButton" onclick="downloadInvoice()">دانلود</button>
+    {% endif %}
+</div>
+
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+<script>
+    function printInvoice() {
+        window.print();
+    }
+
+    function downloadInvoice() {
+        const url = `{% url 'orders:download_factor' order_id=order.id track_id=order.track_id %}`; // Adjust URL based on your setup
+        window.location.href = url; // Redirect to the download view
+    }
+</script>
+
+<style>
+    @media print {
+        #printPageButton {
+            display: none;
+        }
+
+        #downloadPageButton {
+            display: none;
+        }
+
+        @page {
+            margin: 1.5cm;
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #000 !important;
+        }
+    }
+
+    body {
+        font-size: 12px;
+    }
+
+    #downloadPageButton {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #343a40;
+        color: #fff;
+        border: none;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #printPageButton {
+        display: inline-block;
+        padding: 10px 15px;
+        background-color: #343a40;
+        color: #fff;
+        border: none;
+        text-decoration: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+
+</body>
+</html>

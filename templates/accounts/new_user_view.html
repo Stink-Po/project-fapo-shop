@@ -1,0 +1,356 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load site_tags %}
+{% block title %}
+    حساب کاربری | خوش امدید
+{% endblock %}
+   {% block tags %}
+        <meta name="description" content="پروفایل کاربری ثبت نام جدید در فاپوشاپ">
+        <meta property="og:title" content="حساب کاربری | خوش امدید">
+        <meta property="og:description" content="پروفایل کاربری ثبت نام جدید در فاپوشاپ">
+        <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+        <meta name="twitter:title" content="حساب کاربری | خوش امدید">
+        <meta name="twitter:description" content="پروفایل کاربری ثبت نام جدید در فاپوشاپ">
+        <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+    {% endblock %}
+{% block content %}
+
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item active main-color-one-color font-14" aria-current="page">
+                                پروفایل کاربری
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+
+
+    <!-- start content -->
+
+    <div class="content">
+        <div class="container-fluid">
+
+            <!-- start side-menu in mobile -->
+            <div class="custom-filter d-lg-none d-block">
+                <button class="btn btn-filter-float border-0 main-color-two-bg shadow-box px-4 rounded-3 position-fixed"
+                        style="z-index: 999;bottom:80px;" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    <i class="bi bi-list font-20 fw-bold text-white"></i>
+                    <span class="d-block font-14 text-white">منو</span>
+                </button>
+
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight"
+                     aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasRightLabel">منو</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="panel-side">
+                            <div class="content-box pb-0">
+                                <div class="container-fluid">
+                                    <div class="panel-box">
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-grid gap-2">
+                                                <h6 class="font-14 main-color-one-color">حساب کاربری من</h6>
+                                                <h6 class="font-14"></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profile-box">
+                                        <nav class="navbar profile-box-nav">
+                                            <ul class="navbar-nav flex-column">
+                                                <li class="nav-item active"><a href="" class="nav-link">
+                                                    <i class="fa-regular fa-user"></i>اطلاعات شخصی</a>
+                                                </li>
+
+
+                                                <li class="nav-item"><a href="{% url 'accounts:profile_orders' %}"
+                                                                        class="nav-link">
+                                                    <i class="bi bi-cart-check"></i>سفارش های من </a>
+                                                </li>
+
+
+                                                <li class="nav-item"><a href="{% url 'accounts:profile_scores' %}"
+                                                                        class="nav-link">
+                                                    <i class="bi bi-award"></i>امتیازات و کدهای تخفیف من </a>
+                                                </li>
+
+
+                                                <li class="nav-item"><a
+                                                        href="{% url 'accounts:user_profile_refer_code' %}"
+                                                        class="nav-link">
+                                                    <i class="fa-solid fa-people-arrows"></i>لینک دعوت دوستان</a>
+                                                </li>
+
+
+                                                <li class="nav-item"><a href="{% url 'accounts:user_tickets' %}"
+                                                                        class="nav-link">
+                                                    <i class="bi bi-question-circle"></i>درخواست پشتیبانی</a>
+                                                </li>
+
+
+                                                <li class="nav-item"><a
+                                                        href="{% url 'accounts:user_profile_favorites' %}"
+                                                        class="nav-link">
+                                                    <i class="bi bi-heart"></i>محصولات مورد علاقه</a>
+                                                </li>
+
+
+                                                <li class="nav-item"><a href="{% url 'accounts:delete_account' %}"
+                                                                        class="nav-link">
+                                                    <i class="bi bi-person-x"></i>حذف اکانت کاربری</a>
+                                                </li>
+
+                                                <li class="nav-item"><a href="{% url 'accounts:logout' %}"
+                                                                        class="nav-link">
+                                                    <i class="bi bi-arrow-right-square"></i>خروج از حساب کاربری</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- end side-menu in mobile -->
+
+            <div class="dashboard-panel">
+                <div class="row gy-3">
+                    <div class="col-lg-3 d-lg-block d-none">
+                        <div class="panel-side">
+                            <div class="content-box pb-0">
+                                <div class="container-fluid">
+                                    <div class="panel-box">
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-grid gap-2">
+                                                <h6 class="font-14 main-color-one-color">حساب کاربری من</h6>
+                                                <h6 class="font-14"></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profile-box">
+                                        <nav class="navbar profile-box-nav">
+                                            <ul class="navbar-nav flex-column">
+                                                <li class="nav-item active"><a href="" class="nav-link">
+                                                    <i class="fa-regular fa-user"></i>اطلاعات شخصی</a>
+                                                </li>
+
+
+                                                <li class="nav-item"><a href="{% url 'accounts:profile_orders' %}"
+                                                                        class="nav-link">
+                                                    <i class="bi bi-cart-check"></i>سفارش های من </a>
+                                                </li>
+
+
+                                                <li class="nav-item"><a href="{% url 'accounts:profile_scores' %}"
+                                                                        class="nav-link">
+                                                    <i class="bi bi-award"></i>امتیازات و کدهای تخفیف من </a>
+                                                </li>
+
+
+                                                <li class="nav-item"><a
+                                                        href="{% url 'accounts:user_profile_refer_code' %}"
+                                                        class="nav-link">
+                                                    <i class="fa-solid fa-people-arrows"></i>لینک دعوت دوستان</a>
+                                                </li>
+
+
+                                                <li class="nav-item"><a href="{% url 'accounts:user_tickets' %}"
+                                                                        class="nav-link">
+                                                    <i class="bi bi-question-circle"></i>درخواست پشتیبانی</a>
+                                                </li>
+
+
+                                                <li class="nav-item"><a
+                                                        href="{% url 'accounts:user_profile_favorites' %}"
+                                                        class="nav-link">
+                                                    <i class="bi bi-heart"></i>محصولات مورد علاقه</a>
+                                                </li>
+
+
+                                                <li class="nav-item"><a href="{% url 'accounts:delete_account' %}"
+                                                                        class="nav-link">
+                                                    <i class="bi bi-person-x"></i>حذف اکانت کاربری</a>
+                                                </li>
+
+                                                <li class="nav-item"><a href="{% url 'accounts:logout' %}"
+                                                                        class="nav-link">
+                                                    <i class="bi bi-arrow-right-square"></i>خروج از حساب کاربری</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="content-box">
+                            <div class="container-fluid">
+                                <div class="row gy-3">
+                                    <div class="col-lg-8">
+                                        {% if user.profile.first_name %}
+                                            <h6 class="font-14 main-color-one-color">{{ user.profile.first_name }}</h6>
+                                        {% else %}
+                                            <h6 class="font-14 main-color-one-color">سلام کابر عزیز</h6>
+                                        {% endif %}
+                                        <h6 class="font-14 my-3">به فاپو شاپ خوش اومدی</h6>
+                                        <p class="text-muted"> به رسم خوش امد گویی یه<span class="def-color fw-bold"> کد تخفیف 10 درصدی </span>
+                                            برای اولین سفارش
+                                            که تا یک ماه دیگه اعتبار داره از طرف فاپو شاپ هدیه گرفتی و میتونی کد تخفیفت
+                                            رو در قسمت کدهای تخغیف من مشاهده کنی و برای اولین خرید
+                                            ازش
+                                            استفاده کنی یادت باشه این کد یک ماه مهلت استفاده داره. برای ثبت نام در سایت
+                                            10 امتیاز دریافت کردی با هر دعوت موفق
+                                            دوستات
+                                            به سایت 5 امتیاز به دست میاری و با هر خرید 10 امتیاز , میتونی هر وقت
+                                            امتیازاتت
+                                            به صد یا بیشتر رسید از طریق منو امتیازات اونا رو به کد تخفیف تبدیل کنی . اگه
+                                            سوالی راجع به سایت داشتی اول قسمت سوالات متداول رو بخون و اگه جوابت رو اینجا
+                                            پیدا نکردی خوشحال میشیم از طریق تیکت پشتیبانی جواب سوالت رو بدیم </p>
+                                        <p class="text-muted">از پیش خوان حساب کاربری خود میتوانید <span
+                                                class="def-color fw-bold"> سفارش هاتون</span>
+                                            رو ببینید به راحتی آدرس <span class="def-color fw-bold">آدرس حمل و نقل و صورت حساب</span>
+                                            را مدیریت کنید
+                                            و <span class="def-color fw-bold">اطلاعات حساب کاربری </span> خود
+                                            خودتون رو تغییر بدین
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-3 mx-auto my-auto">
+                                        <div class="panel-image">
+                                            <img src="{% static 'assets/image/logo.png' %}" alt="fapo shop logo"
+                                                 class="img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            {% include 'accounts/edit_user_profile_form.html' with form=form %}
+                            {% if user.profile.zip_code %}
+                                <div class="ui-boxs" id="information-section">
+                                    <div class="ui-box">
+                                        <div class="ui-box-item ui-box-white">
+                                            <div class="ui-box-item-title">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h4 class="fw-bold"><i
+                                                            class="fa-solid fa-user-large main-color-one-color"></i>&nbsp;
+                                                        اطلاعات شخصی
+                                                    </h4>
+                                                    <button data-bs-toggle="modal" onclick="loadForm()"
+                                                            class="btn btn-sm main-color-one-bg waves-effect waves-light"
+                                                            href="">ویرایش <i class="bi bi-pencil-fill text-white"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="ui-box-item-desc p-0">
+                                                <table class="table main-table shadow-none main-table-2">
+                                                    <tbody>
+                                                    <tr>
+                                                        <td colspan="2" class="text-start p-3">
+                                                            <h6>نام </h6>
+                                                            <p class="mt-2">{{ user.profile.first_name }} </p>
+                                                        </td>
+                                                        <td colspan="2" class="text-start p-3">
+                                                            <h6>نام خانوادگی</h6>
+                                                            <p class="mt-2">{{ user.profile.last_name }}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2" class="text-start p-3">
+                                                            <h6>پست الکترونیک ( ایمیل )</h6>
+                                                            <p class="mt-2">{{ user.profile.email }}</p>
+                                                        </td>
+                                                        <td colspan="2" class="text-start p-3">
+                                                            <h6>شماره تلفن همراه</h6>
+                                                            <p class="mt-2">{{ user.phone_number }}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2" class="text-start p-3">
+                                                            <h6>عضویت</h6>
+                                                            <p class="mt-2"> {{ user.profile.join_date|convert_to_persian_date }}</p>
+                                                        </td>
+                                                        <td colspan="2" class="text-start p-3">
+                                                            <h6>{{ user.profile.zip_code }}</h6>
+                                                            <p class="mt-2">_</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="4" class="text-start p-3">
+                                                            <h6>آدرس: </h6>
+                                                            <p class="mt-2">{{ user.profile.province }} {{ user.profile.city }} {{ user.profile.address }}</p>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            {% else %}
+                                <div class="ui-boxs" id="information-section">
+                                    <div class="ui-box">
+                                        <div class="ui-box-item ui-box-white">
+                                            <div class="ui-box-item-title">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h4 class="fw-bold"><i
+                                                            class="fa-solid fa-user-large main-color-one-color"></i>&nbsp;
+                                                        اطلاعات شخصی
+                                                    </h4>
+                                                    <button data-bs-toggle="modal" onclick="loadForm()"
+                                                            class="btn btn-sm main-color-one-bg waves-effect waves-light"
+                                                            href="">تکمیل مشخصات کاربری<i
+                                                            class="bi bi-pencil-fill text-white"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="p-4">
+                                                <h6> برای بهره مندی از تمام امکانات سایت و تسریع در فرایند خرید
+                                                    ممنون
+                                                    میشم از طریق دکمه تکمیل مشخصات کاربری در بالا اطلاعات خودتون رو
+                                                    وارد کنید
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+
+                            {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        function loadForm() {
+            const info = document.getElementById("information-section");
+            const formDiv = document.getElementById("address-from");
+            info.classList.add("hidden");
+            formDiv.classList.remove("hidden");
+        }
+    </script>
+
+{% endblock %}

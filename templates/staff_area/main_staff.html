@@ -1,0 +1,348 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load site_tags %}
+{% block title %}
+
+    {% if section == "main" %}
+        پنل ادمین
+    {% elif section == 'orders' %}
+        پنل ادمین : سفارشات
+    {% elif section == 'tickets' %}
+        پنل ادمین : تیکت ها
+    {% elif  section == "events" %}
+        پنا ادمین : جشنواره ها
+    {% elif section == "ticket" %}
+        پنل ادمین : جزییات تیکت
+    {% elif section == "order" %}
+        پنل ادمین : جرییات سفارش
+    {% endif %}
+{% endblock %}
+{% block content %}
+
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item active main-color-one-color font-14" aria-current="page">
+                                پنل ادمین
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+
+
+    <!-- start content -->
+
+    <div class="content">
+        <div class="container-fluid">
+
+            <!-- start side-menu in mobile -->
+            <div class="custom-filter d-lg-none d-block">
+                <button class="btn btn-filter-float border-0 main-color-two-bg shadow-box px-4 rounded-3 position-fixed"
+                        style="z-index: 999;bottom:80px;" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    <i class="bi bi-list font-20 fw-bold text-white"></i>
+                    <span class="d-block font-14 text-white">منو</span>
+                </button>
+
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasRight"
+                     aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasRightLabel">منو</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="panel-side">
+                            <div class="content-box pb-0">
+                                <div class="container-fluid">
+                                    <div class="profile-box">
+                                        <nav class="navbar profile-box-nav">
+                                            <ul class="navbar-nav flex-column">
+                                                {% if section == "main" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="fa-solid fa-user-large "></i></a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'staff_area:main' %}"
+                                                                            class="nav-link">
+                                                        <i class="fa-solid fa-user-large "></i>سربرگ اصلی</a>
+                                                    </li>
+
+                                                {% endif %}
+                                                {% if section == "tickets" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="fa-solid fa-user-large "></i>تیکت ها<span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-tickets1"></span></a>
+                                                    </li>
+                                                {% elif section == "ticket" %}
+                                                    <li class="nav-item active"><a
+                                                            href="{% url 'staff_area:tickets_list' %}" class="nav-link">
+                                                        <i class="fa-solid fa-user-large "></i>تیکت ها<span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-tickets1"></span></a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'staff_area:tickets_list' %}"
+                                                                            class="nav-link">
+                                                        <i class="fa-solid fa-user-large "></i>تیکت ها<span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-tickets1"></span></a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == "orders" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="bi bi-cart-check"></i>سفارش ها <span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-orders1"></span></a>
+                                                    </li>
+                                                {% elif section == "order" %}
+                                                    <li class="nav-item active"><a
+                                                            href="{% url 'staff_area:orders_list' %}" class="nav-link">
+                                                        <i class="bi bi-cart-check"></i>سفارش ها <span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-orders1"></span></a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'staff_area:orders_list' %}"
+                                                                            class="nav-link">
+                                                        <i class="bi bi-cart-check"></i>سفارش ها <span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-orders1"></span></a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == 'events' %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="bi bi-award"></i>ایونت ها <span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-events1"></span></a>
+                                                    </li>
+                                                {% elif section == 'event' %}
+                                                    <li class="nav-item active"><a href="{% url 'staff_area:offers' %}"
+                                                                                   class="nav-link">
+                                                        <i class="bi bi-award"></i>ایونت ها <span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-events1"></span></a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item "><a href="{% url 'staff_area:offers' %}"
+                                                                             class="nav-link">
+                                                        <i class="bi bi-award"></i>ایونت ها <span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-events1"></span></a>
+                                                    </li>
+
+                                                {% endif %}
+                                                <li class="nav-item">
+                                                </li>
+
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- end side-menu in mobile -->
+
+            <div class="dashboard-panel">
+                <div class="row gy-3">
+                    <div class="col-lg-3 d-lg-block d-none">
+                        <div class="panel-side">
+                            <div class="content-box pb-0">
+                                <div class="container-fluid">
+
+                                    <div class="profile-box">
+                                        <nav class="navbar profile-box-nav">
+                                            <ul class="navbar-nav flex-column">
+                                                {% if section == "main" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="fa-solid fa-user-large "></i>سربرگ اصلی</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'staff_area:main' %}"
+                                                                            class="nav-link">
+                                                        <i class="fa-solid fa-user-large "></i>سربرگ اصلی</a>
+                                                    </li>
+
+                                                {% endif %}
+                                                {% if section == "tickets" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="fa-solid fa-user-large "></i>تیکت ها<span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-tickets"></span></a>
+                                                    </li>
+                                                {% elif section == "ticket" %}
+                                                    <li class="nav-item active"><a
+                                                            href="{% url 'staff_area:tickets_list' %}" class="nav-link">
+                                                        <i class="fa-solid fa-user-large "></i>تیکت ها<span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-tickets"></span></a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'staff_area:tickets_list' %}"
+                                                                            class="nav-link">
+                                                        <i class="fa-solid fa-user-large "></i>تیکت ها<span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-tickets"></span></a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == "orders" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="bi bi-cart-check"></i>سفارش ها <span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-orders"></span></a>
+                                                    </li>
+                                                {% elif section == "order" %}
+                                                    <li class="nav-item active"><a
+                                                            href="{% url 'staff_area:orders_list' %}" class="nav-link">
+                                                        <i class="bi bi-cart-check"></i>سفارش ها <span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-orders"></span></a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'staff_area:orders_list' %}"
+                                                                            class="nav-link">
+                                                        <i class="bi bi-cart-check"></i>سفارش ها <span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-orders"></span></a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == 'events' %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="bi bi-award"></i>ایونت ها <span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-events"></span></a>
+                                                    </li>
+                                                {% elif section == 'event' %}
+                                                    <li class="nav-item active"><a href="{% url 'staff_area:offers' %}"
+                                                                                   class="nav-link">
+                                                        <i class="bi bi-award"></i>ایونت ها <span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-events"></span></a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item "><a href="{% url 'staff_area:offers' %}"
+                                                                             class="nav-link">
+                                                        <i class="bi bi-award"></i>ایونت ها <span
+                                                            class="badge rounded-pill badge-spn"
+                                                            id="active-events"></span></a>
+                                                    </li>
+
+                                                {% endif %}
+                                                <li class="nav-item">
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="content-box">
+                            <div class="container-fluid">
+                                <div class="row gy-3">
+                                    <div class="col-lg-8">
+                                        <p> قیمت خرید کل کالاهای سایت : {{ profit.total_invest|intcomma }} تومان</p>
+                                        <p> فروش کل کالاهای سایت : {{ profit.sell_prices|intcomma }} تومان</p>
+                                        <p> سود کل فروش : {{ profit.profit|intcomma }} تومان</p>
+                                    </div>
+                                    <div class="col-lg-3 mx-auto my-auto">
+                                        <div class="panel-image">
+                                            <img src="{% static 'assets/image/logo.png' %}" alt="fapo shop logo"
+                                                 class="img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <div class="content-box">
+                                <div class="container-fluid">
+                                    <div class="row gy-3">
+
+
+                                        {% if section == "main" %}
+
+                                            {% include 'staff_area/main_details.html' with tickets=tickets offers=offers orders=orders %}
+
+                                        {% elif section == 'orders' %}
+                                            {% include 'staff_area/admin_orders_list.html' with orders=orders %}
+                                        {% elif section == 'tickets' %}
+                                            {% include 'staff_area/admin_tickets_list.html' with tickets=tickets %}
+                                        {% elif  section == "events" %}
+                                            {% include 'staff_area/admin_offers_list.html' with offers=offers form=form %}
+                                        {% elif section == "ticket" %}
+                                            {% include 'staff_area/ticket_details.html' with ticket=ticket form=form %}
+                                        {% elif section == "order" %}
+                                            {% include 'staff_area/order_detail_admin.html' with order=order %}
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Function to send POST requests and fetch new data
+        function fetchNewData() {
+            fetch('{% url 'staff_area:get_data' %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken // CSRF token for security
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // Parse the JSON response
+                })
+                .then(data => {
+                    if (data.status === "ok") {
+                        document.getElementById('active-events').innerText = data.active_offers;
+                        document.getElementById('active-events1').innerText = data.active_offers;
+                        document.getElementById('active-tickets').innerText = data.active_tickets;
+                        document.getElementById('active-tickets1').innerText = data.active_tickets;
+                        document.getElementById('active-orders').innerText = data.active_orders;
+                        document.getElementById('active-orders1').innerText = data.active_orders;
+                    } else {
+                        console.error("Unexpected response status:", data);
+                    }
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        // Function to retrieve the CSRF token from cookies
+
+
+        // Run fetchNewData every 5 seconds
+        setInterval(fetchNewData, 5000);
+    </script>
+
+
+{% endblock %}

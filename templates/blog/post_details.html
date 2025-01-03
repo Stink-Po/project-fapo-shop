@@ -1,0 +1,422 @@
+{% extends 'base.html' %}
+{% load site_tags %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+{% block tags %}
+    <meta name="description"
+          content=" {{ post.title }} {{ post.subtitle }} {% for part in section %} {{ part.subtitle }}{% endfor %}">
+    <meta property="og:title" content=" {{ post.title }}">
+    <meta property="og:description"
+          content="{{ post.title }} {{ post.subtitle }} {% for part in section %} {{ part.subtitle }}{% endfor %}">
+    <meta property="og:image" content="{{ post.image.url }}">
+    <meta name="twitter:title" content=" {{ post.title }}">
+    <meta name="twitter:description"
+          content="{{ post.title }} {{ post.subtitle }} {% for part in section %} {{ part.subtitle }}{% endfor %}">
+    <meta name="twitter:image" content="{{ post.image.url }}">
+{% endblock %}
+{% block content %}
+
+
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="{% url 'blog:main' %}"
+                                                           class="font-14 text-muted">بلاگ</a></li>
+                            <li class="breadcrumb-item active main-color-one-color font-14"
+                                aria-current="page">{{ post.title }}
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+
+    <!-- start content -->
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row gy-3">
+                <div class="col-lg-9">
+                    <div class="content-box">
+                        <div class="container-fluid">
+                            <div class="blog-detail">
+                                <div class="title-panel mb-2">
+                                    <h1 class="font-18 p-3">
+                                        {{ post.title }}
+                                    </h1>
+                                </div>
+                                <div class="blog-post-title-items">
+                                    <div class="blog-post-title-item">
+                                        <img src="{% static 'assets/image/logo.png' %}" class="rounded-circle" alt="">
+                                        <p class="text-muted">فاپو شاپ</p>
+                                    </div>
+                                    <div class="blog-post-title-item">
+                                        <i class="bi bi-stopwatch"></i>
+                                        <p class="text-muted">{{ post.created.date|convert_to_persian_date }}
+                                        </p>
+                                    </div>
+                                    <div class="blog-post-title-item">
+                                        <i class="bi bi-chat-dots"></i>
+                                        <p>{{ post_comments|length }}</p>
+                                    </div>
+                                    <div class="blog-post-title-item">
+                                        <i class="bi bi-eye-fill"></i>
+                                        <p class="text-muted">5 دقیقه مطالعه</p>
+                                    </div>
+                                </div>
+                                <div class="blog-post-content">
+                                    <div class="blog-post-content">
+                                        <h4 class="title gold mb-2">{{ post.subtitle }}</h4>
+                                        <figure class="image-center"><img class="aligncenter p-5"
+                                                                          src="{{ post.image.url }}"
+                                                                          alt="{{ post.title }}">
+                                        </figure>
+                                        <p>&nbsp;</p>
+
+                                        <p>{{ post.body }}</p>
+                                        <p>&nbsp;</p>
+                                    </div>
+                                    {% if section %}
+                                        {% for part in section %}
+                                            <div class="blog-post-content">
+                                                <h4 class="title gold mb-2">{{ part.subtitle }}</h4>
+                                                <p>{{ part.body }}</p>
+                                                {% if part.image %}
+                                                    <figure class="image-center"><img class="aligncenter p-5"
+                                                                                      src="{{ part.image.url }}"
+                                                                                      alt="{{ part.subtitle }}">
+                                                    </figure>
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="side-blog-detail position-sticky top-0">
+                        {% if must_sell_products %}
+                            <div class="sugget-pro-in-blog-post mt-3">
+                                <div class="content-box">
+                                    <div class="container-fluid">
+                                        <div class="title-panel mb-2">
+                                            <h6 class="title">
+                                                پر فروش ترین محصولات
+                                            </h6>
+                                        </div>
+                                        {% for product in must_sell_products %}
+                                            <div class="blog-news-item mt-4">
+                                                <a href="{{ product.get_absolute_url }}">
+                                                    <img src="{{ product.images.all.0.image.url }}"
+                                                         alt="تصویر {{ product.name }}" class="img-fluid">
+                                                    <div class="desc">
+                                                        <h3 class="title">{{ product.name }}</h3>
+                                                        <div class="date">
+                                                            {% if product.discount != 0 %}
+                                                                <span class="new-price">{{ product.get_discounted_price|intcomma }}  تومان </span>
+                                                                <span class="old-price text-danger">{{ product.price|intcomma }}  تومان </span>
+                                                            {% else %}
+                                                                <span class="new-price">{{ product.price|intcomma }}  تومان </span>
+                                                            {% endif %}
+                                                            <i class="bi bi-arrow-left"></i>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class="latest-posts">
+                            <div class="content-box">
+                                <div class="container-fluid">
+                                    <div class="title-panel mb-2">
+                                        <h6 class="title">
+                                            آخرین مطالب وبلاگ
+                                        </h6>
+                                    </div>
+                                    <nav class="navbar">
+                                        <ul class="navbar-nav">
+                                            {% for post in latest_posts %}
+                                                <li class="nav-item">
+                                                    <a href="{{ post.get_absolute_url }}" class="nav-link">
+                                                        <div class="mini-blog-item">
+                                                            <div class="image">
+                                                                <img src="{{ post.image.url }}" class="img-fluid"
+                                                                     alt="">
+                                                            </div>
+                                                            <div class="d-flex align-items-start desc flex-wrap flex-column justify-content-between">
+                                                                <h5 class="title">{{ post.title }}</h5>
+                                                                <div class="d-flex align-items-center">
+                                                                    <p class="text-muted mb-0">{{ post.created.date|convert_to_persian_date }}</p>
+                                                                    <div class="text-end ms-2"><i
+                                                                            class="bi bi-arrow-left main-color-one-color"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                        {% if most_viewed_post %}
+                            <div class="sugget-pro-in-blog-post mt-3">
+                                <div class="content-box">
+                                    <div class="container-fluid">
+                                        <div class="title-panel mb-2">
+                                            <h6 class="title">
+                                                داغ ترین مطلب امروز
+                                            </h6>
+                                        </div>
+                                        <div class="blog-news-item mt-4">
+                                            <a href="">
+                                                <img src="{{ most_viewed_post.image.url }}" alt="" class="img-fluid">
+                                                <div class="desc">
+                                                    <h3 class="title">{{ most_viewed_post.title }}</h3>
+                                                    <div class="date">
+                                                        <span class="text-date">{{ most_viewed_post.created.date|convert_to_persian_date }}</span>
+                                                        <i class="bi bi-arrow-left"></i>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end content -->
+
+    <div class="blog-comments">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <div class="blog-comment">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="title-panel">
+                                    <h6 class="tab-title text-start">
+                                        {% if post_comments|length != 0 %}
+                                            <span>{{ post_comments.count }}</span>
+                                            <span>دیدگاه برای</span>
+                                            <span>{{ post.title }}</span>
+                                            <span>ثبت شده است</span>
+                                        {% else %}
+                                            <span>دیدگاهی برای این پست ثبت نشده است</span>
+                                        {% endif %}
+                                    </h6>
+                                </div>
+
+                                <!-- Loop through comments -->
+                                {% for comment in post_comments %}
+                                    <div class="comment-item">
+                                        <div class="comment-item-avatar d-sm-flex d-none">
+                                            <div class="comment-item-avatar-img">
+
+                                                <img src="{% static 'assets/image/user-profile.png' %}"
+                                                     class="rounded-circle"
+                                                     width="40" alt="{{ comment.user.username }}">
+
+                                            </div>
+                                        </div>
+                                        <div class="comment-item-desc">
+                                            <div class="comment-item-avatar d-sm-none d-flex mb-2">
+                                                <div class="comment-item-avatar-img">
+                                                    <a href="" class="rounded-circle">
+                                                        <img src="{% static 'assets/image/user-profile.png' %}"
+                                                             class="rounded-circle"
+                                                             width="40" alt="{{ comment.user.username }}">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="comment-item-title">
+                                                <div class="comment-date">
+                                                    <p class="text-muted comment-date-auther">
+                                                        {% if comment.user.profile.first_name %}
+                                                            {{ comment.user.profile.first_name }} {% else %}کاربر
+                                                            سایت{% endif %}</p>
+                                                    <p class="text-muted comment-date-speractor">–</p>
+                                                    <p class="text-muted comment-date-date">{{ comment.created|convert_to_persian_date }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="comment-item-content">
+                                                <p>{{ comment.body }}</p>
+                                            </div>
+                                            {% if user.is_staff %}
+                                                <form method="post"
+                                                      action="{% url 'blog:submit_comment' post_id=post.id %}">
+                                                    {% csrf_token %}
+                                                    {{ comment_form.comment }}
+                                                    <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                                    <button type="submit">Submit Reply</button>
+                                                </form>
+                                            {% endif %}
+                                            <!-- Display replies if available -->
+                                            {% if comment.replies.all %}
+                                                <div class="comment-item">
+                                                    {% for reply in comment.replies.all %}
+                                                        <div class="comment-item-avatar d-sm-flex d-none">
+                                                            <div class="comment-item-avatar-img">
+                                                                <a href="" class="rounded-circle">
+                                                                    <img src="{% static 'assets/image/logo.png' %}"
+                                                                         class="rounded-circle"
+                                                                         width="40" alt="{{ reply.user.username }}">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="comment-item-desc com-response">
+                                                            <div class="comment-item-avatar d-sm-none d-flex mb-2">
+                                                                <div class="comment-item-avatar-img">
+                                                                    <a href="" class="rounded-circle">
+                                                                        <img src="{% static 'assets/image/logo.png' %}"
+                                                                             class="rounded-circle"
+                                                                             width="40" alt="لوگو فاپو شاپ">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="comment-item-title">
+                                                                <div class="comment-date">
+                                                                    <p class="text-muted comment-date-auther">فاپو
+                                                                        شاپ</p>
+                                                                    <p class="text-muted comment-date-speractor">–</p>
+                                                                    <p class="text-muted comment-date-date">{{ reply.created|convert_to_persian_date }}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="comment-item-content">
+                                                                <p>{{ reply.body }}</p>
+                                                            </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+        <div class="container-fluid mt-3">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <div class="comment-form">
+                        <div class="title-panel mb-3">
+                            <h6 class="font-18">دیدگاه خود را بنویسید</h6>
+                        </div>
+                        <form action="{% url 'blog:submit_comment' post_id=post.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group mb-2">
+                                <label for="commentbody" class="form-label my-3">دیدگاه شما <span
+                                        class="text-danger ms-1">*</span></label>
+                                {{ comment_form.comment }}
+                            </div>
+                            <input type="submit" value="ثبت" class="btn main-color-three-bg px-5  rounded-3 mt-3"
+                                   style="padding:10px 100px !important">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="container-fluid mt-3">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <h6>
+                        برای اینکه نظرت رو راجع به این پست ثبت کنی باید <a class="text-danger"
+                                                                           href="{% url 'accounts:login' %}">وارد</a>
+                        سایت شی
+                    </h6>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- end blog-comment -->
+
+
+    <!-- start related post -->
+    {% if similar_posts %}
+        <div class="blog-slider site-slider site-slider-sm py-20">
+
+            <div class="container-fluid">
+                <div
+                        class="header-content mb-4 bg-white shadow-box rounded-3 p-3 d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="title d-flex align-items-center">
+                        <h5 class="font-16 ms-3">مطالب مرتبط <span
+                                class="main-color-one-color d-inline-block">وبلاگ</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parent">
+                <div class="container-fluid">
+                    <div class="swiper product-slider-swiper">
+                        <div class="swiper-wrapper">
+                            {% for similar in similar_posts %}
+                                <div class="swiper-slide">
+                                    <div class="blog-item">
+                                        <a href="">
+                                            <div class="image">
+                                                <img src="{{ similar.image.url }}" alt="" class="img-fluid">
+                                            </div>
+                                            <div class="title">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="title-item">
+                                                        <i class="bi bi-tag me-1"></i>
+                                                        <span class="font-12"></span>
+                                                    </div>
+                                                    <div class="title-item">
+                                                        <i class="bi bi-alarm me-1"></i>
+                                                        <span class="font-12">{{ similar.created.date|convert_to_persian_date }}</span>
+                                                    </div>
+                                                </div>
+                                                <h4 class="font-16 text-overflow-1 h4"> {{ similar.title }}
+                                                </h4>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    {% endif %}
+    <!-- end related post -->
+
+
+{% endblock %}

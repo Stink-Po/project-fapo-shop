@@ -1,0 +1,93 @@
+{% load site_tags %}
+<div id="information-section">
+    {% if user.profile.address %}
+        <div class="ui-box-item p-5">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="fw-bold">
+                    آدرس سفارش :
+                </h4>
+                <button data-bs-toggle="modal" onclick="loadForm()"
+                        class="btn btn-sm main-color-one-bg waves-effect waves-light" href="">
+                    ارسال به آدرس دیگر <i class="bi bi-pencil-fill text-white"></i></button>
+            </div>
+        </div>
+        <div class="ui-box-item-desc p-0 pt-3 table-responsive">
+            <table class="table main-table shadow-none main-table-2">
+                <tbody>
+                <tr>
+                    <td colspan="4" class="text-start p-3">
+                        <h6>گیرنده :</h6>
+                       
+                        <p class="mt-2">{{ user.profile.first_name }} {{ user.profile.last_name }}</p>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-start p-3">
+                        <h6>آدرس: </h6>
+                        {% if user.profile.address %}
+                            <p class="mt-2">{{ user.profile.province }}
+                                - {{ user.profile.city }} {{ user.profile.address }}</p>
+                        {% else %}
+                            <p class="mt-2">-</p>
+                        {% endif %}
+                    </td>
+                    <td colspan="2" class="text-start p-3">
+                        <h6>کد پستی</h6>
+                        {% if user.profile.zip_code %}
+                            <p class="mt-2">{{ user.profile.zip_code }}</p>
+                        {% else %}
+                            <p class="mt-2">-</p>
+                        {% endif %}
+                    </td>
+                </tr>
+                
+                    
+        
+                <tr>
+                    <td colspan="2" class="text-start p-3">
+                        <h6>پست الکترونیک ( ایمیل )</h6>
+                        {% if user.profile.email %}
+                            <p class="mt-2">{{ user.profile.email }}</p>
+                        {% else %}
+                            <p class="mt-2">-</p>
+                        {% endif %}
+                    </td>
+                    <td colspan="2" class="text-start p-3">
+                        <h6>شماره تلفن همراه</h6>
+                        {% if user.phone_number %}
+                            <p class="mt-2">{{ user.phone_number }}</p>
+                        {% else %}
+                            <p class="mt-2">-</p>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+
+                
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="ui-box-item-title">
+            <div class="d-flex justify-content-between align-items-center">
+                <h4 class="fw-bold">
+                    آدرسی برای شما ثبت نشده است
+                </h4>
+                <button data-bs-toggle="modal" onclick="loadForm()"
+                        class="btn btn-sm main-color-one-bg waves-effect waves-light" href="">
+                    وارد کردن آدرس گیرنده <i class="bi bi-pencil-fill text-white"></i></button>
+            </div>
+        </div>
+
+
+    {% endif %}
+</div>
+<script>
+    function loadForm() {
+        const info = document.getElementById("information-section");
+        const formDiv = document.getElementById("address-from");
+        info.classList.add("hidden");
+        formDiv.classList.remove("hidden");
+    }
+</script>

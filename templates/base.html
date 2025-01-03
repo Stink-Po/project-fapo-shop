@@ -1,0 +1,830 @@
+{% load static %}
+{% load humanize %}
+{% load tz %}
+<!DOCTYPE html>
+<html lang="FA-IR" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  {% block title %} {% endblock %}</title>
+    {% block tags %}
+
+    {% endblock %}
+    <meta property="og:locale" content="fa_IR">
+    <meta property="og:updated_time" content="{% now 'Y-m-d\\TH:i:sP' %}">
+    <meta property="og:site_name" content="fapo-shop.ir">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:url" content="{{ canonical }}">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/image/logo.ico' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/image/logo.png' %}">
+    <link href="{% static "assets/image/logo.png" %}" rel="apple-touch-icon">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.rtl.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/font/bootstrap-icon/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/plugin/waves/waves.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/plugin/swiper/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/plugin/timer/timer.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/plugin/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo+Play:wght@800&display=swap" rel="stylesheet">
+    <link rel="canonical" href="{{ canonical }}"/>
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="فاپوشاپ">
+    {% block extra_links %}
+
+    {% endblock %}
+
+    <script src="https://kit.fontawesome.com/ecec113220.js" crossorigin="anonymous"></script>
+    <!-- google map api -->
+
+
+</head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0YSBN1L377"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0YSBN1L377');
+</script>
+<body>
+
+<header>
+
+    <div class="container-fluid">
+        <div class="row align-items-center">
+
+            <!-- logo -->
+            <div class="col-lg-2 col-6 order-lg-1 order-1">
+                <div class="d-flex align-items-center">
+                    <div class="responsive-menu d-lg-none d-block">
+                        <button class="btn border-0 p-0 btn-responsive-menu" type="button"
+                                data-bs-toggle="offcanvas" data-bs-target="#responsiveMenu"
+                                aria-controls="responsive menu">
+                            <i class="bi bi-list font-30"></i>
+                        </button>
+                        <div class="offcanvas offcanvas-start" tabindex="-1" id="responsiveMenu"
+                             aria-labelledby="responsive menu">
+                            <div class="offcanvas-header">
+                                <h5 class="offcanvas-title" id="offcanvasRightLabel">فاپوشاپ</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <a href="" class="text-center d-block mb-3">
+                                    <img src="{% static 'assets/image/logo.png' %}" alt="logo" class="img-fluid"
+                                         width="200">
+                                </a>
+                                <div class="header-bottom-form mb-4 w-100">
+                                    <div class="search-form">
+                                        <form action="{% url 'shop:search' %}">
+                                            {% csrf_token %}
+                                            <div class="search-filed">
+                                                <label>
+                                                    <input name="query" type="text" placeholder="جستجوی محصولات ..."
+                                                           class="form-control search-input">
+                                                </label>
+                                                <button type="submit"
+                                                        class="btn search-btn main-color-one-bg rounded-pill"><i
+                                                        class="bi bi-search"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <ul class="rm-item-menu navbar-nav">
+                                    <li class="nav-item bg-ul-f7"><a href="{% url 'pages:index' %}" class="nav-link"><i
+                                            class="fa-solid fa-house-chimney main-color-one-color"></i>
+                                        صفحه اصلی</a>
+                                    </li>
+                                    <li class="nav-item bg-ul-f7"><a href="{% url 'shop:shop' %}" class="nav-link"><i
+                                            class="fa-solid fa-store main-color-one-color"></i>فروشگاه</a>
+                                    </li>
+                                    <li class="nav-item bg-ul-f7"><a href="{% url 'blog:main' %}"
+                                                                     class="nav-link"><i
+                                            class="fa-solid fa-feather-pointed main-color-one-color"></i>بلاگ</a>
+                                    </li>
+                                    <li class="nav-item bg-ul-f7"><a href="{% url 'pages:about_us' %}" class="nav-link"><i
+                                            class="fa-solid fa-people-group main-color-one-color"></i>درباره
+                                        ما</a>
+                                    </li>
+                                    <li class="nav-item bg-ul-f7"><a href="{% url 'accounts:user_tickets' %}"
+                                                                     class="nav-link"><i
+                                            class="fa-solid fa-person-circle-question main-color-one-color"></i>
+                                        تیکت پشتیبانی</a>
+                                    </li>
+                                    <li class="nav-item bg-ul-f7"><a href="{% url 'offers:offer_list' %}"
+                                                                     class="nav-link"><i
+                                            class="fa-sharp fa-solid fa-percent main-color-one-color"></i>جشنواره های
+                                        فروش</a>
+                                    </li>
+                                    {% if is_staff %}
+                                        <li class="nav-item bg-ul-f7"><a href="{% url 'staff_area:main' %}"
+                                                                         class="nav-link"><i
+                                                class="fa-solid fa-user-tie main-color-one-color"></i>پنل ادمین</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end logo -->
+
+            <!-- action -->
+            <div class="d-lg-none d-block col-6 order-lg-5 order-2">
+                <div class="d-flex align-items-center justify-content-end">
+                    <a class="btn btn-light no-highlight btn-lg btn-action-cart shadow-sm"
+                       data-bs-toggle="offcanvas" href="#offcanvasCart" role="button"
+                       aria-controls="offcanvasCart">
+                        <i class="bi bi-basket font-30"></i>
+                        <span class="header-cart-counter main-color-one-bg d-inline-block rounded-pill cart-count">
+                               {{ cart|length }}
+                            </span>
+                    </a>
+                    {% if user.is_authenticated %}
+                        <div class="dropdown ms-3">
+                            <a href="" data-bs-toggle="dropdown" aria-expanded="false" role="button"
+                               class="btn btn-white header-register border-0 rounded-pill">
+                                <i class="bi bi-person-circle fa-2x font-20 text-muted me-1 main-color-one-color"></i>&nbsp;
+
+                                <span> حساب کاربری </span>
+
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'accounts:main_profile' %}" class="dropdown-item"><i
+                                        class="bi bi-house-door me-2"></i>پروفایل</a></li>
+                                <li><a href="{% url 'accounts:logout' %}" class="dropdown-item mct-hover"><i
+                                        class="bi bi-arrow-right-square me-2"></i>خروج از حساب کاربری</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <div class="dropdown ms-3">
+                            <a href="{% url 'accounts:login' %}" data-bs-toggle="" aria-expanded="false"
+                               role="button"
+                               class="btn btn-white header-register border-0 rounded-pill">
+                                <i class="bi bi-person-circle fa-2x font-20 text-muted me-1 main-color-one-color"></i>&nbsp;
+                                <span> ثبت نام / ورود</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="" class="dropdown-item"><i
+                                        class="bi bi-house-door me-2"></i>پروفایل</a></li>
+                                <li><a href="" class="dropdown-item"><i class="bi bi-cart-check me-2"></i>امتیازات
+                                    من</a></li>
+                                <li><a href="" class="dropdown-item mct-hover"><i
+                                        class="bi bi-arrow-right-square me-2"></i>خروج از حساب کاربری</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- start mega menu -->
+
+<div class="mega-menu d-lg-block d-none">
+    <div class="container-fluid">
+        <div class="top-menu-parent">
+            <div class="row align-items-center">
+                <div class="col-lg-9">
+                    <div class="top-menu-menu">
+                        <ul class="navbar-nav align-items-center">
+                            <li class="position-relative m-0 p-2"><a href="{% url 'pages:index' %}">
+                                <div class="logo">
+                                    <img src="{% static 'assets/image/logo.png' %}" alt="" class="img-fluid"
+                                         style="width: 120px; height: 100px;">
+                                </div>
+                            </a></li>
+
+
+                            <li class="nav-item active"><a href="{% url 'pages:index' %}"
+                                                           class="nav-link border-animate fromCenter"> <i
+                                    class="fa-solid fa-house-chimney main-color-one-color"></i>
+                                <strong> صفحه اصلی </strong></a></li>
+                            <li class="nav-item"><a href="{% url 'shop:shop' %}"
+                                                    class="nav-link border-animate fromCenter"> <i
+                                    class="fa-solid fa-store main-color-one-color"></i>
+                                <strong>فروشگاه </strong></a></li>
+                            <li class="nav-item"><a href="{% url 'blog:main' %}"
+                                                    class="nav-link border-animate fromCenter"> <i
+                                    class="fa-solid fa-feather-pointed main-color-one-color"></i>
+                                <strong> بلاگ</strong></a></li>
+                            <li class="nav-item"><a href="{% url 'pages:about_us' %}"
+                                                    class="nav-link border-animate fromCenter"> <i
+                                    class="fa-solid fa-people-group main-color-one-color"></i>
+                                <strong> درباره ما</strong></a></li>
+                            <li class="nav-item"><a href="{% url 'accounts:user_tickets' %}"
+                                                    class="nav-link border-animate fromCenter"> <i
+                                    class="fa-solid fa-person-circle-question main-color-one-color"></i>
+                                <strong>تیکت پشتیبانی </strong></a></li>
+
+                            <li class="nav-item"><a href="{% url 'offers:offer_list' %}"
+                                                    class="nav-link border-animate fromCenter"> <i
+                                    class="fa-sharp fa-solid fa-percent main-color-one-color"></i>
+                                <strong> جشنواره های فروش</strong></a></li>
+                            {% if is_staff %}
+                                <li class="nav-item"><a href="{% url 'staff_area:main' %}"
+                                                        class="nav-link border-animate fromCenter"><i
+                                        class="fa-solid fa-user-tie main-color-one-color"></i>
+                                    <strong> پنل ادمین</strong></a></li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="d-flex align-items-center justify-content-end">
+                        <div class="btn-group header-btn-group shadow-sm rounded-pill">
+                            {% if user.is_authenticated %}
+                                <div class="dropdown">
+                                    <a href="" data-bs-toggle="dropdown" aria-expanded="false" role="button"
+                                       class="btn btn-white header-register border-0 rounded-pill">
+                                        <i class="bi bi-person-circle font-20 text-muted me-1 main-color-one-color"></i>
+                                        <span> حساب کاربری </span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{% url 'accounts:main_profile' %}" class="dropdown-item"><i
+                                                class="bi bi-house-door me-2"></i>پروفایل</a></li>
+                                        <li><a href="{% url 'accounts:logout' %}" class="dropdown-item mct-hover"><i
+                                                class="bi bi-arrow-right-square me-2"></i>خروج از حساب کاربری</a></li>
+                                    </ul>
+                                </div>
+                            {% else %}
+                                <div class="dropdown">
+                                    <a href="{% url 'accounts:login' %}" data-bs-toggle="" aria-expanded="false"
+                                       role="button"
+                                       class="btn btn-white header-register border-0 rounded-pill">
+                                        <i class="bi bi-person-circle  font-20 text-muted me-1 main-color-one-color"></i>&nbsp;
+                                        <span> ثبت نام / ورود   </span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="" class="dropdown-item"><i
+                                                class="bi bi-house-door me-2"></i>پروفایل</a></li>
+                                        <li><a href="" class="dropdown-item mct-hover"><i
+                                                class="bi bi-arrow-right-square me-2"></i>خروج از حساب کاربری</a></li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="header-cart ms-1">
+                            <a class="btn header-cart-toggle rounded-pill btn-white border-0 shadow-sm"
+                               data-bs-toggle="offcanvas" href="#offcanvasCart" role="button"
+                               aria-controls="offcanvasCart">
+                                <i class="bi bi-shop font-20 text-muted me-1"></i>
+                                <span class="header-cart-counter main-color-one-bg d-inline-block rounded-pill cart-count">
+                                    {{ cart|length }}
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12 order-lg-2 d-lg-block d-none p-3 bg-body">
+    <div class="search-form">
+        {% csrf_token %}
+        <form action="{% url 'shop:search' %}">
+            <div class="search-filed">
+                <input name="query" type="text" placeholder="جستجوی محصولات ..." class="form-control search-input">
+                <button type="submit" class="btn search-btn main-color-one-bg rounded-pill"><i
+                        class="bi bi-search"></i></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- end mega menu -->
+
+{% block content %}
+{% endblock %}
+
+
+<!-- start footer -->
+
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="footer-socail">
+            <div class="row gy-3">
+                <div class="col-lg-3">
+                    <div class="contact-item">
+                        <div class="title">
+                            <i class="bi bi-telephone-fill main-color-one-color"></i>
+                            <h4 class="font-16"><span class="main-color-one-color">شماره های </span>ارتباطی</h4>
+                        </div>
+                        <div class="desc">
+                            <a href="tel:+989180880667" class="text-muted">09180880667</a>
+                            <span class="m1-3">-</span>
+                            <a href="tel:+08337105124" class="text-muted">0833-7105124</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="contact-item">
+                        <div class="title">
+                            <i class="bi bi-envelope-fill main-color-one-color"></i>
+                            <h4 class="font-16"><span class="main-color-one-color"> ایمیل  </span>ارتباطی</h4>
+                        </div>
+                        <div class="desc">
+                            <a href="mailto:info@fapo-shop.ir" class="text-muted">info@fapo-shop.ir</a>
+                            <span class="m1-3"></span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="contact-item">
+                        <div class="title">
+                            <i class="bi bi-geo-alt-fill main-color-one-color"></i>
+                            <h4 class="font-16"><span class="main-color-one-color"> آدرس </span>فاپوشاپ</h4>
+                        </div>
+                        <div class="desc">
+                            <span class="text-muted">کرمانشاه - شهرک پردیس بلوار شفایق امیریه لاله 3 طبفه 9 واحد 2</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="contact-item">
+                        <div class="title">
+                            <i class="bi bi-chevron-down main-color-one-color"></i>
+                            <h4 class="font-16"><span class="main-color-one-color"> فروشگاه </span>در رسانه ها</h4>
+                        </div>
+                        <div class="desc">
+                            <div class="social">
+                                <a href="https://www.instagram.com/fapoo.shop?igsh=cnJycGZjcHFqam12" target="_blank"><i
+                                        class="bi bi-instagram"></i></a>
+                                <a href="https://wa.me/+989180880667" target="_blank"><i class="bi bi-whatsapp"></i></a>
+                                <a href="https://t.me/+sbX5_TBMSgpkOGJk" target="_blank"><i class="bi bi-telegram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-menu">
+            <div class="row gy-3">
+                <div class="col-lg-3 col-6">
+                    <div class="footer-menu-title">
+                        <h4 class="font-16">دسترسی سریع</h4>
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a href="{% url 'pages:contact' %}" class="nav-link">تماس با ما</a>
+                            </li>
+                            <li class="nav-item"><a href="{% url 'pages:frequency_asked_questions' %}" class="nav-link">سوالات
+                                متداول</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link">انتقادات و پیشنهادات</a></li>
+                            <li class="nav-item"><a href="{% url 'pages:terms' %}" class="nav-link">قوانین و مقررات</a>
+                            </li>
+                            <li class="nav-item"><a href="{% url 'pages:privacy_policy' %}" class="nav-link">حریم
+                                خصوصی</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-6">
+                    <div class="footer-menu-title">
+                        <h4 class="font-16">خدمات ما</h4>
+                        <ul class="navbar-nav">
+                            <li class="nav-item"><a class="nav-link">ضمانت بازگشت وجه</a></li>
+                            <li class="nav-item"><a class="nav-link">ارسال پیشتاز</a></li>
+                            <li class="nav-item"><a class="nav-link">مرجوعی راحت</a></li>
+                            <li class="nav-item"><a class="nav-link">پشتیبانی 24 ساعته</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="footer-menu-title">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d2398.783736620199!2d47.02475257257522!3d34.30419154167628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2snl!4v1735314963130!5m2!1sen!2snl"
+                                width="300" height="250" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-text">
+            <div class="row gy-3">
+
+
+                <div class="col-lg-3">
+                    <div class="footer-namad">
+                        <a referrerpolicy='origin' target='_blank'
+                           href='https://trustseal.enamad.ir/?id=548353&Code=Yi32mHfnapHZG0d6ytXWHNfMVywC6yXj'><img
+                                referrerpolicy='origin'
+                                src='https://trustseal.enamad.ir/logo.aspx?id=548353&Code=Yi32mHfnapHZG0d6ytXWHNfMVywC6yXj'
+                                alt='' style='cursor:pointer' code='Yi32mHfnapHZG0d6ytXWHNfMVywC6yXj'></a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copy-right">
+            <p class="text-center mb-0">&copy; <span id="currentYear"></span> فاپوشاپ . کلیه حقوق محفوظ است.</p>
+        </div>
+        <div class="footer-copy-right">
+            <p class="text-center mb-0"> طراحی و کدنویسی توسط <a href="https://www.linkedin.com/in/pourya-mohamadi/"
+                                                                 target="_blank"><strong>پوریا محمدی</strong></a> با
+                استفاده از <a href="https://www.djangoproject.com/" target="_blank"><strong>جنگو</strong></a>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- end footer -->
+
+<!-- mobile menu -->
+
+
+<div class="mobile-footer d-lg-none d-flex ">
+    <div class="parent align-items p-4">
+        <div class="item" onclick="topFunction()">
+            <i class="bi bi-chevron-up font-20"></i>
+        </div>
+        <div class="item">
+            <a href="{% url 'pages:index' %}" class="btn">
+                <div class="d-flex flex-column align-items-center">
+                    <i class="fa-solid fa-house main-color-one-color"></i>
+                    <h6 class="main-color-one-color">صفحه اصلی</h6>
+                </div>
+            </a>
+        </div>
+        <div class="item item-float">
+            <a data-bs-toggle="offcanvas" href="#offcanvasCart" role="button"
+               aria-controls="offcanvasCart" class="btn">
+                <i class="bi bi-basket font-30"></i>
+            </a>
+
+        </div>
+        <div class="item">
+            <a href="{% url 'shop:shop' %}" class="btn">
+                <div class="d-flex flex-column align-items-center">
+                    <i class="fa-solid fa-shop main-color-one-color"></i>
+                    <h6 class="main-color-one-color">فروشگاه</h6>
+                </div>
+            </a>
+        </div>
+        <div class="item">
+            {% if user.is_authenticated %}
+                <a href="{% url 'accounts:main_profile' %}" class="btn">
+                    <div class="d-flex flex-column align-items-center">
+                        <i class="fa-regular fa-user font-30 main-color-one-color"></i>
+                        <h6 class="main-color-one-color">پروفایل</h6>
+                    </div>
+                </a>
+            {% else %}
+                <a href="{% url 'accounts:main_profile' %}" class="btn">
+                    <div class="d-flex flex-column align-items-center">
+                        <i class="fa-regular fa-user font-30 main-color-one-color"></i>
+                        <h6 class="main-color-one-color">ثبت نام / ورود</h6>
+                    </div>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<!-- end mobile menu -->
+
+
+<!-- cart canvas -->
+
+<div class="offcanvas cart-canvas offcanvas-end" tabindex="-1" id="offcanvasCart" aria-labelledby="offcanvasCartLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasCartLabel">سبد خرید</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="cart-canvases" id="cart-canvases">
+            <div id="cart-items-container">
+                {% for product in cart %}
+                    {% with item=product %}
+                        <div class="item">
+                            <div class="row gy-2">
+                                <div class="col-12">
+
+                                    <div class="title">
+                                        <h6 class="font-14">{{ item.name }} </h6>
+                                    </div>
+                                    <div class="price d-flex p-2">
+                                        <p class="fw-bold me-2">رنگ:</p>
+                                        <p class="text-muted font-12 me-2">
+                                            <span style="display: inline-block; width: 20px; height: 20px; border-radius: 50%; background-color: {{ item.color_name }}; margin-right: 10px;"></span>
+                                        </p>
+                                    </div>
+                                    <div class="price d-flex">
+                                        <p class="fw-bold me-2">مبزان تخفیف:</p>
+                                        {% if item.discount != "0" %}
+                                            <p class="text-end mb-2 price-off fw-bold me-2">{{ item.discount }} %</p>
+                                        {% else %}
+                                            <p class="text-end mb-2 price-off fw-bold me-2"> - </p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="price d-flex">
+                                        <p class="fw-bold me-2">قیمت کالا:</p>
+                                        {% if item.discount != "0" %}
+                                            <p class="text-end mb-2 price-off fw-bold me-2">{{ item.discount_price|intcomma }}
+                                                تومان</p>
+                                            <p class="text-end price-discount me-2">{{ item.price|intcomma }} تومان</p>
+                                        {% else %}
+                                            <p class="text-end mb-2 price-off fw-bold me-2">{{ item.price|intcomma }}
+                                                تومان</p>
+                                        {% endif %}
+                                    </div>
+                                    <div class="price d-flex">
+                                        <p class="fw-bold me-2">تعداد:</p>
+                                        <p class="text-end mb-2 price-off fw-bold me-2">{{ item.quantity }} عدد</p>
+                                        <div class="counter me-2">
+                                            <label>
+                                                <input type="text" name="count" class="counter"
+                                                       data-product-id="{{ item.product_id }}"
+                                                       data-color-id="{{ item.color_id }}" value="{{ item.quantity }}">
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="price d-flex">
+                                        <p class="fw-bold me-2">جمع قیمت این کالا:</p>
+                                        <p class="text-end mb-2 price-off fw-bold me-2">{{ item.total_price|intcomma }}
+                                            تومان</p>
+                                    </div>
+                                    <div class="action d-flex">
+                                        <p class="fw-bold me-2 pt-2">حذف کالا :</p>
+                                        <div class="remove rounded-3">
+                                            <a class="me-2 waves-effect remove-btn" href=""
+                                               data-product-id="{{ item.product_id }}"
+                                               data-color-id="{{ item.color_id }}">
+                                                <i class="bi bi-x font-25  text-danger"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+            {% if cart|length == 0 %}
+                <div class="content" id="empty-card">
+                    <div class="container-fluid">
+                        <div class="content-box">
+                            <div class="container-fluid">
+                                <div class="text-center">
+                                    <img src="{% static 'assets/image/empty-cart (1).svg' %}" style="max-width: 400px;"
+                                         alt="" class="mx-auto d-block">
+                                    <h6 class="font-18 mt-4">سبد خرید شما خالی است</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                {% if  not cart.have_discount_code %}
+                    <div class="d-flex flex-column justify-content-center align-items-center text-center p-3 item hidden"
+                         id="status">
+                        <span id="ok-message" class="text-success"></span>
+                        <span id="error-message" class="text-danger"></span>
+                    </div>
+
+                    <div class="item" id="form-div">
+                        <form id="coupon-form">
+                            {% csrf_token %}
+                            <div class="d-flex">
+                                <div class="form-floating me-2">
+                                    <input name="code" type="text"
+                                           class="form-control float-input me-2"
+                                           id="discount-code" placeholder="کد تخفیف">
+                                    <label for="discount-code">کد تخفیف</label>
+                                </div>
+
+                                <!-- Error message placeholder -->
+
+                                <button type="button"
+                                        id="code-btn"
+                                        class="btn border-0 main-color-one-bg waves-effect waves-light  rounded-3 me-2">
+                                    برسی کد
+                                </button>
+                            </div>
+
+
+                        </form>
+                    </div>
+                    <div class="action mt-3 d-flex align-items-center justify-content-center">
+                        <a id="hidden-btn" href=""
+                           class="btn border-0 main-color-one-bg rounded-3 w-100 hidden text-center align-items-center justify-content-center">اعمال
+                            کد تخفیف
+
+                        </a>
+
+                    </div>
+                {% else %}
+                    <div class="item">
+                        <div class="price d-flex" id="discount-amount">
+                            <p class=""> میزان کد تخفیف اعمال شده : <span
+                                    class="text-end  price-off fw-bold me-2">{{ cart.discount_code_amount }} %</span>
+                            </p>
+                        </div>
+
+                    </div>
+
+                {% endif %}
+                <div class="action mt-3 d-flex align-items-center justify-content-center">
+                    <a id="hidden-btn" href=""
+                       class="btn border-0 main-color-one-bg rounded-3 w-100 hidden text-center align-items-center justify-content-center">اعمال
+                        کد تخفیف
+
+                    </a>
+
+                </div>
+                <div class="factor pt-3 item">
+                <div class="title pb-3">
+                    <div class="d-flex align-items-center">
+                        <i class="fa-solid fa-2x fa-bag-shopping main-color-one-color"></i>&nbsp;&nbsp;
+                        <h6 class="font-16">سفارش شما</h6>
+                    </div>
+                </div>
+                <div id="factor-div">
+                    {% if cart.get_total_discount != 0 %}
+                        <div class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between">
+                            <p class="mb-0 fw-bold">تخفیف کالا ها :</p>
+                            <p class="mb-0 text-danger" id="total-discount">{{ cart.get_total_discount|intcomma }} -
+                                تومان</p>
+                        </div>
+                    {% else %}
+                        <div class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between">
+                            <p class="mb-0 fw-bold">تخفیف کالا ها :</p>
+                            <p class="mb-0" id="total-discount"> - </p>
+                        </div>
+
+                    {% endif %}
+                    {% if cart.have_discount_code %}
+                        <div class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between">
+                            <p class="mb-0 fw-bold">کسر با کد تخفیف : </p>
+                            <p class="mb-0 text-danger"
+                               id="total-discount"> {{ cart.total_get_price_of_discount|intcomma }} -
+                                تومان </p>
+                        </div>
+                    {% endif %}
+                    <div id="bag">
+                        <div class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between">
+                            <p class="mb-0 fw-bold">جمع کل:</p>
+                            <p class="price-off fw-bold me-2 text-success me-2"
+                               id="total-price">{{ cart.get_total_price|intcomma }} تومان</p>
+                        </div>
+                    </div>
+                    <div class="action mt-3 d-flex align-items-center justify-content-center" id="check-card-div">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'cart:cart_detail' %}" class="btn border-0 main-color-two-bg rounded-3">سبد
+                                خرید</a>
+                        {% else %}
+                            <a href="{% url 'accounts:login' %}" class="btn border-0 main-color-two-bg rounded-3">برای
+                                تکمیل سفارش وارد سایت شوید</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end cart canvas -->
+
+<div class="float-btn">
+    <div class="container-fluid">
+        <!-- go top top -->
+        <div class="progress-wrap d-lg-block d-none">
+            <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+            </svg>
+        </div>
+        <!-- end go top top -->
+
+        <!-- contact us floating -->
+        <div id="btncollapzion" class=" btn_collapzion"></div>
+        <div class="" id="contactOverlay"></div>
+        <!-- end contact us floating -->
+    </div>
+</div>
+
+
+<script>
+    //// config floating contact
+    $('#btncollapzion').Collapzion({
+        _child_attribute: [{
+            'label': 'پشتیبانی تلفنی',
+            'url': 'tel:+989188575611',
+            'icon': 'bi bi-telephone'
+        },
+            {
+                'label': 'پشتیبانی تلگرام',
+                'url': 'https://tlgrm.me',
+                'icon': 'bi bi-telegram'
+            },
+            {
+                'label': 'پشتیبانی واتس آپ',
+                'url': 'https://wa.me/444444444',
+                'icon': 'bi-whatsapp'
+            },
+
+        ],
+    });
+</script>
+<script>
+    function Str_Random() {
+        const lenght = 10
+        let result = '';
+        const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+
+        // Loop to generate characters for the specified length
+        for (let i = 0; i < length; i++) {
+            const randomInd = Math.floor(Math.random() * characters.length);
+            result += characters.charAt(randomInd);
+        }
+        return result;
+    }
+</script>
+<!-- ===== end new update -->
+
+<script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+<script>
+    const LikeUrl = "{% url 'shop:like_product' %}"
+    const csrftoken = Cookies.get('csrftoken');
+    const cartLenUrl = '{% url 'cart:cart_len' %}'  /* getting just len of cart items*/
+    const shopUrl = '{% url "shop:check_stock" %}';
+    const buyUrl = '{% url 'cart:product_add_by_json' %}';
+    const quantityUrl = '{% url 'cart:product_quantity' %}';
+    const getCardUrl = '{% url 'cart:get_cart_by_json' %}';
+    const removeUrl = '{% url 'cart:cart_remove' %}';
+    const checkDiscountCodeUrl = '{% url 'cart:check_discount_code' %}';
+    const addDiscountToCartUrl = '{% url 'cart:add_discount_to_cart' %}';
+    const loginUrl = '{% url 'accounts:login' %}';
+    const shopingCardUrl = '{% url 'cart:cart_detail' %}';
+    const orderAdressUrl = '{% url 'orders:get_order_address' %}';
+    const options = {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+        }
+    }
+</script>
+
+
+<script src="{% static 'assets/fapo_js/like_js.js' %}"></script>
+<script src="{% static  'assets/fapo_js/colors_js.js' %}"></script>
+<script src="{% static 'assets/fapo_js/add_prodcuts.js' %}"></script>
+<script src="{% static 'assets/fapo_js/quantity_change.js' %}"></script>
+<script src="{% static 'assets/fapo_js/update_cart_len.js' %}"></script>
+<script src="{% static 'assets/fapo_js/remove_product_from_card.js' %}"></script>
+<script src="{% static 'assets/fapo_js/update_cart.js' %}"></script>
+<script src="{% static 'assets/fapo_js/remove_product_from_card.js' %}"></script>
+<script src="{% static 'assets/fapo_js/check_discount_cod.js' %}"></script>
+<script src="{% static 'assets/fapo_js/update_cart_details.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.min.js"></script>
+
+<script src="https://unpkg.com/jalaali-js/dist/jalaali.js"></script>
+<script src="https://unpkg.com/jalaali-js/dist/jalaali.min.js"></script>
+
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/plugin/waves/waves.min.js' %}"></script>
+<script src="{% static 'assets/plugin/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'assets/plugin/timer/timer.js' %}"></script>
+<script src="{% static 'assets/plugin/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js' %}"></script>
+<script src="{% static 'assets/js/app.js' %}"></script>
+<script src="{% static 'assets/js/jquery-app.js' %}"></script>
+
+<!-- ===== start new update -->
+<script src="{% static 'assets/plugin/go-to-top/script.js' %}"></script>
+<script src="{% static 'assets/plugin/rasta-contact/script.js' %}"></script>
+
+<link rel="stylesheet" href="{% static 'assets/plugin/go-to-top/style.css' %}">
+<link rel="stylesheet" href="{% static 'assets/plugin/rasta-contact/style.css' %}">
+<script>
+    // Get current Persian year
+    const today = new Date();
+    const persianYear = jalaali.toJalaali(today).jy
+    document.getElementById("currentYear").textContent = persianYear;
+</script>
+<script>
+    document.querySelectorAll('[tabindex]').forEach(el => {
+        el.removeAttribute('tabindex');
+    });
+</script>
+</body>
+
+</html>

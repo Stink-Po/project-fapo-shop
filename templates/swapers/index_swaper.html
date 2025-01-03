@@ -1,0 +1,112 @@
+{% load static %}
+{% load site_tags %}
+{% load humanize %}
+    <div class="parent">
+        <div class="container-fluid">
+            <div class="swiper product-slider-swiper">
+                <div class="swiper-wrapper">
+                    {% for product, id in products.items %}
+                        <div class="swiper-slide">
+                            <div class="product-box ">
+                                <div class="product-timer">
+                                    {% if product.discount %}
+                                        <div class="timer-label">
+
+                                            <span>  {{ product.discount }}% تخفیف </span>
+
+                                        </div>
+                                    {% else %}
+                                        <div class="">
+
+                                            <span>&nbsp </span>
+
+                                        </div>
+                                    {% endif %}
+                                    {% with user_like=product.user_likes.all %}
+                                        <div class="product-header-btn">
+                                            <a href="#" class="like-btn button" data-id="{{ product.id }}"
+                                               data-action="{% if request.user in product.user_likes.all %}un{% endif %}like"
+                                               data-bs-title="افزودن به علاقه مندی ها">
+                                                {% if request.user not in product.user_likes.all %}
+                                                    <i class="bi bi-heart"></i>
+                                                {% else %}
+                                                    <i class="bi bi-heart-fill text-danger"></i>
+                                                {% endif %}
+                                            </a>
+
+                                        </div>
+                                    {% endwith %}
+                                </div>
+                                <div class="product-image">
+                                    {% for image in product.images.all %}
+                                        {% if forloop.counter <= 2 %}
+                                            <img src="{{ image.image.url }}" loading="lazy" alt="{{ image.image_alt }}"
+                                                 class="img-fluid{% if forloop.counter == 1 %} one-image {% else %} two-image {% endif %}">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            <a href="{{ product.get_absolute_url }}">
+                                <div class="product-title">
+                                    <div class="title">
+                                        <p class="text-overflow-1">{{ product.name }}</p>
+                                        <span class="text-muted text-overflow-1"></span>
+                                    </div>
+                                    <div class="rating">
+                                        <div class="number"><span class="text-muted font-12">({{ product.score|length }}+) {{ product.get_total_score }}</span>
+                                        </div>
+                                        <div class="icon"><i class="bi bi-star-fill"></i></div>
+                                    </div>
+                                </div>
+                            </a>
+                                <div class="product-meta-color-items" data-product-id="{{ id }}">
+                                    {% for color in product.colors.all %}
+                                        <input type="radio" class="btn-check color-radios"
+                                               name="color-options-{{ id }}"
+                                               id="color_{{ id }}_{{ color.id }}"
+                                               value="{{ color.id }}"
+                                               data-product-id="{{ id }}"
+                                               data-color-id="{{ color.id }}"
+                                               autocomplete="off"
+                                                {% if forloop.counter == 1 %} checked {% endif %}>
+                                        <label class="btn" for="color_{{ id }}_{{ color.id }}">
+                                            <span style="background-color: {{ color.color }};"></span>
+                                            {{ color.get_color_display }}
+                                        </label>
+                                    {% endfor %}
+                                </div>
+                                <div class="product-action">
+                                    {% if product.discount != 0 %}
+                                        <div class="price">
+                                            <p class="new-price">{{ product.get_discounted_price|intcomma }} تومان</p>
+                                            <p class="old-price">{{ product.price|intcomma }} تومان</p>
+                                        </div>
+                                    {% else %}
+                                        <div class="price text-center">
+                                            <p class="new-price">{{ product.price|intcomma }} تومان</p>
+                                            <p class="old-price">&nbsp;</p>
+                                        </div>
+                                    {% endif %}
+                                    <div class="link">
+                                        {% if product.available %}
+                                            <a href="" class="btn border-0 rounded-3 main-color-one-bg buy-btn"
+                                               data-product-id="{{ id }}" data-id="{{ product.id }}">
+                                                <i class="bi bi-basket text-white"></i>
+                                                <span class="text-white">خرید محصول</span>
+                                            </a>
+                                        {% else %}
+                                            <a href="" class="btn border-0 rounded-3 btn-danger disabled">
+                                                <i class="bi bi-basket text-white"></i>
+                                                <span class="text-white">اتمام موجودی</span>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+    </div>

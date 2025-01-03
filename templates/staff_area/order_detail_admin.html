@@ -1,0 +1,242 @@
+{% load site_tags %}
+{% load humanize %}
+<div>
+    <div class="ui-boxs">
+        <div class="ui-box">
+            <div class="ui-box-item ui-box-white">
+                <div class="ui-box-item-title" style="padding: 15px;">
+                    <h4 class="fw-bold">
+                        جزییات سفارش
+                    </h4>
+                </div>
+                <div class="ui-box-item-desc p-0">
+                    <div class="orders">
+                        <div class="order-item">
+                            <div class="order-item-detail">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <span class="text-mute">کد پیگیری سفارش</span>
+                                        <strong>{{ order.id }}/{{ order.track_id }}</strong>
+                                    </li>
+                                    <li class="nav-item">
+                                        <span class="text-mute">تاریخ ثبت سفارش</span>
+                                        <strong>{{ order.created|convert_to_persian_date }}</strong>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="order-item-detail" style="padding-top: 20px;">
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <span class="text-mute">تحویل گیرنده</span>
+                                        <strong>{{ order.first_name }} {{ order.last_name }}</strong>
+                                    </li>
+                                    <li class="nav-item">
+                                        <span class="text-mute">شماره موبایل </span>
+                                        <strong>{{ order.phone }}</strong>
+                                    </li>
+                                    <li class="nav-item w-100">
+                                    </li>
+                                    <li class="nav-item">
+                                        <span class="text-mute">آدرس</span>
+                                        <strong>
+                                            {{ order.province }} - {{ order.city }} - {{ order.address }}
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="order-item-detail" style="padding-top: 20px;">
+                                <h6 class="p-3">اطلاعات پرداخت</h6>
+                                <ul class="nav">
+                                    <li class="nav-item">
+                                        <span class="text-mute">تاریخ پرداخت</span>
+                                        {% if payment.timestamp and payment.timestamp != "" %}
+                                            <strong>{{ payment.timestamp.date|convert_to_persian_date }}
+                                                ساعت {{ payment.timestamp.time|time_convertor }}</strong>
+                                        {% endif %}
+                                    </li>
+                                    <li class="nav-item">
+                                        <span class="text-mute">شماره کارت </span>
+                                        <strong>{{ payment.card_number }}</strong>
+                                    </li>
+                                    <li class="nav-item w-100">
+                                    </li>
+                                    <li class="nav-item">
+                                        <span class="text-mute">وشغیت پرداخت</span>
+                                        <strong>
+                                            {{ payment.status }}
+                                        </strong>
+                                    </li>
+                                    <li class="nav-item">
+                                        <span class="text-mute">مبلغ</span>
+                                        <strong>
+                                            {{ payment.amount|intcomma }} ریال
+                                        </strong>
+                                    </li>
+                                    <li class="nav-item">
+                                        <span class="text-mute">کد پیگیری پرداخت</span>
+                                        <strong>
+                                            {{ payment.track_id }}
+                                        </strong>
+                                    </li>
+                                    <li class="nav-item">
+                                        <span class="text-mute">شماره رفرنس</span>
+                                        <strong>
+                                            {{ payment.ref_number }}
+                                        </strong>
+                                    </li>
+                                    <li class="nav-item">
+                                        <span class="text-mute">توضیحات سفارش</span>
+                                        <strong>
+                                            {{ payment.description }}
+                                        </strong>
+                                    </li>
+                                    <li class="nav-item">
+                                        <span class="text-mute">نتیجه</span>
+                                        <strong>
+                                            {{ payment.result }}
+                                        </strong>
+                                    </li>
+                                    <li class="nav-item">
+                                        <span class="text-mute">پیغام</span>
+                                        <strong>
+                                            {{ payment.message }}
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                            {% if order.paid %}
+                                <div class="order-item-detail" style="padding-top: 20px;">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <span class="text-mute">مبلغ</span>
+                                            <strong>{{ order.get_total_cost|intcomma }} تومان</strong>
+                                        </li>
+                                        <li class="nav-item">
+                                            <strong>پرداخت اینترنتی</strong>
+                                        </li>
+                                        <li class="nav-item w-100">
+                                        </li>
+                                        <li class="nav-item">
+                                            <span class="text-mute">کد تخفیف</span>
+                                            {% if order.discount_code and order.discount_code != "" %}
+                                                <strong>{{ order.discount_amount }} درصد </strong>
+                                            {% else %}
+                                                <strong>-</strong>
+                                            {% endif %}
+                                        </li>
+                                        <li class="nav-item">
+                                                                        <span class="text-mute">هزینه ارسال (بر اساس وزن
+                                                                            و حجم)
+                                                                        </span>
+                                            <strong>70,000 تومان</strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {% if order.status == 'Send' %}
+                                    <div class="order-item-detail" style="padding-top: 20px;">
+                                        <ul class="nav">
+                                            <li class="nav-item">
+                                                <strong>مرسوله 1 از 1</strong>
+                                            </li>
+                                            <li class="nav-item">
+                                                <strong class="text-danger">ارسال عادی</strong>
+                                            </li>
+                                            <li class="nav-item w-100">
+                                            </li>
+                                            <li class="nav-item">
+                                                <span class="text-mute">زمان ارسال</span>
+                                                <strong>{{ order.updated.date|convert_to_persian_date }}
+                                                </strong>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="https://tracking.post.ir/?id={{ order.post_follow_up }}"
+                                                   target="_blank"><strong class="text-warning">برای رهگیری مرسوله کلیک
+                                                    کنید</strong></a>
+                                            </li>
+
+                                        </ul>
+                                        <div class="order-progress py-3">
+                                            <h6 class="fw-bold mb-2 font-14">ارسال شده <i
+                                                    class="fa-solid fa-truck-fast"></i></h6>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="100"
+                                                     aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% elif order.status == 'Processing' %}
+                                    <div class="order-item-detail" style="padding-top: 20px;">
+                                        <div class="order-progress py-3">
+                                            <h6 class="fw-bold mb-2 font-14">در حال پردازش <i
+                                                    class="fa-solid fa-boxes-packing"></i></h6>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" aria-valuenow="100"
+                                                     aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="order-item-detail" style="padding-top: 20px;">
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <input name="follow_up_code" type="text" placeholder="کد رهگیری پست ..." class="form-control search-input">
+                                            </div>
+                                            <div class="text-right">
+                                                <button class="btn border-0 main-color-one-bg"
+                                                        type="submit">ثبت
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                {% endif %}
+                            {% else %}
+                                <div class="order-progress py-3">
+                                    <h6 class="fw-bold mb-2 font-14">سفارش ناموفق <i
+                                            class="fa-solid fa-ban text-danger"></i></h6>
+                                    <div class="progress">
+                                        <div class="progress-bar-red" role="progressbar" aria-valuenow="100"
+                                             aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="product-list-row product-list-row-lg">
+                                {% for product in order.items.all %}
+
+                                    <div class="product-row">
+                                        <a href="{{ product.product.get_absolute_url }}">
+                                            <div class="product-row-desc">
+                                                <div class="product-row-desc-item">
+                                                    <div class="product-row-img">
+                                                        <img src="{{ product.product.images.all.0.image.url }}"
+                                                             alt="{{ product.product.name }}" class=""
+                                                             width="100">
+                                                    </div>
+                                                    <div class="product-row-title">
+                                                        <h6>{{ product.product.name }}</h6>
+                                                        <div class="product-price">
+                                                            <p>{{ product.product.price|intcomma }} تومان</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <div class="order-item-comment">
+                                            <a href="{% url 'shop:product_detail' product_id=product.product.id product_slug=product.product.slug %}#productComment-pane"><i
+                                                    class="bi bi-chat-dots me-2"></i>ثبت
+                                                دیدگاه</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

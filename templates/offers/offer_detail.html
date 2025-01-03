@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load site_tags %}
+{% load static %}
+{% block title %}
+    جشنواره {{ offer.name }}
+{% endblock %}
+
+{% block tags %}
+    <meta name="description"
+  content="از تاریخ {{ offer.start_date|convert_to_persian_date }} تا {{ offer.end_date|convert_to_persian_date }} در فاپوشاپ با وارد کردن کد تخفیف {{ offer.code }} در سبد خرید {{ offer.discount_amount }} درصد تخفیف دریافت کنید , فاپوشاپ عرضه کننده انواع ماگ های وارداتی و دست ساز سرامیکی">
+    <meta property="og:title" content="جشنواره {{ offer.name }}">
+    <meta property="og:description"
+  content="از تاریخ {{ offer.start_date|convert_to_persian_date }} تا {{ offer.end_date|convert_to_persian_date }} در فاپوشاپ با وارد کردن کد تخفیف {{ offer.code }} در سبد خرید {{ offer.discount_amount }} درصد تخفیف دریافت کنید , فاپوشاپ عرضه کننده انواع ماگ های وارداتی و دست ساز سرامیکی">
+">
+    <meta property="og:image"
+          content="{% if offer.image %}{{ offer.image.url }}{% else %}{% static 'assets/image/logo.png' %}{% endif %}">
+    <meta name="twitter:title" content="جشنواره {{ offer.name }}">
+    <meta name="twitter:description"
+  content="از تاریخ {{ offer.start_date|convert_to_persian_date }} تا {{ offer.end_date|convert_to_persian_date }} در فاپوشاپ با وارد کردن کد تخفیف {{ offer.code }} در سبد خرید {{ offer.discount_amount }} درصد تخفیف دریافت کنید , فاپوشاپ عرضه کننده انواع ماگ های وارداتی و دست ساز سرامیکی">
+">
+    <meta name="twitter:image"
+          content="{% if offer.image %}{{ offer.image.url }}{% else %}{% static 'assets/image/logo.png' %}{% endif %}">
+{% endblock %}
+{% block content %}
+
+
+    <div class="bread-crumb pt-3" xmlns="http://www.w3.org/1999/html">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="{% url 'offers:offer_list' %}"
+                                                           class="font-14 text-muted">جشنواره ها</a></li>
+                            <li class="breadcrumb-item active main-color-one-color font-14"
+                                aria-current="page">{{ offer.name }}
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+
+    <!-- start content -->
+
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row gy-3">
+                <div class="col-lg-12">
+                    <div class="content-box">
+                        <div class="container-fluid">
+                            <div class="blog-detail">
+                                <div class="title-panel mb-2">
+                                </div>
+                                <div class="blog-post-title-items">
+                                    <div class="blog-post-title-item">
+                                        <img src="{% static 'assets/image/logo.png' %}" class="rounded-circle" alt="">
+                                        <p class="text-muted">فاپو شاپ</p>
+                                    </div>
+                                </div>
+                                <div class="blog-post-content">
+                                    <div class="blog-post-content">
+                                        <h4 class="title gold mb-2"> جشنواره {{ offer.name }}  </h4>
+                                        <figure class="image-center">
+                                            {% if offer.image %}
+                                                <img class="aligncenter p-5"
+                                                     src="{{ offer.image.url }}"
+                                                     alt="{{ offer.name }}">
+                                            {% else %}
+                                                <img class="aligncenter p-5"
+                                                     src=" {% static 'assets/image/logo.png' %} "
+                                                     alt="{{ offer.name }}">
+
+                                            {% endif %}
+                                        </figure>
+                                        <h6 class="pb-5">&nbsp;وضعیت جشنواره :
+                                            <strong class="text-danger">{{ offer.offer_status }}</strong>
+                                        </h6>
+                                        <div class="d-flex p-5 justify-content-evenly border border-animate">
+                                            <p class="d-flex align-items-center">
+                                                <i class="fa-solid fa-clock fa-2x text-success me-2"></i>
+                                                تاریخ شروع :
+                                                <strong>{{ offer.start_date.date|convert_to_persian_date }}</strong>
+                                            </p>
+                                            <p class="d-flex align-items-center">
+                                                <i class="fa-solid fa-clock fa-2x text-danger me-2 pt-1"></i>
+                                                تاریخ پایان :
+                                                <strong>{{ offer.end_date.date|convert_to_persian_date }}</strong>
+                                            </p>
+                                            <p class="d-flex align-items-center">
+                                                <i class="fa-solid fa-percent fa-2x text-success me-2"></i>
+                                                میزان تخفیف : <strong>{{ offer.discount_amount }} درصد </strong>
+                                            </p>
+                                        </div>
+                                        {% if offer.is_active %}
+                                            <div class="d-flex justify-content-center align-items-center"
+                                                 style="height: 100px;">
+                                                <h6 class="mx-auto p-3">از
+                                                    تاریخ <strong
+                                                            class="main-color-one-color">{{ offer.start_date.date|convert_to_persian_date }}</strong>
+                                                    تا
+                                                    تاریخ <strong
+                                                            class="main-color-one-color">{{ offer.end_date.date|convert_to_persian_date }}</strong>
+                                                    شما میتوانید در
+                                                    <strong class="main-color-one-color"></strong>جشنواره {{ offer.name }}
+                                                    با وارد کردن کد تخفیف "<strong
+                                                            class="text-danger">{{ offer.code }}</strong>" در سبد
+                                                    خرید محصولات خود به میزان<strong
+                                                            class="text-danger"> {{ offer.discount_amount }}
+                                                        درصد </strong> تخفیف
+                                                    بگیرید </h6>
+                                            </div>
+                                        {% else %}
+                                            <div class="d-flex justify-content-center align-items-center"
+                                                 style="height: 100px;">
+                                                <h6 class="text-center"><strong>این جشنواره منقضی شده است 😔</strong>
+                                                </h6>
+                                            </div>
+                                        {% endif %}
+                                        <p>&nbsp;</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- end related post -->
+
+
+{% endblock %}

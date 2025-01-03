@@ -1,0 +1,361 @@
+<!-- start breadcroumb -->
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    پروفایل کاربری |
+    {% if section == "main" %}
+        اطلاعات کاربری
+    {% elif section == "orders_list" %}
+        سفارش های من
+    {% elif section == "order_detail" %}
+        جزییات سفارش
+    {% elif section == "score" %}
+        امتیارات و کد های تخفیف من
+    {% elif section == 'tickets' %}
+        درخواست پشتیبانی
+    {% elif  section == 'ticket_info' %}
+        جزییات تیکت
+    {% elif section == "favorite_products" %}
+        محصولات مورد علاقه
+    {% elif section == 'delete' %}
+        حذف اکانت کاربری
+    {% elif section == 'refer' %}
+        دعوت دوستان
+
+
+
+    {% endif %}
+{% endblock %}
+{% block tags %}
+    <meta name="description" content="پروفایل کاربری  در فاپوشاپ">
+    <meta property="og:title" content="پروفایل کاربری ">
+    <meta property="og:description" content="پروفایل کاربری  در فاپوشاپ">
+    <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+    <meta name="twitter:title" content="پروفایل کاربری">
+    <meta name="twitter:description" content="پروفایل کاربری  در فاپوشاپ">
+    <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+{% endblock %}
+{% block content %}
+
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a class="font-14 text-muted" href="{% url 'pages:index' %}">خانه</a>
+                            </li>
+                            <li aria-current="page" class="breadcrumb-item active main-color-one-color font-14">پروفایل
+                                کاربری
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+
+    <!-- start content -->
+
+    <div class="content">
+        <div class="container-fluid">
+
+            <!-- start side-menu in mobile -->
+            <div class="custom-filter d-lg-none d-block">
+                <button aria-controls="offcanvasRight"
+                        class="btn btn-filter-float border-0 main-color-two-bg shadow-box px-4 rounded-3 position-fixed"
+                        data-bs-target="#offcanvasRight" data-bs-toggle="offcanvas"
+                        style="z-index: 999;bottom:80px;" type="button">
+                    <i class="bi bi-list font-20 fw-bold text-white"></i>
+                    <span class="d-block font-14 text-white">منو</span>
+                </button>
+
+                <div aria-labelledby="offcanvasRightLabel" class="offcanvas offcanvas-start" id="offcanvasRight"
+                     tabindex="-1">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasRightLabel">منو</h5>
+                        <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <div class="panel-side">
+                            <div class="content-box pb-0">
+                                <div class="container-fluid">
+                                    <div class="panel-box">
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-grid gap-2">
+                                                <h6 class="font-14 main-color-one-color">حساب کاربری من</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profile-box">
+                                        <nav class="navbar profile-box-nav">
+                                            <ul class="navbar-nav flex-column">
+                                                {% if section == "main" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="fa-regular fa-user"></i>اطلاعات شخصی</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'accounts:main_profile' %}"
+                                                                            class="nav-link">
+                                                        <i class="fa-regular fa-user"></i>اطلاعات شخصی</a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == "orders_list" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="bi bi-cart-check"></i>سفارش های من </a>
+                                                    </li>
+                                                {% elif section == "order_detail" %}
+                                                    <li class="nav-item active"><a
+                                                            href="{% url 'accounts:profile_orders' %}" class="nav-link">
+                                                        <i class="bi bi-cart-check"></i>سفارش های من </a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'accounts:profile_orders' %}"
+                                                                            class="nav-link">
+                                                        <i class="bi bi-cart-check"></i>سفارش های من </a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == "score" %}
+
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="bi bi-award"></i>امتیازات و کدهای تخفیف من </a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'accounts:profile_scores' %}"
+                                                                            class="nav-link">
+                                                        <i class="bi bi-award"></i>امتیازات و کدهای تخفیف من </a>
+                                                    </li>
+
+                                                {% endif %}
+                                                {% if section == "refer" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="fa-solid fa-people-arrows"></i>لینک دعوت دوستان</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a
+                                                            href="{% url 'accounts:user_profile_refer_code' %}"
+                                                            class="nav-link">
+                                                        <i class="fa-solid fa-people-arrows"></i>لینک دعوت دوستان</a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == "tickets" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="bi bi-question-circle"></i>درخواست پشتیبانی</a>
+                                                    </li>
+                                                {% elif section == "ticket_info" %}
+                                                    <li class="nav-item active"><a
+                                                            href="{% url 'accounts:user_tickets' %}" class="nav-link">
+                                                        <i class="bi bi-question-circle"></i>درخواست پشتیبانی</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'accounts:user_tickets' %}"
+                                                                            class="nav-link">
+                                                        <i class="bi bi-question-circle"></i>درخواست پشتیبانی</a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == "favorite_products" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="bi bi-heart"></i>محصولات مورد علاقه</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a
+                                                            href="{% url 'accounts:user_profile_favorites' %}"
+                                                            class="nav-link">
+                                                        <i class="bi bi-heart"></i>محصولات مورد علاقه</a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == "delete" %}
+                                                    <li class="nav-item active"><a href=""
+                                                                                   class="nav-link">
+                                                        <i class="bi bi-person-x"></i>حذف اکانت کاربری</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'accounts:delete_account' %}"
+                                                                            class="nav-link">
+                                                        <i class="bi bi-person-x"></i>حذف اکانت کاربری</a>
+                                                    </li>
+                                                {% endif %}
+                                                <li class="nav-item"><a href="{% url 'accounts:logout' %}"
+                                                                        class="nav-link">
+                                                    <i class="bi bi-arrow-right-square"></i>خروج از حساب کاربری</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- end side-menu in mobile -->
+
+            <div class="dashboard-panel">
+                <div class="row gy-3">
+                    <div class="col-lg-3 d-lg-block d-none">
+                        <div class="panel-side">
+                            <div class="content-box pb-0">
+                                <div class="container-fluid">
+                                    <div class="panel-box">
+                                        <div class="d-flex align-items-center">
+                                            <div class="d-grid gap-2 text-center">
+                                                <h6 class="font-14 main-color-one-color">حساب کاربری من</h6>
+                                                <h6 class="font-14"></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="profile-box">
+                                        <nav class="navbar profile-box-nav">
+                                            <ul class="navbar-nav flex-column">
+                                                {% if section == "main" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="fa-regular fa-user"></i>اطلاعات شخصی</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'accounts:main_profile' %}"
+                                                                            class="nav-link">
+                                                        <i class="fa-regular fa-user"></i>اطلاعات شخصی</a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == "orders_list" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="bi bi-cart-check"></i>سفارش های من </a>
+                                                    </li>
+                                                {% elif section == "order_detail" %}
+                                                    <li class="nav-item active"><a
+                                                            href="{% url 'accounts:profile_orders' %}" class="nav-link">
+                                                        <i class="bi bi-cart-check"></i>سفارش های من </a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'accounts:profile_orders' %}"
+                                                                            class="nav-link">
+                                                        <i class="bi bi-cart-check"></i>سفارش های من </a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == "score" %}
+
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="bi bi-award"></i>امتیازات و کدهای تخفیف من </a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'accounts:profile_scores' %}"
+                                                                            class="nav-link">
+                                                        <i class="bi bi-award"></i>امتیازات و کدهای تخفیف من </a>
+                                                    </li>
+
+                                                {% endif %}
+                                                {% if section == "refer" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="fa-solid fa-people-arrows"></i>لینک دعوت دوستان</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a
+                                                            href="{% url 'accounts:user_profile_refer_code' %}"
+                                                            class="nav-link">
+                                                        <i class="fa-solid fa-people-arrows"></i>لینک دعوت دوستان</a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == "tickets" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="bi bi-question-circle"></i>درخواست پشتیبانی</a>
+                                                    </li>
+                                                {% elif section == "ticket_info" %}
+                                                    <li class="nav-item active"><a
+                                                            href="{% url 'accounts:user_tickets' %}" class="nav-link">
+                                                        <i class="bi bi-question-circle"></i>درخواست پشتیبانی</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'accounts:user_tickets' %}"
+                                                                            class="nav-link">
+                                                        <i class="bi bi-question-circle"></i>درخواست پشتیبانی</a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == "favorite_products" %}
+                                                    <li class="nav-item active"><a href="" class="nav-link">
+                                                        <i class="bi bi-heart"></i>محصولات مورد علاقه</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a
+                                                            href="{% url 'accounts:user_profile_favorites' %}"
+                                                            class="nav-link">
+                                                        <i class="bi bi-heart"></i>محصولات مورد علاقه</a>
+                                                    </li>
+                                                {% endif %}
+                                                {% if section == "delete" %}
+                                                    <li class="nav-item active"><a href=""
+                                                                                   class="nav-link">
+                                                        <i class="bi bi-person-x"></i>حذف اکانت کاربری</a>
+                                                    </li>
+                                                {% else %}
+                                                    <li class="nav-item"><a href="{% url 'accounts:delete_account' %}"
+                                                                            class="nav-link">
+                                                        <i class="bi bi-person-x"></i>حذف اکانت کاربری</a>
+                                                    </li>
+                                                {% endif %}
+                                                <li class="nav-item"><a href="{% url 'accounts:logout' %}"
+                                                                        class="nav-link">
+                                                    <i class="bi bi-arrow-right-square"></i>خروج از حساب کاربری</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-9">
+                        <div class="ui-boxs">
+                            <div class="ui-box">
+                                <div class="ui-box-item ui-box-white">
+                                    {% if section == "main" %}
+                                        {% include 'accounts/edit_user_profile_form.html' with form=form %}
+                                        {% include 'accounts/profile/main_section.html' with user=user %}
+                                    {% endif %}
+                                    {% if section == "score" %}
+                                        {% include 'accounts/profile/user_scores.html' %}
+                                    {% endif %}
+                                    {% if section == "tickets" %}
+                                        {% include 'accounts/profile/tickets_section.html' with user_tickets=user_tickets %}
+                                        {% include 'accounts/profile/submit_ticket_from.html' with form=form %}
+                                    {% endif %}
+                                    {% if section == "ticket_info" %}
+                                        {% include 'accounts/profile/ticket_details.html' with ticket=ticket form=form responses=responses %}
+                                    {% endif %}
+                                    {% if section == "delete" %}
+                                        {% include 'accounts/profile/delete_account.html' %}
+                                    {% endif %}
+                                    {% if section == "orders_list" %}
+                                        {% include 'accounts/profile/users_orders_list.html' with orders=orders %}
+                                    {% endif %}
+                                    {% if section == "order_detail" %}
+                                        {% include "accounts/profile/order_details.html" with order=order %}
+                                    {% endif %}
+                                    {% if section == "favorite_products" %}
+                                        {% include 'accounts/profile/user_favorite_profile.html' with favorite_products=favorite_products %}
+
+                                    {% endif %}
+                                    {% if section == "refer" %}
+                                        {% include 'accounts/profile/refer_link.html' with refer_url=refer_url %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        {% if form_has_errors %}
+            const info = document.getElementById("information-section");
+            const formDiv = document.getElementById("address-from");
+            info.classList.add("hidden");
+            formDiv.classList.remove("hidden");
+        {% endif %}
+    </script>
+{% endblock %}

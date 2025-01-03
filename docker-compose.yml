@@ -1,0 +1,143 @@
+version: '3.9'
+
+services:
+  django:
+    build:
+      context: .
+    container_name: fapo-django
+    command: ["sh", "-c", "python manage.py migrate && python manage.py create_admin && python manage.py get_address && gunicorn fapo.wsgi:application --bind 0.0.0.0:8000 --worker-class gevent --timeout 120"]
+    volumes:
+      - .:/app
+      - static:/app/staticfiles
+      - media:/app/media
+    expose:
+      - "8000"
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+    environment:
+      - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
+    env_file:
+      - .env
+    networks:
+      - internal
+
+  db:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    expose:
+      - "5432"
+    env_file:
+      - .env
+    networks:
+      - internal
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    expose:
+      - "6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - internal
+    command: ["redis-server", "--appendonly", "yes"]
+
+
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    expose:
+      - "5672"
+    environment:
+      - RABBITMQ_DEPRECATED_FEATURES_PERMIT_GLOBAL_QOS=false
+    networks:
+      - internal
+
+  celery_worker:
+    build:
+      context: .
+    container_name: celery_worker
+    command: celery -A fapo worker --loglevel=info
+    depends_on:
+      - redis
+      - rabbitmq
+    environment:
+      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
+    env_file:
+      - .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - internal
+
+  celery_beat:
+    build:
+      context: .
+    container_name: celery_beat
+    command: celery -A fapo beat --loglevel=info
+    volumes:
+      - static:/app/staticfiles
+    depends_on:
+      - db
+      - redis
+      - rabbitmq
+    environment:
+      - CELERY_BROKER_URL=amqp://guest:guest@rabbitmq:5672//
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    env_file:
+      - .env
+    networks:
+      - internal
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    volumes:
+      - static:/app/staticfiles
+      - media:/app/media
+      - ./nginx:/etc/nginx/conf.d
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - ./data/certbot/www:/var/www/certbot
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - django
+    restart: unless-stopped
+    networks:
+      - internal
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    depends_on:
+      - nginx
+    restart: unless-stopped
+    networks:
+      - internal
+
+volumes:
+  postgres_data:
+  static:
+  media:
+  redis_data:
+
+networks:
+  internal:
+    driver: bridge
+

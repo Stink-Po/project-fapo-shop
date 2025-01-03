@@ -1,0 +1,301 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load site_tags %}
+{% block title %}
+    سبد خرید
+{% endblock %}
+{% block tags %}
+    <meta name="description" content="اطلاعات سبد خرید مشتری در فروشگاه فاپوشاپ">
+    <meta property="og:title" content="سبد خرید">
+    <meta property="og:description" content="اطلاعات سبد خرید مشتری در فروشگاه فاپوشاپ">
+    <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+    <meta name="twitter:title" content="سبد خرید">
+    <meta name="twitter:description" content="اطلاعات سبد خرید مشتری در فروشگاه فاپوشاپ">
+    <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+{% endblock %}
+{% block content %}
+    <!-- start breadcroumb -->
+
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item active main-color-one-color font-14" aria-current="page">سبد خرید
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+    <div id="main-details">
+        <!-- start content -->
+        {% if cart|length == 0 %}
+            <!-- start content -->
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="content-box">
+                        <div class="container-fluid">
+                            <div class="text-center">
+                                <img src="{% static 'assets/image/empty-cart (1).svg' %}" style="max-width: 400px;"
+                                     alt=""
+                                     class="mx-auto d-block">
+                                <h6 class="font-18 mt-4">سبد خرید شما خالی است</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+
+            <div class="content">
+                <div class="container-fluid">
+
+                    <div class="line-step-container d-sm-block d-none">
+                        <div class="line-step">
+                            <div class="line-step-boxs">
+                                <div class="line-step-box complete">
+
+                                    <p>سبد خرید</p>
+                                    <div class="icon">
+                                        1
+                                    </div>
+
+                                </div>
+                                <div class="line-step-box disabled">
+
+                                    <p> آدرس و جزییات پرداخت</p>
+                                    <div class="icon">
+                                        2
+                                    </div>
+
+                                </div>
+                                <div class="line-step-box disabled">
+
+                                    <p>تکمیل سفارش</p>
+                                    <div class="icon">
+                                        3
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="container-fluid">
+                    <div class="cart-product">
+                        <div class="row gy-4">
+                            <div class="col-lg-9" id="products-details">
+                                {% for product in cart %}
+
+                                    {% with item=product %}
+
+                                        <div class="cart-product-item">
+                                            <div class="content-box">
+                                                <div class="container-fluid">
+                                                    <div class="cart-items">
+                                                        <div class="item">
+                                                            <div class="row gy-2">
+                                                                <div class="col-2 w-100-in-400">
+                                                                    <div class="image">
+                                                                        <img src="{{ item.image }}"
+                                                                             alt=""
+                                                                             class="img-fluid">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-10 w-100-in-400">
+                                                                    <div class="d-flex justify-content-between align-items-start">
+                                                                        <div class="d-flex align-items-start flex-column me-2">
+                                                                            <div class="title d-flex align-items-center flex-wrap">
+                                                                                <h6 class="font-16">{{ item.name }}
+                                                                                    {% if item.discount != "0" %}
+                                                                                        <span class="badge ms-2 danger-label rounded-pill">{{ item.discount }} %</span>
+                                                                                    {% else %}
+
+                                                                                    {% endif %}
+                                                                                </h6>
+                                                                            </div>
+                                                                            <div class="cart-item-feature d-flex align-items-center flex-wrap mt-3">
+                                                                                <div class="item d-flex align-items-center">
+                                                                                    <div class="icon">
+                                                                                    </div>
+                                                                                    <div class="saller-name mx-2">رنگ:
+                                                                                    </div>
+                                                                                    <div class="saller-name text-muted">
+                                                                                        <div class="product-meta-color-items mt-0">
+                                                                                            <label class="btn-light mb-0 px-2 py-1">
+                                                                                                <span style="background-color: {{ item.color_name }};"></span>
+                                                                                                {{ item.color }}
+                                                                                            </label>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="remove danger-label ">
+                                                                            <a class="remove-btn" href=""
+                                                                               data-product-id="{{ item.product_id }}"
+                                                                               data-color-id="{{ item.color_id }}">
+
+                                                                                <i class=" bi bi-trash-fill
+                                                                               font-25"></i>
+                                                                            </a>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="action d-flex flex-wrap justify-content-sm-end justify-content-center align-items-center mt-3">
+                                                                        {% if item.discount != "0" %}
+                                                                            <div class="cart-item-feature d-flex align-items-center flex-wrap">
+                                                                                <div class="item d-flex align-items-center me-2">
+                                                                                    <p class="mb-0 old-price font-16">{{ item.price|intcomma }}</p>
+                                                                                </div>
+                                                                                <div class="item d-flex align-items-center">
+                                                                                    <p class="mb-0 new-price font-16">{{ item.discount_price|intcomma }}
+                                                                                        تومان</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        {% else %}
+                                                                            <div class="cart-item-feature d-flex align-items-center flex-wrap">
+                                                                                <div class="item d-flex align-items-center">
+                                                                                    <p class="mb-0 new-price font-16">{{ item.price|intcomma }}
+                                                                                        تومان</p>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        {% endif %}
+                                                                        <div class="counter">
+                                                                            <label>
+                                                                                <input type="text" name="count"
+                                                                                       class="counter"
+                                                                                       data-product-id="{{ item.product_id }}"
+                                                                                       data-color-id="{{ item.color_id }}"
+                                                                                       value="{{ item.quantity }}">
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    {% endwith %}
+                                {% endfor %}
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="cart-canvases position-sticky top-0">
+                                    {% if  not cart.have_discount_code %}
+                                        <div class="d-flex flex-column justify-content-center align-items-center text-center p-3 item hidden"
+                                             id="status-details">
+                                            <span id="ok-message-details" class="text-success"></span>
+                                            <span id="error-message-details" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="item" id="discount-from-details">
+                                            <form id="coupon-form-details">
+                                                {% csrf_token %}
+                                                <div class="d-flex">
+                                                    <div class="form-floating me-2">
+                                                        <input name="code" type="text"
+                                                               class="form-control float-input me-2"
+                                                               id="discount-code-details" placeholder="کد تخفیف">
+                                                        <label for="discount-code-details">کد تخفیف</label>
+                                                    </div>
+
+                                                    <!-- Error message placeholder -->
+
+                                                    <button type="button" id="submit-code-btn"
+                                                            class="btn border-0 main-color-one-bg waves-effect waves-light  rounded-3 me-2">
+                                                        برسی کد
+                                                    </button>
+                                                </div>
+
+
+                                            </form>
+                                        </div>
+                                        <div class="action mt-3 d-flex align-items-center justify-content-center">
+                                            <a id="hidden-btn-details" href=""
+                                               class="btn border-0 main-color-one-bg rounded-3 w-100 hidden text-center align-items-center justify-content-center">اعمال
+                                                کد تخفیف
+
+                                            </a>
+
+                                        </div>
+                                    {% else %}
+                                        <div class="item">
+                                            <div class="price d-flex" id="discount-amount-details">
+                                                <p class=""> میزان کد تخفیف اعمال شده : <span
+                                                        class="text-end  price-off fw-bold me-2">{{ cart.discount_code_amount }} %</span>
+                                                </p>
+                                            </div>
+
+                                        </div>
+
+                                    {% endif %}
+                                    <div class="item">
+                                        <div class="factor">
+                                            <div class="title">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fa-solid fa-2x fa-bag-shopping main-color-one-color"></i>&nbsp;&nbsp;
+
+                                                    <h6 class="font-16">جمع سفارش شما </h6>
+                                                </div>
+                                            </div>
+                                            <div class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between"
+                                                 id="total-discount-details">
+                                                <p class="mb-0">جمع تخفیف کالا ها : </p>
+                                                <p class="mb-0 text-danger">{{ cart.get_total_discount|intcomma }} -
+                                                    تومان</p>
+                                            </div>
+                                            <div class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between">
+                                                <p class="mb-0">هزینه بسته بندی و ارسال : </p>
+                                                <p class="mb-0"> {{ 70000|intcomma }} تومان </p>
+                                            </div>
+                                            {% if cart.have_discount_code %}
+                                                <div class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between"
+                                                     id="discount-details">
+                                                    <p class="mb-0 fw-bold">مبلغ کسر شده با کد تخفیف: </p>
+                                                    <p class="mb-0 text-danger">{{ cart.total_get_price_of_discount|intcomma }} -
+                                                        تومان
+                                                         </p>
+                                                </div>
+                                            {% endif %}
+                                            <div class="factor-item p-2 rounded-3 shadow-sm bg-light d-flex align-items-center justify-content-between">
+                                                <p class="mb-0 fw-bold">جمع کل :</p>
+                                                <p class="mb-0">{{ cart.get_total_price|add:70000|intcomma }} تومان</p>
+                                            </div>
+
+                                            <div class="action mt-3 d-flex align-items-center justify-content-center">
+                                                <a href="{% url 'orders:get_order_address' %}"
+                                                   class="btn border-0 main-color-one-bg rounded-3 d-block w-100">
+                                                    تایید و ادامه
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        {% endif %}
+        <!-- end content -->
+    </div>
+
+
+{% endblock %}
+
+

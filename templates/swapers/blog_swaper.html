@@ -1,0 +1,23 @@
+{% load site_tags %}
+{% for post in posts %}
+    <div class="swiper-slide">
+        <div class="blog-item">
+            <a href="{{ post.get_absolute_url }}">
+                <div class="image">
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid" loading="lazy">
+                </div>
+                <div class="title">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="title-item">
+                            <i class="bi bi-alarm me-1"></i>
+                            <span class="font-12">{{ post.created.date|convert_to_persian_date }}</span>
+                        </div>
+                    </div>
+                    <h4 class="font-16 text-overflow-1 h4">
+                        {{ post.title }}
+                    </h4>
+                </div>
+            </a>
+        </div>
+    </div>
+{% endfor %}

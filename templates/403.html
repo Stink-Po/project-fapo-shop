@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    خطای دسترسی
+{% endblock %}
+{% block tags %}
+        <meta name="description" content="شما دسترسی لازم برای دیدن این صفحه را ندارید !">
+        <meta property="og:title" content="خطای دسترسی">
+        <meta property="og:description" content="شما دسترسی لازم برای دیدن این صفحه را ندارید !">
+        <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+        <meta name="twitter:title" content="خطای دسترسی">
+        <meta name="twitter:description" content="شما دسترسی لازم برای دیدن این صفحه را ندارید !">
+        <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+    {% endblock %}
+{% block extra_links %}
+    <style>
+        .full-height {
+            min-height: 70vh; /* Full viewport height */
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+
+    <div class="d-flex justify-content-center align-items-center full-height text-center">
+        <div class="error">
+            <h1 style="font-family: 'Cairo Play', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-variation-settings:
+    'slnt' 0;"> خطای</h1>
+            <h2 style="font-family: 'Cairo Play', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-variation-settings:
+    'slnt' 0;">403</h2>
+            <p class="p-5" style="font-family: 'Cairo Play', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  font-variation-settings:
+    'slnt' 0;">
+                شما دسترسی لازم برای دیدن این صفحه را ندارید !
+            </p>
+            <a href="{% url 'pages:index' %}" class="main-color-one-bg btn  rounded-3">صفحه اصلی</a>
+        </div>
+    </div>
+
+    <!-- Second div -->
+
+
+
+
+{% endblock %}

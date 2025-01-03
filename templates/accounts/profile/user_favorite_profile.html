@@ -1,0 +1,92 @@
+{% load static %}
+{% load humanize %}
+
+<div class="col-lg-12">
+    <div class="ui-box">
+        <div class="ui-box-item ui-box-white">
+            <div class="ui-box-item-title">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="fw-bold">
+                        علاقه مندی ها
+                    </h4>
+                </div>
+            </div>
+            <div class="ui-box-item-desc">
+                <div class="product-list-row">
+                    {% for product in favorite_products %}
+                        <div class="product-row w-100">
+                            <a href="{{ product.get_absolute_url }}">
+                            </a>
+                            <div class="product-row-desc"><a href="{{ product.get_absolute_url }}">
+                                <div class="product-row-desc-item">
+                                    <div class="product-row-img">
+                                        <img alt="{{ product.name }}" class=""
+                                             src="{{ product.images.all.0.image.url }}"
+                                             width="100">
+                                    </div>
+                                    <div class="product-row-title">
+                                        <h6>{{ product.name }}
+                                        </h6>
+                                        {% if product.discount != 0 %}
+                                            <div class="product-price">
+                                                <p class="new-price">{{ product.get_discounted_price|intcomma }} تومان</p>
+                                                <p class="old-price text-danger">{{ product.price|intcomma }} تومان</p>
+                                            </div>
+                                        {% else %}
+                                            <div class="product-price">
+                                                <p>{{ product.price|intcomma }} تومان</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+
+                                </div>
+                            </a>
+                                <div class="product-row-icon">
+                                    <a class="btn main-color-three-bg shadow-none btn-sm" href="{{ product.get_absolute_url }}"><i class="bi bi-eye me-1 text-white"></i> نمایش</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% if favorite_products.has_previous or favorite_products.has_next %}
+    <div class="my-paginate mt-5 p-3">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination flex-wrap justify-content-center">
+                {% if favorite_products.has_previous %}
+                    <li class="page-item p-2">
+                        <a class="page-link rounded-3" href="?page={{ favorite_products.previous_page_number }}">قبلی</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled p-2">
+                        <a class="page-link rounded-3" href="#">قبلی</a>
+                    </li>
+                {% endif %}
+                {% for page_num in favorite_products.paginator.page_range %}
+                    {% if page_num == favorite_products.number %}
+                        <li class="page-item active"><a class="page-link rounded-3" href="#">{{ page_num }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link rounded-3"
+                                                 href="?page={{ page_num }}">{{ page_num }}</a></li>
+                    {% endif %}
+
+                {% endfor %}
+                {% if favorite_products.has_next %}
+                    <li class="page-item p-2">
+                        <a class="page-link rounded-3" href="?page={{ favorite_products.next_page_number }}">بعدی</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled p-2">
+                        <a class="page-link rounded-3" href="#">بعدی</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endif %}
+</div>

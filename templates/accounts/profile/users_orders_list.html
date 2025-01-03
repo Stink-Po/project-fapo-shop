@@ -1,0 +1,89 @@
+{% load site_tags %}
+{% load humanize %}
+
+<div class="content-box">
+    <div class="container-fluid">
+        <div class="title-panel">
+            <h6 class="font-16">
+                سفارشات
+            </h6>
+        </div>
+        <div class="responsive-table p-0">
+            <table class="table main-table rounded-0">
+                <thead class="text-bg-dark bg-opacity-75 text-center">
+                <tr>
+                    <th>#</th>
+                    <th>شماره سفارش</th>
+                    <th>تاریخ ثبت سفارش</th>
+                    <th>مبلغ سفارش</th>
+                    <th>وضعیت سفارش</th>
+                    <th>جزییات</th>
+                </tr>
+                </thead>
+                <tbody class="text-center">
+                {% for order in orders %}
+                    <tr>
+                        <td class="font-14">{{ forloop.counter }}</td>
+                        <td class="font-14">{{ order.track_id }}/ {{ order.id }}</td>
+                        <td class="font-14">{{ order.created.date|convert_to_persian_date }}</td>
+                        <td class="font-14">{{ order.get_total_cost|multiply:1|intcomma }} ریال</td>
+                        {% if order.paid %}
+                            {% if order.status == "Send" %}
+                            <td class="font-14"><span
+                                    class="success-label rounded-pill">{{ order.get_status_display }}</span></td>
+                                {% else %}
+                                <td class="font-14"><span
+                                    class="warning-label rounded-pill">{{ order.get_status_display }}</span></td>
+                                {% endif %}
+                        {% else %}
+                            <td class="font-14"><span class="danger-label rounded-pill">ناموفق</span></td>
+                        {% endif %}
+                        <td class="font-14">
+                            <a href="{% url 'accounts:user_profile_order_details' order_id=order.id track_id=order.track_id %}"
+                               class="btn btn-sm border-0 main-color-one-bg waves-effect waves-light">مشاهده <i
+                                    class="bi bi-chevron-left text-white font-16"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% if orders.has_previous or orders.has_next %}
+    <div class="my-paginate mt-5 p-3">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination flex-wrap justify-content-center">
+                {% if orders.has_previous %}
+                    <li class="page-item p-2">
+                        <a class="page-link rounded-3" href="?page={{ orders.previous_page_number }}">قبلی</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled p-2">
+                        <a class="page-link rounded-3" href="#">قبلی</a>
+                    </li>
+                {% endif %}
+                {% for page_num in orders.paginator.page_range %}
+                    {% if page_num == orders.number %}
+                        <li class="page-item active"><a class="page-link rounded-3" href="#">{{ page_num }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link rounded-3"
+                                                 href="?page={{ page_num }}">{{ page_num }}</a></li>
+                    {% endif %}
+
+                {% endfor %}
+                {% if orders.has_next %}
+                    <li class="page-item p-2">
+                        <a class="page-link rounded-3" href="?page={{ orders.next_page_number }}">بعدی</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled p-2">
+                        <a class="page-link rounded-3" href="#">بعدی</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endif %}

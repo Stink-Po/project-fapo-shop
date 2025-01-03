@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load site_tags %}
+{%  load humanize %}
+{% block title %}
+پرداخت موفق
+{% endblock %}
+{% block tags %}
+        <meta name="description" content="پرداخت موفق در فروشگاه اینترنتی فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و ظروف آشپزخانه">
+        <meta property="og:title" content="پرداخت ناموفق">
+        <meta property="og:description" content="پرداخت موفق در فروشگاه اینترنتی فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و ظروف آشپزخانه">
+        <meta property="og:image" content="{% static 'assets/image/logo.png' %}">
+        <meta name="twitter:title" content="پرداخت ناموفق">
+        <meta name="twitter:description" content="پرداخت موفق در فروشگاه اینترنتی فاپوشاپ عرضه کننده انواع ماگ تراول ماگ و ظروف آشپزخانه">
+        <meta name="twitter:image" content="{% static 'assets/image/logo.png' %}">
+    {% endblock %}
+{% block content %}
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a></li>
+                        <li class="breadcrumb-item active main-color-one-color font-14" aria-current="page">پرداخت موفق
+                        </li>
+                    </ol>
+                </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- end breadcroumb -->
+
+    <!-- start content -->
+
+    <div class="content">
+        <div class="container-fluid">
+            <style>
+                .line-step-box.complete:nth-child(1):before {
+                    width: 100%;
+                }
+                .line-step-box.complete:nth-child(2):before {
+                    width: 100%;
+                }
+                .line-step-box.complete:nth-child(3):before {
+                    width: 100%;
+                }
+            </style>
+
+            <div class="line-step-container d-sm-block d-none">
+                <div class="line-step">
+                    <div class="line-step-boxs">
+                        <div class="line-step-box complete">
+                           
+                                <p>سبد خرید</p>
+                                <div class="icon">
+                                    1
+                                </div>
+                        
+                        </div>
+                        <div class="line-step-box complete">
+                           
+                                <p>جزییات پرداخت</p>
+                                <div class="icon">
+                                    2
+                                </div>
+                           
+                        </div>
+                        <div class="line-step-box complete">
+                          
+                                <p>تکمیل سفارش</p>
+                                <div class="icon">
+                                    3
+                                </div>
+                      
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="payment-status">
+                <div class="icon">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <div class="title">
+                    <h3>پرداخت شما با موفقیت انجام شد</h3>
+                    <p>از خرید شما متشکریم :)</p>
+                </div>
+                <div class="pay-table">
+                    <div class="pay-table-title">
+                        <h5 class="font-18">مشخصات پرداختی</h5>
+                    </div>
+                    <div class="pay-table-item">
+                        <h6 class="font-16">درگاه پرداختی</h6>
+                        <p class="mb-0">زیبال</p>
+                    </div>
+                    <div class="pay-table-item">
+                        <h6 class="font-16">تاریخ</h6>
+                        <p class="mb-0">{{ data.timestamp.date|convert_to_persian_date }}</p>
+                    </div>
+                    <div class="pay-table-item">
+                        <h6 class="font-16">کد تراکنش</h6>
+                        <p class="mb-0">{{ data.ref_number }}</p>
+                    </div>
+                    <div class="pay-table-item">
+                        <h6 class="font-16">شماره پیگیری</h6>
+                        <p class="mb-0">{{ track_id }}</p>
+                    </div>
+                    <div class="pay-table-item">
+                        <h6 class="font-16 main-color-three-color">مقدار پرداختی</h6>
+                        <p class="mb-0 main-color-three-color">{{ data.amount|intcomma }} تومان</p>
+                    </div>
+                </div>
+                <div class="pay-table">
+                    <div class="pay-table-title">
+                        <h5 class="font-18">وضعیت سفارش</h5>
+                    </div>
+                    <div class="pay-table-item">
+                        <h6 class="font-16">شماره سفارش</h6>
+                        <p class="mb-0">{{ data.order.id }}</p>
+                    </div>
+                    <div class="pay-table-item">
+                        <h6 class="font-16">وضعیت پرداخت</h6>
+                        <p class="mb-0">پرداخت شده</p>
+                    </div>
+                    <div class="pay-table-item">
+                        <h6 class="font-16 main-color-three-color">وضعیت سفارش</h6>
+                        <p class="mb-0 main-color-three-color">در حال پردازش</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center my-4">
+                <a href="{% url 'accounts:profile_orders' %}" class="btn d-inline-block main-color-three-bg mx-auto">رفتن به حساب کاربری</a>
+                <a href="{% url 'orders:factor' order_id=data.order.id track_id=track_id %}" class="btn d-inline-block main-color-three-bg mx-auto" target="_blank">مشاهده و دانلود فاکتور</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- end content -->
+
+
+{% endblock %}

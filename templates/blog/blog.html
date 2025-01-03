@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% load site_tags %}
+{% load static %}
+{% block title %}
+    بلاگ
+{% endblock %}
+{% block tags %}
+    <meta name="description" content="
+{% for cat in all_categories %}
+    {{ cat.name }} , 
+{% endfor %}
+">
+    <meta property="og:title" content="بلاگ فاپوشاپ جدیدترین مقالات">
+    <meta property="og:description" content="{% for cat in all_categories %}
+    {{ cat.name }} , 
+{% endfor %}">
+    <meta property="og:image" content="{% static 'assets/image/banner-blog.jpg' %}">
+    <meta name="twitter:title" content="بلاگ فاپوشاپ جدیدترین مقالات">
+    <meta name="twitter:description" content="{% for cat in all_categories %}
+    {{ cat.name }} , 
+{% endfor %}">
+    <meta name="twitter:image" content="{% static 'assets/image/banner-blog.jpg' %}">
+{% endblock %}
+{% block content %}
+
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}" class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item active main-color-one-color font-14" aria-current="page">وبلاگ
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- end breadcroumb -->
+
+    <!-- start content -->
+
+    <div class="content">
+
+        <!-- start header blog -->
+
+        <div class="container-fluid">
+            <div class="row gy-3">
+                <div class="col-lg-3">
+                    <div class="content-box">
+                        <div class="container-fluid">
+                            <div class="side-right-blog">
+                                <div class="search-form">
+                                    <form id="search-form" action="" method="get"
+                                          onsubmit="return searchRedirect(event)">
+                                        {% csrf_token %}
+                                        <div class="search-filed">
+                                            <input type="text" placeholder="جستجوی در مقالات بلاگ ..."
+                                                   class="form-control search-input"
+                                                   name="query" id="query">
+                                            <button type="submit" class="btn search-btn main-color-one-bg rounded-pill">
+                                                <i class="bi bi-search"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="navbar-blog">
+                                    <nav class="navbar">
+                                        <ul class="navbar-nav">
+                                            {% for cat in all_categories %}
+                                                <li class="nav-item mco-hover"><a href="{{ cat.get_absolute_url }}"
+                                                                                  class="nav-link">{{ cat.icon|safe }} {{ cat.name }}
+                                                    ({{ cat.posts.all|length }})</a>
+                                                </li>
+                                            {% endfor %}
+
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="side-left-blog">
+                        <div class="row gy-3">
+                            <div class="col-12">
+                                <a href="">
+                                    <img src="{% static 'assets/image/banner-blog.jpg' %}"
+                                         class="img-fluid shadow-box rounded-4" alt="">
+                                </a>
+                            </div>
+                            {% if most_viewed_post|length != 0 %}
+                                {% if most_viewed_post.0 %}
+                                    <div class="col-md-3">
+                                        <div class="blog-news-item">
+                                            <a href="{{ most_viewed_post.0.get_absolute_url }}">
+                                                <img src="{{ most_viewed_post.0.image.url }}" alt="" class="img-fluid">
+                                                <div class="desc">
+                                                    <h3 class="title">{{ most_viewed_post.0.title }} </h3>
+                                                    <div class="date">
+                                                        <span class="text-date">{{ most_viewed_post.0.created.date|convert_to_persian_date }}</span>
+                                                        <i class="bi bi-arrow-left"></i>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if most_viewed_post.1 %}
+                                    <div class="col-md-6">
+                                        <div class="blog-news-item">
+                                            <a href="{{ most_viewed_post.1.get_absolute_url }}">
+                                                <img src="{{ most_viewed_post.1.image.url }}" alt="" class="img-fluid">
+                                                <div class="desc">
+                                                    <h3 class="title">{{ most_viewed_post.1.title }}</h3>
+                                                    <div class="date">
+                                                        <span class="text-date">{{ most_viewed_post.1.created.date|convert_to_persian_date }}</span>
+                                                        <i class="bi bi-arrow-left"></i>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% if most_viewed_post.2 %}
+                                    <div class="col-md-3">
+                                        <div class="blog-news-item">
+                                            <a href="{{ most_viewed_post.2.get_absolute_url }}">
+                                                <img src="{{ most_viewed_post.2.image.url }}" alt="" class="img-fluid">
+                                                <div class="desc">
+                                                    <h3 class="title">{{ most_viewed_post.2.title }}</h3>
+                                                    <div class="date">
+                                                        <span class="text-date">{{ most_viewed_post.2.created.date|convert_to_persian_date }}</span>
+                                                        <i class="bi bi-arrow-left"></i>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- end header blog -->
+
+        <!-- start top post blog -->
+
+        <div class="blog-slider site-slider site-slider-sm py-20">
+
+            <div class="container-fluid">
+                <div
+                        class="header-content mb-4 bg-white shadow-box rounded-3 p-3 d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="title d-flex align-items-center">
+                        <h5 class="font-16 ms-3">پربازدید ترین مطالب <span class="main-color-one-color d-inline-block">وبلاگ</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parent">
+                <div class="container-fluid">
+                    <div class="swiper product-slider-swiper">
+                        <div class="swiper-wrapper">
+                            {% include 'swapers/blog_swaper.html' with posts=most_viewed_post %}
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="gird-post-blog py-20">
+
+            <div class="container-fluid">
+                <div
+                        class="header-content mb-4 bg-white shadow-box rounded-3 p-3 d-flex align-items-center justify-content-between flex-wrap">
+                    <div class="title d-flex align-items-center">
+                        <h5 class="font-16 ms-3">آخرین مطالب <span
+                                class="main-color-one-color d-inline-block">وبلاگ</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row gy-3" id="product-list">
+                    {% include 'blog/post_list.html' with post_list=post_list %}
+
+                </div>
+            </div>
+        </div>
+
+        <!-- end latest post  -->
+
+
+    </div>
+
+    <!-- end content -->
+
+
+    <script>
+        let page = 1;
+        let emptyPage = false;
+        let blockRequest = false;
+
+        function getMargin() {
+            if (window.innerWidth <= 768) {
+                // Smaller margin for mobile devices
+                return 1200;
+            } else {
+                // Default margin for larger screens
+                return 600;
+            }
+        }
+
+        window.addEventListener('scroll', function () {
+            const margin = document.body.clientHeight - window.innerHeight - getMargin();
+            if (window.pageYOffset > margin && !emptyPage && !blockRequest) {
+                blockRequest = true;
+                page += 1;
+                fetch('?post_only=1&page=' + page)
+                    .then(response => response.text())
+                    .then(html => {
+                        if (html === '') {
+                            emptyPage = true;
+                        } else {
+                            const postList = document.getElementById('product-list');
+                            postList.insertAdjacentHTML('beforeend', html);
+                            blockRequest = false;
+                        }
+                    });
+            }
+        });
+
+        // Trigger the initial scroll event to load more posts if needed
+        window.dispatchEvent(new Event('scroll'));
+
+
+    </script>
+    <script>
+        function searchRedirect(event) {
+            event.preventDefault();  // Prevent default form submission
+            const query = document.getElementById('query').value;  // Get the search query input
+            if (query) {
+                const url = "{% url 'blog:search' query='QUERY_PLACEHOLDER' %}".replace('QUERY_PLACEHOLDER', encodeURIComponent(query));
+                window.location.href = url;  // Redirect to the custom search URL
+            }
+        }
+    </script>
+
+
+{% endblock %}

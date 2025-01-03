@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+{% load site_tags %}
+{% load static %}
+{% block title %}
+    جشنواره های فروش
+{% endblock %}
+{% block tags %}
+    <meta name="description"
+          content="اطلاعات و کد های تخفیف جشنواره های فروش در فروشگاه ماگ و ملزومات آشپرخانه فاپوشاپ">
+    <meta property="og:title" content="جشنواره های فروش">
+    <meta property="og:description"
+          content="اطلاعات و کد های تخفیف جشنواره های فروش در فروشگاه ماگ و ملزومات آشپرخانه فاپوشاپ">
+    <meta property="og:image" content="
+            {% if offers.0.image %}{{ offers.0.image.url }}{% else %}{% static 'assets/image/logo.png' %}{% endif %}">
+    <meta name="twitter:title" content="جشنواره های فروش">
+    <meta name="twitter:description"
+          content="اطلاعات و کد های تخفیف جشنواره های فروش در فروشگاه ماگ و ملزومات آشپرخانه فاپوشاپ">
+    <meta name="twitter:image" content="
+            {% if offers.0.image %}{{ offers.0.image.url }}{% else %}{% static 'assets/image/logo.png' %}{% endif %}">
+{% endblock %}
+{% block content %}
+
+    <div class="bread-crumb pt-3">
+        <div class="container-fluid">
+            <div class="content-box">
+                <div class="container-fluid">
+                    <nav aria-label="breadcrumb" class="my-lg-0 my-2">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'pages:index' %}"
+                                                           class="font-14 text-muted">خانه</a>
+                            </li>
+                            <li class="breadcrumb-item active main-color-one-color font-14" aria-current="page"> جشنواره
+                                های فروش
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gird-post-blog py-20">
+
+        <div class="container-fluid">
+            <div
+                    class="header-content mb-4 bg-white shadow-box rounded-3 p-3 d-flex align-items-center justify-content-between flex-wrap">
+                <div class="title d-flex align-items-center">
+
+                    <h5 class="font-16 ms-3"> جشنواره های فروش <span
+                            class="main-color-one-color d-inline-block"> فعال </span>
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row gy-3">
+                {% for offer in offers %}
+                    {% if offer.image %}
+                        <div class="col-lg-3">
+                            <div class="blog-item">
+                                <a href="{% url 'offers:offer_detail' offer_id=offer.id %}">
+                                    {% if offer.image %}
+                                        <div class="image">
+                                            <img src="{{ offer.image.url }}" alt="" class="img-fluid rounded-2"
+                                                 style="object-fit: contain;">
+                                        </div>
+                                    {% else %}
+                                        <div class="image">
+                                            <img src="{% static 'assets/image/logo.png' %}" alt=""
+                                                 class="img-fluid rounded-2" style="object-fit: contain;">
+                                        </div>
+                                    {% endif %}
+                                    <div class="title">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <div class="title-item">
+                                                <i class="fa-solid fa-percent  fa-xl text-success"></i>
+                                                <span class="font-12 danger-label">{{ offer.discount_amount }}</span>
+                                            </div>
+                                            <div class="title-item">
+                                                <i class="bi bi-alarm me-1"></i>
+                                                <span class="font-12">{{ offer.start_date.date|convert_to_persian_date }}</span>
+                                                <span><strong> تا   </strong> </span>
+                                                <i class="bi bi-alarm me-1"></i>
+                                                <span class="font-12">{{ offer.end_date.date|convert_to_persian_date }}</span>
+                                            </div>
+                                        </div>
+                                        <h4 class="font-16 text-overflow-1 h4"> {{ offer.name }}
+                                        </h4>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% empty %}
+                    <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+                        <h6 class="text-center"><strong>در حال حاضر جشنواره فروش فعالی نداریم 😔</strong></h6>
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="gird-post-blog py-20">
+
+        <div class="container-fluid">
+            <div
+                    class="header-content mb-4 bg-white shadow-box rounded-3 p-3 d-flex align-items-center justify-content-between flex-wrap">
+                <div class="title d-flex align-items-center">
+
+                    <h5 class="font-16 ms-3"> جشنواره های فروش <span
+                            class="main-color-one-color d-inline-block"> پیش رو </span>
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row gy-3">
+                {% for offer in future_offers %}
+                    {% if offer.image %}
+                    <div class="col-lg-3">
+                        <div class="blog-item">
+                            <a href="{% url 'offers:offer_detail' offer_id=offer.id %}">
+                                {% if offer.image %}
+                                    <div class="image">
+                                        <img src="{{ offer.image.url }}" alt="" class="img-fluid rounded-2"
+                                             style="object-fit: contain;">
+                                    </div>
+                                {% else %}
+                                    <div class="image">
+                                        <img src="{% static 'assets/image/logo.png' %}" alt=""
+                                             class="img-fluid rounded-2" style="object-fit: contain;">
+                                    </div>
+                                {% endif %}
+                                <div class="title">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="title-item">
+                                            <i class="fa-solid fa-percent  fa-xl text-success"></i>
+                                            <span class="font-12 danger-label">{{ offer.discount_amount }}</span>
+                                        </div>
+                                        <div class="title-item">
+                                            <i class="bi bi-alarm me-1"></i>
+                                            <span class="font-12">{{ offer.start_date.date|convert_to_persian_date }}</span>
+                                            <span><strong> تا   </strong> </span>
+                                            <i class="bi bi-alarm me-1"></i>
+                                            <span class="font-12">{{ offer.end_date.date|convert_to_persian_date }}</span>
+                                        </div>
+                                    </div>
+                                    <h4 class="font-16 text-overflow-1 h4"> {{ offer.name }}
+                                    </h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% empty %}
+                    <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+                        <h6 class="text-center"><strong>متاسفانه در حال حاضر جشنواره ای پیش رو نداریم 😔</strong></h6>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="gird-post-blog py-20">
+
+        <div class="container-fluid">
+            <div
+                    class="header-content mb-4 bg-white shadow-box rounded-3 p-3 d-flex align-items-center justify-content-between flex-wrap">
+                <div class="title d-flex align-items-center">
+
+                    <h5 class="font-16 ms-3"> جشنواره های فروش <span
+                            class="main-color-one-color d-inline-block"> منقضی شده </span>
+                    </h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row gy-3">
+                {% for offer in out_dated_offers %}
+                    {% if offer.image %}
+                    <div class="col-lg-3">
+                        <div class="blog-item">
+                            <a href="{% url 'offers:offer_detail' offer_id=offer.id %}">
+                                {% if offer.image %}
+                                    <div class="image">
+                                        <img src="{{ offer.image.url }}" alt="" class="img-fluid rounded-2"
+                                             style="object-fit: contain;">
+                                    </div>
+                                {% else %}
+                                    <div class="image">
+                                        <img src="{% static 'assets/image/logo.png' %}" alt=""
+                                             class="img-fluid rounded-2" style="object-fit: contain;">
+                                    </div>
+                                {% endif %}
+                                <div class="title">
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="title-item">
+                                            <i class="fa-solid fa-percent  fa-xl text-success"></i>
+                                            <span class="font-12 danger-label">{{ offer.discount_amount }}</span>
+                                        </div>
+                                        <div class="title-item">
+                                            <i class="bi bi-alarm me-1"></i>
+                                            <span class="font-12">{{ offer.start_date.date|convert_to_persian_date }}</span>
+                                            <span><strong> تا   </strong> </span>
+                                            <i class="bi bi-alarm me-1"></i>
+                                            <span class="font-12">{{ offer.end_date.date|convert_to_persian_date }}</span>
+                                        </div>
+                                    </div>
+                                    <h4 class="font-16 text-overflow-1 h4"> {{ offer.name }}
+                                    </h4>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% empty %}
+                    <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+                        <h6 class="text-center"><strong>فعلا جشنواره ای مدت زمانش گذشته باشه نداریم</strong></h6>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
